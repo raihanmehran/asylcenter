@@ -9,13 +9,13 @@ namespace asylcenter.Application.Helpers
     {
         public AutoMapperProfiles()
         {
-            CreateMap<AppUser, UserDTO>()
+            CreateMap<AppUser, UserDto>()
                 .ForMember(u => u.PhotoUrl, opt => opt
                     .MapFrom(src => src.Photo.Url));
                 //.ForMember(u => u.Age, opt => opt
                 //    .MapFrom(src => src.DateOfBirth.Calculate()));
 
-            CreateMap<Photo, PhotoDTO>();
+            CreateMap<Photo, PhotoDto>();
         }
     }
 }

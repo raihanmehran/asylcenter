@@ -4,6 +4,6 @@ namespace asylcenter.Application.Interfaces
 {
     public interface IAuthRepository
     {
-        public Task<ResponseMessage> Authenticate(LoginDTO user);
+        public Task<ResponseMessage> Authenticate(LoginDto loginDto);
     }
 }

@@ -4,7 +4,7 @@ using MediatR;
 
 namespace asylcenter.Application.Services.UsersService.Query
 {
-    public class UserExistsQueryHandler : IRequestHandler<UserExistsQuery, ResponseMessage>
+    public class UserExistsQueryHandler : IRequestHandler<UserExistsQuery, bool>
     {
         private readonly IUserRepository _userRepository;
 

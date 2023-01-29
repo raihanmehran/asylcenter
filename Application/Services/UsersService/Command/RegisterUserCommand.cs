@@ -6,6 +6,6 @@ namespace asylcenter.Application.Services.UsersService.Command
 {
     public class RegisterUserCommand : IRequest<ResponseMessage>
     {
-        public AppUser User { get; set; }
+        public RegisterDto RegisterDto { get; set; }
     }
 }

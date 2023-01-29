@@ -12,12 +12,12 @@ namespace asylcenter.Infrastructure.Repositories
     public class AuthRepository : IAuthRepository
     {
         private readonly DataContext _context;
-        private readonly TokenService _tokenService;
+        private readonly ITokenService _tokenService;
         private readonly IMapper _mapper;
 
         public AuthRepository(
             DataContext context, 
-            TokenService tokenService, 
+            ITokenService tokenService, 
             IMapper mapper)
         {
             _context = context;
@@ -39,7 +39,7 @@ namespace asylcenter.Infrastructure.Repositories
                 return response;                
             }
 
-            using var hmac = new HMACSHA512(user.PasswordSale);
+            using var hmac = new HMACSHA512(user.PasswordSalt);
 
             var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
 
