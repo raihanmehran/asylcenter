@@ -1,6 +1,6 @@
 ﻿namespace asylcenter.Application.DTOs
 {
-    public class RegisterDTO
+    public class RegisterDto
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
