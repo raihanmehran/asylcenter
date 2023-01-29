@@ -3,6 +3,9 @@ using asylcenter.Application.Interfaces;
 using asylcenter.Domain.Entities;
 using asylcenter.Infrastructure.Data;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace asylcenter.Infrastructure.Repositories
 {
@@ -17,10 +20,34 @@ namespace asylcenter.Infrastructure.Repositories
             _mapper = mapper;
         }
 
-        public Task<ResponseMessage> Register(AppUser user)
+        public async Task<ResponseMessage> Register(RegisterDto registerDto)
         {
             var response = new ResponseMessage();
 
+            if(await UserExists(registerDto.IdNumber.ToString()))
+            {
+                response.Message = "ID alredy exists";
+                return response;
+            }
+
+            var user = _mapper.Map<AppUser>(registerDto);
+
+            using var hmac = new HMACSHA512();
+
+            user.UserName = registerDto.IdNumber.ToString();
+            user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.IdNumber.ToString()));
+            user.PasswordSalt = hmac.Key;
+
+            _context.Users.Add(user);
+            response.Message = "User added successfully";            
+
+            return response;
+        }
+
+        public async Task<bool> UserExists(string username)
+        {
+            return await _context.Users.AnyAsync(u =>
+                u.UserName == username);
         }
     }
 }
