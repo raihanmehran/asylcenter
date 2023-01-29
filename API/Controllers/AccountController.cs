@@ -21,7 +21,7 @@ namespace asylcenter.API.Controllers
             try
             {
                 var result = await _mediator.Send(new RegisterUserCommand { RegisterDto = bodyPayload });
-                if (result.Data == null || result.Data == "") return Unauthorized(result);
+                if (result.Data == null || result.Data == "") return BadRequest(result);
                 return Ok(result);
             }
             catch (Exception) { throw; }

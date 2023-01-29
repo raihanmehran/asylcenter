@@ -17,7 +17,6 @@ namespace asylcenter.Application.Helpers
 
             CreateMap<Photo, PhotoDto>();
             CreateMap<RegisterDto, AppUser>();
-            //CreateMap<AppUser, UserDto>();
         }
     }
 }

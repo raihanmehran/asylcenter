@@ -1,8 +1,10 @@
 ﻿using asylcenter.Application.DTOs;
 using asylcenter.Application.Interfaces;
 using asylcenter.Application.Services.TokenService;
+using asylcenter.Domain.Entities;
 using asylcenter.Infrastructure.Data;
 using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 using System.Text;
@@ -11,16 +13,16 @@ namespace asylcenter.Infrastructure.Repositories
 {
     public class AuthRepository : IAuthRepository
     {
-        private readonly DataContext _context;
+        private readonly UserManager<AppUser> _userManager;
         private readonly ITokenService _tokenService;
         private readonly IMapper _mapper;
 
         public AuthRepository(
-            DataContext context, 
+            UserManager<AppUser> userManager, 
             ITokenService tokenService, 
             IMapper mapper)
         {
-            _context = context;
+            _userManager = userManager;
             _tokenService = tokenService;
             _mapper = mapper;
         }
@@ -29,7 +31,7 @@ namespace asylcenter.Infrastructure.Repositories
         {
             var response = new ResponseMessage();
 
-            var user = await _context.Users
+            var user = await _userManager.Users
                 .Include(p => p.Photo)
                 .SingleOrDefaultAsync(u => u.UserName == loginDto.Username);
 
@@ -39,17 +41,12 @@ namespace asylcenter.Infrastructure.Repositories
                 return response;                
             }
 
-            using var hmac = new HMACSHA512(user.PasswordSalt);
+            var result = await _userManager.CheckPasswordAsync(user, loginDto.Password);
 
-            var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
-
-            for(int i=0;i<computedHash.Length; i++)
+            if(!result)
             {
-                if (computedHash[i] != user.PasswordHash[i])
-                {
-                    response.Message = "Invalid Password";
-                    return response;
-                }
+                response.Message = "Invalid Password";
+                return response;
             }
 
             var userDto = _mapper.Map<UserDto>(user);

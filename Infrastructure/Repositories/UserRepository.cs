@@ -3,6 +3,7 @@ using asylcenter.Application.Interfaces;
 using asylcenter.Domain.Entities;
 using asylcenter.Infrastructure.Data;
 using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 using System.Text;
@@ -11,12 +12,12 @@ namespace asylcenter.Infrastructure.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private readonly DataContext _context;
+        private readonly UserManager<AppUser> _userManager;
         private readonly IMapper _mapper;
 
-        public UserRepository(DataContext context, IMapper mapper)
+        public UserRepository(UserManager<AppUser> userManager, IMapper mapper)
         {
-            _context = context;
+            _userManager = userManager;
             _mapper = mapper;
         }
 
@@ -35,19 +36,34 @@ namespace asylcenter.Infrastructure.Repositories
             using var hmac = new HMACSHA512();
 
             user.UserName = registerDto.IdNumber.ToString();
-            user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.IdNumber.ToString()));
-            user.PasswordSalt = hmac.Key;
 
-            _context.Users.Add(user);
-            _context.SaveChangesAsync();
-            response.Message = "User added successfully";            
+            var result = await _userManager.CreateAsync(user, registerDto.IdNumber.ToString()); // here idnumber is used for password
+
+            if (!result.Succeeded) 
+            {
+                response.Message = result.Errors.ToString();
+                return response;
+            }
+
+            var roleResult = await _userManager.AddToRoleAsync(user, "User");
+
+            if (!roleResult.Succeeded)
+            {
+                response.Message = result.Errors.ToString();
+                return response;
+            }
+
+            var userDto = _mapper.Map<UserDto>(user);
+
+            response.Message = $"{user.FirstName} User added successfully";
+            response.Data = userDto;            
 
             return response;
         }
 
         public async Task<bool> UserExists(string username)
         {
-            return await _context.Users.AnyAsync(u =>
+            return await _userManager.Users.AnyAsync(u =>
                 u.UserName == username);
         }
     }
