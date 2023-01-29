@@ -156,7 +156,6 @@ namespace asylcenter.API.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Country")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Created")
@@ -173,7 +172,6 @@ namespace asylcenter.API.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Gender")
@@ -189,7 +187,6 @@ namespace asylcenter.API.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
@@ -259,7 +256,10 @@ namespace asylcenter.API.Migrations
             modelBuilder.Entity("asylcenter.Domain.Entities.Photo", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("PublicId")
                         .HasColumnType("nvarchar(max)");
@@ -267,7 +267,13 @@ namespace asylcenter.API.Migrations
                     b.Property<string>("Url")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("Photos");
                 });
@@ -331,7 +337,7 @@ namespace asylcenter.API.Migrations
                 {
                     b.HasOne("asylcenter.Domain.Entities.AppUser", "AppUser")
                         .WithOne("Photo")
-                        .HasForeignKey("asylcenter.Domain.Entities.Photo", "Id")
+                        .HasForeignKey("asylcenter.Domain.Entities.Photo", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -345,8 +351,7 @@ namespace asylcenter.API.Migrations
 
             modelBuilder.Entity("asylcenter.Domain.Entities.AppUser", b =>
                 {
-                    b.Navigation("Photo")
-                        .IsRequired();
+                    b.Navigation("Photo");
 
                     b.Navigation("UserRoles");
                 });

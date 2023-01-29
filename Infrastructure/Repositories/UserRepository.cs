@@ -27,13 +27,11 @@ namespace asylcenter.Infrastructure.Repositories
 
             if(await UserExists(registerDto.IdNumber.ToString()))
             {
-                response.Message = "ID alredy exists";
+                response.Message = "ID already exists";
                 return response;
             }
 
             var user = _mapper.Map<AppUser>(registerDto);
-
-            using var hmac = new HMACSHA512();
 
             user.UserName = registerDto.IdNumber.ToString();
 

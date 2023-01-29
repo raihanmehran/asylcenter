@@ -25,7 +25,7 @@ namespace asylcenter.Infrastructure.Data
             builder.Entity<AppUser>()
                 .HasOne(u => u.Photo)
                 .WithOne(p => p.AppUser)
-                .HasForeignKey<Photo>(p => p.Id);
+                .HasForeignKey<Photo>(p => p.UserId);
 
             builder.Entity<AppUser>()
                 .HasMany(ur => ur.UserRoles)

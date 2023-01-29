@@ -1,0 +1,37 @@
+[
+  {
+    "UserName": "johndoe",
+    "Email": "john.doe@example.com",
+    "FirstName": "John",
+    "LastName": "Doe",
+    "IdNumber": 123456789,
+    "DateOfBirth": "1990-01-01T00:00:00Z",
+    "Gender": "Male",
+    "Phone": "+1 123 123 1234",
+    "Language": "en",
+    "Country": "USA",
+    "Photo": 
+      {
+        "Url": "https://example.com/john-doe.jpg",
+        "PublicId": "john-doe"
+      }
+    
+  },
+  {
+    "UserName": "janedoe",
+    "Email": "jane.doe@example.com",
+    "FirstName": "Jane",
+    "LastName": "Doe",
+    "IdNumber": 987654321,
+    "DateOfBirth": "1992-01-01T00:00:00Z",
+    "Gender": "Female",
+    "Phone": "+1 456 456 4567",
+    "Language": "en",
+    "Country": "USA",
+    "Photo": 
+      {
+        "Url": "https://example.com/jane-doe.jpg",
+        "PublicId": "jane-doe"
+      }
+  }
+]
