@@ -51,20 +51,26 @@ namespace asylcenter.Infrastructure.Repositories
                     return response;
                 }
             }
+
+            var userDto = _mapper.Map<UserDto>(user);
+            userDto.Token = _tokenService.CreateToken(user);
+
             response.Message = $"{loginDto.Username} Authenticated";
-            response.Data = new UserDto
-            {
-                UserName = loginDto.Username,
-                Token = _tokenService.CreateToken(user),
-                PhotoUrl = user.Photo.Url,
-                Created = user.Created,
-                LastActive = user.LastActive,
-                Country = user.Country,
-                Email = user.Email,
-                Phone = user.Phone,
-                Gender = user.Gender,
-                Language = user.Language
-            };
+            response.Data = userDto;
+
+            //response.Data = new UserDto
+            //{
+            //    UserName = loginDto.Username,
+            //    Token = _tokenService.CreateToken(user),
+            //    PhotoUrl = user.Photo.Url,
+            //    Created = user.Created,
+            //    LastActive = user.LastActive,
+            //    Country = user.Country,
+            //    Email = user.Email,
+            //    Phone = user.Phone,
+            //    Gender = user.Gender,
+            //    Language = user.Language
+            //};
 
             return response;
         }

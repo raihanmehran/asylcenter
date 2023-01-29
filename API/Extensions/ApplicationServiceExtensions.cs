@@ -22,7 +22,8 @@ namespace asylcenter.API.Extensions
             services.AddCors();
             services.AddScoped<ITokenService, TokenService>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            services.AddMediatR(Assembly.GetExecutingAssembly());            
+            //services.AddMediatR(Assembly.GetExecutingAssembly());            
+            services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddHttpContextAccessor();

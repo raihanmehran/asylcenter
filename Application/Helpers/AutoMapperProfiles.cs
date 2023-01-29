@@ -16,6 +16,8 @@ namespace asylcenter.Application.Helpers
                 //    .MapFrom(src => src.DateOfBirth.Calculate()));
 
             CreateMap<Photo, PhotoDto>();
+            CreateMap<RegisterDto, AppUser>();
+            //CreateMap<AppUser, UserDto>();
         }
     }
 }

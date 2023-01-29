@@ -1,4 +1,5 @@
 ﻿using asylcenter.Application.DTOs;
+using asylcenter.Application.Services.AuthService.Command;
 using asylcenter.Application.Services.UsersService.Command;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +21,19 @@ namespace asylcenter.API.Controllers
             try
             {
                 var result = await _mediator.Send(new RegisterUserCommand { RegisterDto = bodyPayload });
-                if (result.Data == null) return Unauthorized(result);
+                if (result.Data == null || result.Data == "") return Unauthorized(result);
+                return Ok(result);
+            }
+            catch (Exception) { throw; }
+        }
+
+        [HttpPost("auth")]
+        public async Task<ActionResult<ResponseMessage>> Login(LoginDto bodyPayload)
+        {
+            try
+            {
+                var result = await _mediator.Send(new AuthenticateCommand { User = bodyPayload });
+                if (result.Data == null || result.Data == "") return Unauthorized(result);
                 return Ok(result);
             }
             catch (Exception) { throw; }

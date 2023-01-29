@@ -39,6 +39,7 @@ namespace asylcenter.Infrastructure.Repositories
             user.PasswordSalt = hmac.Key;
 
             _context.Users.Add(user);
+            _context.SaveChangesAsync();
             response.Message = "User added successfully";            
 
             return response;
