@@ -18,26 +18,41 @@ namespace asylcenter.Application.Services.TokenService
         }
         public string CreateToken(AppUser user)
         {
-            var claims = new List<Claim>
-            {
-                new Claim(JwtRegisteredClaimNames.NameId, user.Id.ToString()),
-                new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName)
-            };
+            var claims = GetClaims(user);
+            var creds = GetCredentials();
+            var tokenDescriptor = GetTokenDescriptor(claims, creds);
 
-            var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
+            var tokenHandler = new JwtSecurityTokenHandler();
 
-            var tokenDescriptor = new SecurityTokenDescriptor
+            return tokenHandler.WriteToken(
+                tokenHandler.CreateToken(tokenDescriptor));
+        }
+
+        private SecurityTokenDescriptor GetTokenDescriptor(
+            List<Claim> claims, 
+            SigningCredentials creds)
+        {
+            return new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.Now.AddDays(7),
                 SigningCredentials = creds
             };
+        }
 
-            var tokenHandler = new JwtSecurityTokenHandler();
+        private SigningCredentials GetCredentials()
+        {
+            return new SigningCredentials(_key, 
+                SecurityAlgorithms.HmacSha512Signature);
+        }
 
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-
-            return tokenHandler.WriteToken(token);
+        private List<Claim> GetClaims(AppUser user)
+        {
+            return new List<Claim>
+            {
+                new Claim(JwtRegisteredClaimNames.NameId, user.Id.ToString()),
+                new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName)
+            };
         }
     }
 }
