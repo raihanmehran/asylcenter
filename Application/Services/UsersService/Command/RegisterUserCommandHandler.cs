@@ -6,15 +6,15 @@ namespace asylcenter.Application.Services.UsersService.Command
 {
     public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, ResponseMessage>
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IAccountRepository _accountRepository;
 
-        public RegisterUserCommandHandler(IUserRepository userRepository)
+        public RegisterUserCommandHandler(IAccountRepository accountRepository)
         {
-            _userRepository = userRepository;
+            _accountRepository = accountRepository;
         }
         public async Task<ResponseMessage> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
         {
-            return await _userRepository.Register(request.RegisterDto);
+            return await _accountRepository.Register(request.RegisterDto);
         }
     }
 }

@@ -6,15 +6,15 @@ namespace asylcenter.Application.Services.UsersService.Query
 {
     public class UserExistsQueryHandler : IRequestHandler<UserExistsQuery, bool>
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IAccountRepository _accountRepository;
 
-        public UserExistsQueryHandler(IUserRepository userRepository)
+        public UserExistsQueryHandler(IAccountRepository accountRepository)
         {
-            _userRepository = userRepository;
+            _accountRepository = accountRepository;
         }
         public async Task<bool> Handle(UserExistsQuery request, CancellationToken cancellationToken)
         {
-            return await _userRepository.UserExists(request.Username);
+            return await _accountRepository.UserExists(request.Username);
         }
     }
 }

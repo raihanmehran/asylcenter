@@ -12,57 +12,27 @@ namespace asylcenter.Infrastructure.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private readonly UserManager<AppUser> _userManager;
+        private readonly DataContext _context;
         private readonly IMapper _mapper;
 
-        public UserRepository(UserManager<AppUser> userManager, IMapper mapper)
+        public UserRepository(DataContext context, IMapper mapper)
         {
-            _userManager = userManager;
+            _context = context;
             _mapper = mapper;
         }
 
-        public async Task<ResponseMessage> Register(RegisterDto registerDto)
+        
+        public Task<ResponseMessage> Update(AppUser user)
         {
-            var response = new ResponseMessage();
+            //var response = new ResponseMessage();
 
-            if(await UserExists(registerDto.IdNumber.ToString()))
-            {
-                response.Message = "ID already exists";
-                return response;
-            }
+            ////if (await UserExists)
 
-            var user = _mapper.Map<AppUser>(registerDto);
+            //return response;
 
-            user.UserName = registerDto.IdNumber.ToString();
-
-            var result = await _userManager.CreateAsync(user, registerDto.IdNumber.ToString()); // here idnumber is used for password
-
-            if (!result.Succeeded) 
-            {
-                response.Message = result.Errors.ToString();
-                return response;
-            }
-
-            var roleResult = await _userManager.AddToRoleAsync(user, "User");
-
-            if (!roleResult.Succeeded)
-            {
-                response.Message = result.Errors.ToString();
-                return response;
-            }
-
-            var userDto = _mapper.Map<UserDto>(user);
-
-            response.Message = $"{user.FirstName} User added successfully";
-            response.Data = userDto;            
-
-            return response;
+            throw new NotImplementedException();
         }
 
-        public async Task<bool> UserExists(string username)
-        {
-            return await _userManager.Users.AnyAsync(u =>
-                u.UserName == username);
-        }
+        
     }
 }

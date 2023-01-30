@@ -45,7 +45,6 @@ namespace asylcenter.API.Controllers
             var result = new ResponseMessage();
             result.Message = "Connected";
             return result;
-
         }
     }
 }

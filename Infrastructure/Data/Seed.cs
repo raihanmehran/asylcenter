@@ -46,11 +46,12 @@ namespace asylcenter.Infrastructure.Data
                 IdNumber = 100001,
                 FirstName = "Admin",
                 LastName = "Admin",
-                DateOfBirth= DateTime.Now,
+                DateOfBirth = DateTime.Now,
                 Country = "Danmark"
             };
 
             var adminUser = mapper.Map<AppUser>(admin);
+            adminUser.UserName = "admin";
 
             await userManager.CreateAsync(adminUser, "admin1");
             await userManager.AddToRolesAsync(adminUser, new[] { "Admin", "Moderator" });
