@@ -2,7 +2,7 @@
 using asylcenter.Domain.Entities;
 using MediatR;
 
-namespace asylcenter.Application.Services.UsersService.Command
+namespace asylcenter.Application.Services.AccountService.Command
 {
     public class RegisterUserCommand : IRequest<ResponseMessage>
     {

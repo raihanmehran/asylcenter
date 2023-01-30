@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 using System.Text;
+using asylcenter.Application.Helpers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace asylcenter.Infrastructure.Repositories
 {
@@ -21,14 +23,29 @@ namespace asylcenter.Infrastructure.Repositories
             _mapper = mapper;
         }
 
-        
-        public Task<ResponseMessage> Update(AppUser user)
+        public async Task<ResponseMessage> GetUserByUsernameAsync(string username)
         {
-            //var response = new ResponseMessage();
+            var response = new ResponseMessage();
+            var user = await _context.Users
+                .SingleOrDefaultAsync(u => u.UserName == username);
+
+            response.Message = "Success";
+            response.Data = user;
+
+            return response;
+        }
+
+        public async Task<ResponseMessage> UpdateUser(UserUpdateDto userUpdateDto)
+        {
+            var response = new ResponseMessage();
+
+            var username = User.GetUsername();
+
+            var user = await GetUserByUsernameAsync();
+            
 
             ////if (await UserExists)
 
-            //return response;
 
             throw new NotImplementedException();
         }

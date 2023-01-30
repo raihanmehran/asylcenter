@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 
-namespace asylcenter.API.Extensions
+namespace asylcenter.Application.Helpers
 {
     public static class ClaimsPrincipalExtensions
     {

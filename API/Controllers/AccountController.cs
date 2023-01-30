@@ -1,6 +1,6 @@
 ﻿using asylcenter.Application.DTOs;
 using asylcenter.Application.Services.AuthService.Command;
-using asylcenter.Application.Services.UsersService.Command;
+using asylcenter.Application.Services.AccountService.Command;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

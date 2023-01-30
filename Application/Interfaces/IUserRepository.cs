@@ -5,9 +5,9 @@ namespace asylcenter.Application.Interfaces
 {
     public interface IUserRepository
     {
-        public Task<ResponseMessage> Update(AppUser user);
+        public Task<ResponseMessage> UpdateUser(UserUpdateDto userUpdateDto);
         //Task<ResponseMessage> GetUsersAsync();
-        //Task<ResponseMessage> GetUserByUsernameAsync(string username);         
+        public Task<ResponseMessage> GetUserByUsernameAsync(string username);         
 
     }
 }

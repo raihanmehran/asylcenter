@@ -2,7 +2,7 @@
 using asylcenter.Application.Interfaces;
 using MediatR;
 
-namespace asylcenter.Application.Services.UsersService.Query
+namespace asylcenter.Application.Services.AccountService.Query
 {
     public class UserExistsQueryHandler : IRequestHandler<UserExistsQuery, bool>
     {

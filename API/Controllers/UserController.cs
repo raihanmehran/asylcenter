@@ -1,4 +1,5 @@
 ﻿using asylcenter.Application.DTOs;
+using asylcenter.Application.Services.UsersService.Command;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,7 +19,9 @@ namespace asylcenter.API.Controllers
         {
             try
             {
-                //var result = await
+                var result = await _mediator.Send(new UpdateUserCommand { UserUpdateDto = bodyPayload });
+                if (result.Data == null || result.Data == "") return BadRequest(result);
+                return Ok(result);
             }
             catch(Exception) { throw; }
         }
