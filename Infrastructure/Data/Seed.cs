@@ -3,18 +3,17 @@ using asylcenter.Domain.Entities;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
+using System.Text;
 using System.Text.Json;
 
 namespace asylcenter.Infrastructure.Data
 {
     public class Seed
     {
-        public static async Task SeedUsers(
-            UserManager<AppUser> userManager,
-            RoleManager<AppRole> roleManager,
-            IMapper mapper)
+        public static async Task SeedUsers(DataContext context)
         {
-            if (await userManager.Users.AnyAsync()) return;
+            if (await context.Users.AnyAsync()) return;
 
             var userData = await File.ReadAllTextAsync("../Infrastructure/Data/UserSeedData.json");
 
@@ -22,39 +21,26 @@ namespace asylcenter.Infrastructure.Data
 
             var users = JsonSerializer.Deserialize<List<AppUser>>(userData);
 
-            var roles = new List<AppRole>
-            {
-                new AppRole{Name = "User"},
-                new AppRole{Name = "Admin"},
-                new AppRole{Name = "Moderator"}
-            };
-
-            foreach(var role in roles)
-            {
-                await roleManager.CreateAsync(role);
-            }
-
             foreach (var user in users)
             {
+                using var hmac = new HMACSHA512();
                 user.UserName = user.IdNumber.ToString();
-                await userManager.CreateAsync(user, user.IdNumber.ToString()); // for password
-                await userManager.AddToRoleAsync(user, "User");
+                user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(user.IdNumber.ToString())); // password
+                user.PasswordSalt = hmac.Key;
+
+                context.Users.Add(user);
             }
 
-            var admin = new RegisterDto
-            {
-                IdNumber = 100001,
-                FirstName = "Admin",
-                LastName = "Admin",
-                DateOfBirth = DateTime.Now,
-                Country = "Danmark"
-            };
+            await context.SaveChangesAsync();
 
-            var adminUser = mapper.Map<AppUser>(admin);
-            adminUser.UserName = "admin";
-
-            await userManager.CreateAsync(adminUser, "admin1");
-            await userManager.AddToRolesAsync(adminUser, new[] { "Admin", "Moderator" });
+            //var admin = new RegisterDto
+            //{
+            //    IdNumber = 100001,
+            //    FirstName = "Admin",
+            //    LastName = "Admin",
+            //    DateOfBirth = DateTime.Now,
+            //    Country = "Danmark"
+            //};
         }
     }
 }
