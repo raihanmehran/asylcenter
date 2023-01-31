@@ -7,7 +7,7 @@ namespace asylcenter.Application.Interfaces
     {
         public Task<ResponseMessage> UpdateUser(UserUpdateDto userUpdateDto);
         //Task<ResponseMessage> GetUsersAsync();
-        public Task<ResponseMessage> GetUserByUsernameAsync(string username);         
+        public Task<AppUser> GetUserByUsernameAsync(string username);         
 
     }
 }

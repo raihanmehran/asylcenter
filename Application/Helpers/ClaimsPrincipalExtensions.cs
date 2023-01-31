@@ -4,14 +4,14 @@ namespace asylcenter.Application.Helpers
 {
     public static class ClaimsPrincipalExtensions
     {
-        public static string GetUsername(this ClaimsPrincipal user)
+        public static string GetUsername(this ClaimsPrincipal User)
         {
-            return user.FindFirst(ClaimTypes.Name)?.Value;
+            return User.FindFirst(ClaimTypes.Name)?.Value;
         }
 
-        public static int GetUserId(this ClaimsPrincipal user)
+        public static int GetUserId(this ClaimsPrincipal User)
         {
-            return int.Parse(user.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            return int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
         }
     }
 }

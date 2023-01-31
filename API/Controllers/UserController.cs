@@ -14,16 +14,17 @@ namespace asylcenter.API.Controllers
             _mediator = mediator;
         }
 
-        [HttpPost]
+        [HttpPut()]
         public async Task<ActionResult<ResponseMessage>> UserUpdate(UserUpdateDto bodyPayload)
         {
             try
             {
                 var result = await _mediator.Send(new UpdateUserCommand { UserUpdateDto = bodyPayload });
-                if (result.Data == null || result.Data == "") return BadRequest(result);
-                return Ok(result);
+                if (result.Data == null || result.Data == "") return NotFound(result);
+                return NoContent();
             }
             catch(Exception) { throw; }
         }
+        
     }
 }

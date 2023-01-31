@@ -68,7 +68,7 @@ namespace asylcenter.Application.Services.TokenService
                 SecurityAlgorithms.HmacSha512Signature);
         }
 
-        private List<Claim> GetClaims(AppUser user)
+        public List<Claim> GetClaims(AppUser user)
         {
             return new List<Claim>
             {
