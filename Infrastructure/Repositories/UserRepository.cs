@@ -32,10 +32,11 @@ namespace asylcenter.Infrastructure.Repositories
         
         public async Task<ResponseMessage> UpdateUser(UserUpdateDto userUpdateDto)
         {
-            ClaimsPrincipal User = null;
+            var username = ClaimsPrincipal.Current.GetUsername();
+            
             var response = new ResponseMessage();
 
-            var user = await GetUserByUsernameAsync(User.GetUsername());
+            var user = await GetUserByUsernameAsync(username);
 
             if(user == null)
             {
