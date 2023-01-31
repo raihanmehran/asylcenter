@@ -1,20 +1,23 @@
 ﻿using asylcenter.Application.DTOs;
 using asylcenter.Application.Interfaces;
 using asylcenter.Domain.Entities;
+using asylcenter.Infrastructure.Data;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace asylcenter.Infrastructure.Repositories
 {
     public class AccountRepository : IAccountRepository
     {
-        private readonly UserManager<AppUser> _userManager;
+        private readonly DataContext _context;
         private readonly IMapper _mapper;
 
-        public AccountRepository(UserManager<AppUser> userManager, IMapper mapper)
+        public AccountRepository(DataContext context, IMapper mapper)
         {
-            _userManager = userManager;
+            _context = context;
             _mapper = mapper;
         }
 
@@ -29,23 +32,15 @@ namespace asylcenter.Infrastructure.Repositories
             }
 
             var user = _mapper.Map<AppUser>(registerDto);
+            
+            using var hmac = new HMACSHA512();
+
             user.UserName = registerDto.IdNumber.ToString();
+            user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.IdNumber.ToString()));
+            user.PasswordSalt = hmac.Key;
 
-            var result = await _userManager.CreateAsync(user, registerDto.IdNumber.ToString()); // here idnumber is used for password
-
-            if (!result.Succeeded)
-            {
-                response.Message = result.Errors.ToString();
-                return response;
-            }
-
-            var roleResult = await _userManager.AddToRoleAsync(user, "User");
-
-            if (!roleResult.Succeeded)
-            {
-                response.Message = result.Errors.ToString();
-                return response;
-            }
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
 
             var userDto = _mapper.Map<UserDto>(user);
 
@@ -57,8 +52,8 @@ namespace asylcenter.Infrastructure.Repositories
 
         public async Task<bool> UserExists(string username)
         {
-            return await _userManager.Users.AnyAsync(u =>
-                u.UserName == username);
+            return await _context.Users.AnyAsync(u =>
+                u.UserName == username.ToString());
         }
     }
 }
