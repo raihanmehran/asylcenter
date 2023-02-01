@@ -13,16 +13,16 @@ namespace asylcenter.Infrastructure.Repositories
 {
     public class AuthRepository : IAuthRepository
     {
-        private readonly UserManager<AppUser> _userManager;
+        private readonly DataContext _context;
         private readonly ITokenService _tokenService;
         private readonly IMapper _mapper;
 
         public AuthRepository(
-            UserManager<AppUser> userManager, 
+            DataContext context, 
             ITokenService tokenService, 
             IMapper mapper)
         {
-            _userManager = userManager;
+            _context = context;
             _tokenService = tokenService;
             _mapper = mapper;
         }
@@ -31,7 +31,7 @@ namespace asylcenter.Infrastructure.Repositories
         {
             var response = new ResponseMessage();
 
-            var user = await _userManager.Users
+            var user = await _context.Users
                 .Include(p => p.Photo)
                 .SingleOrDefaultAsync(u => u.UserName == loginDto.Username);
 
@@ -41,12 +41,17 @@ namespace asylcenter.Infrastructure.Repositories
                 return response;                
             }
 
-            var result = await _userManager.CheckPasswordAsync(user, loginDto.Password);
+            using var hmac = new HMACSHA512(user.PasswordSalt);
 
-            if(!result)
+            var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
+
+            for(int i=0; i< computedHash.Length; i++)
             {
-                response.Message = "Invalid Password";
-                return response;
+                if (computedHash[i] != user.PasswordHash[i])
+                {
+                    response.Message = "Invalid Password";
+                    return response;
+                }
             }
 
             var userDto = _mapper.Map<UserDto>(user);
