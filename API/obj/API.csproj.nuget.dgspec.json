@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\SCS\\source\\repos\\asylcenter\\API\\API.csproj": {}
+    "C:\\Users\\SCS\\source\\repos\\asylcenter\\API\\API.csproj": {}
   },
   "projects": {
-    "c:\\Users\\SCS\\source\\repos\\asylcenter\\API\\API.csproj": {
+    "C:\\Users\\SCS\\source\\repos\\asylcenter\\API\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\SCS\\source\\repos\\asylcenter\\API\\API.csproj",
+        "projectUniqueName": "C:\\Users\\SCS\\source\\repos\\asylcenter\\API\\API.csproj",
         "projectName": "API",
-        "projectPath": "c:\\Users\\SCS\\source\\repos\\asylcenter\\API\\API.csproj",
+        "projectPath": "C:\\Users\\SCS\\source\\repos\\asylcenter\\API\\API.csproj",
         "packagesPath": "C:\\Users\\SCS\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\SCS\\source\\repos\\asylcenter\\API\\obj\\",
+        "outputPath": "C:\\Users\\SCS\\source\\repos\\asylcenter\\API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
@@ -25,6 +25,7 @@
           "net7.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -48,6 +49,8 @@
               "version": "[7.0.1, )"
             },
             "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
               "target": "Package",
               "version": "[7.0.2, )"
             },
