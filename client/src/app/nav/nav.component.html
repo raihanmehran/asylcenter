@@ -14,10 +14,10 @@
             </li>
         </ul>
 
-        <form class="d-flex">
-            <input type="text" class="form-control me-2" placeholder="Username">
-            <input type="password" class="form-control me-2" placeholder="Password">
-            <button class="btn btn-outline-success" type="submit">Login</button>
+        <form #loginForm="ngForm" class="d-flex" (ngSubmit)="login()" autocomplete="off">
+            <input name="username" [(ngModel)]="model.username" type="text" class="form-control me-2" placeholder="Username">
+            <input name="password" [(ngModel)]="model.password" type="password" class=" form-control me-2 " placeholder="Password ">
+            <button class="btn btn-outline-success " type="submit ">Login</button>
         </form>
     </div>
 </nav>
