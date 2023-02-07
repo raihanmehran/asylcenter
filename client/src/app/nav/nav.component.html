@@ -2,7 +2,7 @@
     <div class="container">
         <a class="navbar-brand" href="#">Mit Asylcenter</a>
 
-        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+        <ul *ngIf="loggedIn" class="navbar-nav me-auto mb-2 mb-md-0">
             <li class="nav-item">
                 <a class="nav-link" href="#">Events</a>
             </li>
@@ -14,7 +14,15 @@
             </li>
         </ul>
 
-        <form #loginForm="ngForm" class="d-flex" (ngSubmit)="login()" autocomplete="off">
+        <div class="dropdown" *ngIf="loggedIn" dropdown>
+            <a class="dropdown-toggle text-light text-decoration-none" dropdownToggle>Welcome user</a>
+            <div class="dropdown-menu mt-3" *dropdownMenu>
+                <a class="dropdown-item">Edit Profile</a>
+                <a (click)="logout()" class="dropdown-item">Logout</a>
+            </div>
+        </div>
+
+        <form #loginForm="ngForm" class="d-flex" (ngSubmit)="login()" *ngIf="!loggedIn" autocomplete="off">
             <input name="username" [(ngModel)]="model.username" type="text" class="form-control me-2" placeholder="Username">
             <input name="password" [(ngModel)]="model.password" type="password" class=" form-control me-2 " placeholder="Password ">
             <button class="btn btn-outline-success " type="submit ">Login</button>
