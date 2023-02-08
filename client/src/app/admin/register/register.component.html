@@ -1,7 +1,46 @@
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-4">
-            <p>Register form goes here</p>
+        <div class="col-6">
+            <form #registerForm="ngForm" (ngSubmit)="register()" autocomplete="off">
+                <h2 class="text-center text-primary"> New User Sign Up</h2>
+                <hr>
+                <div class="mb-3">
+                    <div class="form-floating mb-2">
+                        <input type="text" name="firstName" [(ngModel)]="model.firstName" class="form-control" id="firstName" placeholder="First Name">
+                        <label for="firstName">First Name</label>
+                    </div>
+                    <div class="form-floating mb-2">
+                        <input type="text" name="lastName" [(ngModel)]="model.lastName" class="form-control" id="lastName" placeholder="Last Name">
+                        <label for="lastName">Last Name</label>
+                    </div>
+                    <div class="form-floating mb-2">
+                        <input type="text" name="dob" [(ngModel)]="model.dateOfBirth" class="form-control" id="dob" placeholder="Date of birth">
+                        <label for="dob">Date of birth</label>
+                    </div>
+                    <div class="form-floating mb-2">
+                        <input type="text" name="nationality" [(ngModel)]="model.country" class="form-control" id="nationalit" placeholder="Nationality">
+                        <label for="nationality">Nationality</label>
+                    </div>
+                    <div class="form-floating mb-2">
+                        <input type="text" name="idNumber" [(ngModel)]="model.idNumber" class="form-control" id="idNumber" placeholder="Id Number">
+                        <label for="idNumber">Id Number</label>
+                    </div>
+                    <div class="form-floating mb-2">
+                        <input type="text" name="username" [(ngModel)]="model.username" class="form-control" id="username" placeholder="Username">
+                        <label for="username">Username</label>
+                    </div>
+                    <div class="form-floating mb-2">
+                        <input type="password" name="password" [(ngModel)]="model.password" class="form-control" id="password" placeholder="Password">
+                        <label for="password">Password</label>
+                    </div>
+
+                    <div class="text-center">
+                        <button class="btn btn-success me-2" type="submit">Register</button>
+                        <button class="btn btn-secondary" type="button" (click)="cancel()">Cancel</button>
+                    </div>
+
+                </div>
+            </form>
         </div>
     </div>
 </div>
