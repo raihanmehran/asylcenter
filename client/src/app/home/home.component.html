@@ -3,10 +3,14 @@
         <h1>Hello, Good to see you here</h1>
         <p class="lead"> If you are new and want to activate your account, just the visit the office</p>
         <div class="tex-center">
-            <button class="btn btn-primary btn-lg me-2">Log in</button>
+            <button (click)="registerToggle()" class="btn btn-primary btn-lg me-2">Register new User</button>
             <button class="btn btn-primary btn-lg me-2">Learn more</button>
         </div>
     </div>
-</div>
 
-<app-register></app-register>
+    <div class="container" *ngIf="registerMode">
+        <div class="row justify-content-center">
+            <app-register [usersFromHomeComponent]="users"></app-register>
+        </div>
+    </div>
+</div>
