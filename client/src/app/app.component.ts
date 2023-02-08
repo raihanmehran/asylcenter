@@ -10,24 +10,11 @@ import { AccountService } from './_services/account.service';
 })
 export class AppComponent implements OnInit {
   title = 'Mit Asylcenter';
-  users: any;
 
-  constructor(
-    private http: HttpClient,
-    private accountService: AccountService
-  ) {}
+  constructor(private accountService: AccountService) {}
 
   ngOnInit(): void {
-    this.getUsers();
     this.setCurrentUser();
-  }
-
-  getUsers() {
-    this.http.get('https://localhost:1001/api/users').subscribe({
-      next: (response) => (this.users = response),
-      error: (error) => console.log(error),
-      complete: () => console.log('Request has completed'),
-    });
   }
 
   setCurrentUser() {
