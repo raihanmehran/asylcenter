@@ -11,9 +11,12 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './admin/register/register.component';
 import { TasksComponent } from './admin/tasks/tasks.component';
+import { UsersListComponent } from './admin/users-list/users-list.component';
+import { UserDetailComponent } from './admin/user-detail/user-detail.component';
+import { PostComponent } from './admin/post/post.component';
 
 @NgModule({
-  declarations: [AppComponent, NavComponent, HomeComponent, RegisterComponent, TasksComponent],
+  declarations: [AppComponent, NavComponent, HomeComponent, RegisterComponent, TasksComponent, UsersListComponent, UserDetailComponent, PostComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
