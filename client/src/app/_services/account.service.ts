@@ -32,6 +32,7 @@ export class AccountService {
           localStorage.setItem('user', JSON.stringify(user));
           this.currentuserSource.next(user);
         }
+        return user;
       })
     );
   }
