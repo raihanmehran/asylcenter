@@ -36,7 +36,7 @@
                     <div class="form-floating mb-2">
                         <label for="password">Your favourite user?</label>
                         <select name="users" id="users" class="form-select">
-                            <option *ngFor="let user of usersFromHomeComponent" [value]="user.userName">{{user.userName}}</option>
+                            <option selected *ngFor="let user of usersFromHomeComponent" [value]="user.userName">{{user.userName}}</option>
                         </select>
                     </div>
 
