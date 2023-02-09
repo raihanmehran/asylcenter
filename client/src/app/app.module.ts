@@ -10,9 +10,10 @@ import { FormsModule } from '@angular/forms';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './admin/register/register.component';
+import { TasksComponent } from './admin/tasks/tasks.component';
 
 @NgModule({
-  declarations: [AppComponent, NavComponent, HomeComponent, RegisterComponent],
+  declarations: [AppComponent, NavComponent, HomeComponent, RegisterComponent, TasksComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

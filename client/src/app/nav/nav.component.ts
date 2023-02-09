@@ -12,8 +12,7 @@ export class NavComponent implements OnInit {
   model: any = {};
 
   constructor(public accountService: AccountService) {}
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   login() {
     this.accountService.login(this.model).subscribe({
