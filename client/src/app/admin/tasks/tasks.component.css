@@ -1,0 +1,4 @@
+.dashboardButton:hover {
+    cursor: pointer;
+    background-color: rgb(134, 199, 255);
+}
