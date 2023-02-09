@@ -33,12 +33,6 @@
                         <input type="password" name="password" [(ngModel)]="model.password" class="form-control" id="password" placeholder="Password">
                         <label for="password">Password</label>
                     </div>
-                    <div class="form-floating mb-2">
-                        <label for="users">Your favourite user?</label>
-                        <select name="users" id="users" class="form-select">
-                            <option *ngFor="let user of usersFromHomeComponent" [value]="user.userName">{{user.userName}}</option>
-                        </select>
-                    </div>
 
                     <div class="text-center">
                         <button class="btn btn-success me-2" type="submit">Register</button>
