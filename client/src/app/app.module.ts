@@ -11,12 +11,25 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './admin/register/register.component';
 import { TasksComponent } from './admin/tasks/tasks.component';
-import { UsersListComponent } from './admin/users-list/users-list.component';
+import { UserListComponent } from './admin/user-list/user-list.component';
 import { UserDetailComponent } from './admin/user-detail/user-detail.component';
-import { PostComponent } from './admin/post/post.component';
+import { PostListComponent } from './post/post-list/post-list.component';
+import { PostDetailComponent } from './post/post-detail/post-detail.component';
+import { PostComponent } from './post/post/post.component';
 
 @NgModule({
-  declarations: [AppComponent, NavComponent, HomeComponent, RegisterComponent, TasksComponent, UsersListComponent, UserDetailComponent, PostComponent],
+  declarations: [
+    AppComponent,
+    NavComponent,
+    HomeComponent,
+    RegisterComponent,
+    TasksComponent,
+    UserListComponent,
+    UserDetailComponent,
+    PostListComponent,
+    PostDetailComponent,
+    PostComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
