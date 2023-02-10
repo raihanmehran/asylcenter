@@ -10,6 +10,7 @@ import { PostComponent } from './post/post/post.component';
 import { RegisterComponent } from './admin/register/register.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { TestErrorComponent } from './errors/test-error.component';
+import { NotFoundComponent } from './errors/not-found/not-found.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -28,6 +29,7 @@ const routes: Routes = [
     ],
   },
   { path: 'errors', component: TestErrorComponent },
+  { path: 'not-found', component: NotFoundComponent },
   { path: '**', component: HomeComponent, pathMatch: 'full' },
 ];
 
