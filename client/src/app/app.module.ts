@@ -16,6 +16,7 @@ import { UserDetailComponent } from './user/user-detail/user-detail.component';
 import { PostListComponent } from './post/post-list/post-list.component';
 import { PostDetailComponent } from './post/post-detail/post-detail.component';
 import { PostComponent } from './post/post/post.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { PostComponent } from './post/post/post.component';
     BrowserAnimationsModule,
     FormsModule,
     BsDropdownModule.forRoot(),
+    ToastrModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],
