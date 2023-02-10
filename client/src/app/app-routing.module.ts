@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TasksComponent } from './admin/tasks/tasks.component';
-import { UserDetailComponent } from './admin/user-detail/user-detail.component';
-import { UserListComponent } from './admin/user-list/user-list.component';
+import { UserDetailComponent } from './user/user-detail/user-detail.component';
+import { UserListComponent } from './user/user-list/user-list.component';
 import { HomeComponent } from './home/home.component';
 import { PostDetailComponent } from './post/post-detail/post-detail.component';
 import { PostListComponent } from './post/post-list/post-list.component';
