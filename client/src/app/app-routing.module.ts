@@ -9,6 +9,7 @@ import { PostListComponent } from './post/post-list/post-list.component';
 import { PostComponent } from './post/post/post.component';
 import { RegisterComponent } from './admin/register/register.component';
 import { AuthGuard } from './_guards/auth.guard';
+import { TestErrorComponent } from './errors/test-error.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -26,6 +27,7 @@ const routes: Routes = [
       { path: 'post/list/:id', component: PostDetailComponent },
     ],
   },
+  { path: 'errors', component: TestErrorComponent },
   { path: '**', component: HomeComponent, pathMatch: 'full' },
 ];
 
