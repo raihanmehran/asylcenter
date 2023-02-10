@@ -26,7 +26,7 @@ export class NavComponent implements OnInit {
       next: () => {
         this.router.navigateByUrl('/admin'); // I have to change this after IDENTITY
       },
-      error: (error) => this.toastr.error(error.error),
+      // error: (error) => this.toastr.error(error.error), // because the errors are now handled in the interceptor
     });
   }
 
