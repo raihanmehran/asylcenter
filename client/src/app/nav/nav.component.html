@@ -1,22 +1,24 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <div class="container">
         <a class="navbar-brand" routerLink="/">Mit Asylcenter</a>
+        <ng-container *ngIf="accountService.currentUser$ | async">
+            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/admin" routerLinkActive="active">Tasks Panel</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" routerLinkActive="active">Events</a>
+                    <!-- currently configured to direct you to home comp. -->
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/users" routerLinkActive="active">Users</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/post" routerLinkActive="active">Post</a>
+                </li>
+            </ul>
+        </ng-container>
 
-        <ul class="navbar-nav me-auto mb-2 mb-md-0">
-            <li class="nav-item">
-                <a class="nav-link" routerLink="/admin" routerLinkActive="active">Tasks Panel</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#" routerLinkActive="active">Events</a>
-                <!-- currently configured to direct you to home comp. -->
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" routerLink="/users" routerLinkActive="active">Users</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" routerLink="/post" routerLinkActive="active">Post</a>
-            </li>
-        </ul>
 
         <div class="dropdown" *ngIf="accountService.currentUser$ | async" dropdown>
             <a class="dropdown-toggle text-light text-decoration-none" dropdownToggle>Welcome user</a>
