@@ -56,9 +56,11 @@ namespace API.Data
 
         }
 
-        public Task<IEnumerable<UserDto>> GetUsersAsync()
+        public async Task<IEnumerable<UserDto>> GetUsersAsync()
         {
-            throw new NotImplementedException();
+            return await _context.Users
+                .ProjectTo<UserDto>(_mapper.ConfigurationProvider)
+                .ToListAsync();
         }
     }
 }
