@@ -20,7 +20,7 @@ namespace API.Entities
         public string Gender { get; set; }
         public string Language { get; set; }
         public bool IsAccountActive { get; set; } = true;
-        public virtual Photo Photo { get; set; } = new();
+        public List<Photo> Photos { get; set; } = new();
 
         public int GetAge()
         {
