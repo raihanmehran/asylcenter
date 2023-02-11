@@ -1,3 +1,5 @@
+using API.Extensions;
+
 namespace API.Entities
 {
     public class AppUser
@@ -16,7 +18,13 @@ namespace API.Entities
         public string Phone { get; set; }
         public string Email { get; set; }
         public string Gender { get; set; }
+        public string Language { get; set; }
         public bool IsAccountActive { get; set; } = true;
         public virtual Photo Photo { get; set; } = new();
+
+        public int GetAge()
+        {
+            return DateOfBirth.CalculateAge();
+        }
     }
 }
