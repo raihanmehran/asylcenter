@@ -22,9 +22,9 @@ namespace API.Entities
         public bool IsAccountActive { get; set; } = true;
         public List<Photo> Photos { get; set; } = new();
 
-        public int GetAge()
-        {
-            return DateOfBirth.CalculateAge();
-        }
+        // public int GetAge()
+        // {
+        //     return DateOfBirth.CalculateAge();
+        // }
     }
 }
