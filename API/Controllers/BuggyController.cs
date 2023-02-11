@@ -44,7 +44,7 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
 
         }
