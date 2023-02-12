@@ -42,5 +42,20 @@
                 </div>
             </div>
         </div>
-
     </div>
+    <div class="col-8">
+        <tabset class="member-tabset">
+            <tab heading="About {{user.firstName}}">
+                <h4>Email</h4>
+                <p>{{user.email}}</p>
+                <h4>Phone Number</h4>
+                <p>{{user.phone}}</p>
+                <h4>Language</h4>
+                <p>{{user.language}}</p>
+            </tab>
+            <tab heading="Posts">
+                <p>Posts goes here</p>
+            </tab>
+        </tabset>
+    </div>
+</div>
