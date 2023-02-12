@@ -1,5 +1,13 @@
-<div class="row">
-    <div class="col-2" *ngFor="let user of users">
+<!-- <div class="row">
+    <div class="col" *ngFor="let user of users">
         <app-user-card [user]="user"></app-user-card>
+    </div>
+</div> -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3" *ngFor="let user of users">
+            <app-user-card [user]="user"></app-user-card>
+        </div>
     </div>
 </div>
