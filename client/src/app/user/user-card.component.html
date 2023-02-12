@@ -3,7 +3,7 @@
         <img src="{{user.photoUrl}}" alt="{{user.firstName}}" class="card-img-top">
         <ul class="list-inline member-icons animate text-center">
             <li class="list-inline-item">
-                <button class="btn btn-primary">
+                <button routerLink="/users/{{user.userName}}" class="btn btn-primary">
                     <i class="fa fa-user"></i>
                 </button>
                 <button class="btn btn-primary ms-2">
@@ -18,7 +18,11 @@
             <i class="fa fa-user me2"></i>
             <span class="fw-bold"> {{user.firstName}} {{user.lastName}} </span>
         </h5>
-        <p class="card-text text-muted text-center">{{user.age}}, {{user.country}}</p>
+        <diV>
+            <p class="card-text text-muted text-center">{{user.age}}, {{user.country}}</p>
+        </diV>
+        <div class="card-text text-center"> <i class="fa fa-home"></i> {{user.address}}</div>
+
     </div>
 
     <!-- will think about this later -->

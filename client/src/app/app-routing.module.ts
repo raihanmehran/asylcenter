@@ -23,7 +23,7 @@ const routes: Routes = [
       { path: 'admin', component: TasksComponent },
       { path: 'admin/user/register', component: RegisterComponent },
       { path: 'users', component: UserListComponent },
-      { path: 'users/:id', component: UserDetailComponent },
+      { path: 'users/:username', component: UserDetailComponent },
       { path: 'post', component: PostComponent },
       { path: 'post/list', component: PostListComponent },
       { path: 'post/list/:id', component: PostDetailComponent },
