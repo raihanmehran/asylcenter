@@ -15,5 +15,6 @@ export interface User {
   gender: string;
   language: string;
   photoUrl: string;
+  address: string;
   photos: Photo[];
 }

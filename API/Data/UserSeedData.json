@@ -10,6 +10,7 @@
     "Email": "john.doe@example.com",
     "Gender": "Male",
     "Language": "English",
+    "Address": "1.1.28",
     "Photos": [
       {
         "Url": "https://randomuser.me/api/portraits/men/10.jpg",
@@ -28,6 +29,7 @@
     "Email": "jane.doe@example.com",
     "Gender": "Female",
     "Language": "English",
+    "Address": "2.0.10",
     "Photos": [
       {
         "Url": "https://randomuser.me/api/portraits/men/15.jpg",
@@ -46,6 +48,7 @@
     "Email": "jim.smith@example.com",
     "Gender": "Male",
     "Language": "Arabic",
+    "Address": "4.1.13",
     "Photos": [
       {
         "Url": "https://randomuser.me/api/portraits/men/20.jpg",
@@ -64,6 +67,7 @@
     "Email": "jessica.brown@example.com",
     "Gender": "Female",
     "Language": "English",
+    "Address": "8.1.19",
     "Photos": [
       {
         "Url": "https://randomuser.me/api/portraits/women/10.jpg",
@@ -82,6 +86,7 @@
     "Email": "jessica.brown@example.com",
     "Gender": "Female",
     "Language": "Spanish",
+    "Address": "8.1.19",
     "Photos": [
       {
         "Url": "https://randomuser.me/api/portraits/women/20.jpg",

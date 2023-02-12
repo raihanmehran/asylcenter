@@ -12,6 +12,14 @@ export class TasksComponent implements OnInit {
   ngOnInit(): void {}
 
   registerUser() {
-    this.router.navigateByUrl('/admin/user/register');
+    this.navigate('/admin/user/register');
+  }
+
+  usersList() {
+    this.navigate('/users');
+  }
+
+  navigate(to: string) {
+    this.router.navigateByUrl(to);
   }
 }

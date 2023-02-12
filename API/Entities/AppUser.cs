@@ -19,6 +19,7 @@ namespace API.Entities
         public string Email { get; set; }
         public string Gender { get; set; }
         public string Language { get; set; }
+        public string Address { get; set; }
         public bool IsAccountActive { get; set; } = true;
         public List<Photo> Photos { get; set; } = new();
 

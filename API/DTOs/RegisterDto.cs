@@ -16,5 +16,6 @@ namespace API.DTOs
         [Required]
         [StringLength(8, MinimumLength = 4)]
         public string Country { get; set; }
+        public string Address { get; set; }
     }
 }
