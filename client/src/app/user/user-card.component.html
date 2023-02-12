@@ -1,1 +1,11 @@
-<p>user-card works!</p>
+<div class="card mb-4" *ngIf="user">
+    <div class="card-img-wrapper">
+        <img src="{{user.photoUrl}}" alt="{{user.firstName}}" class="card-img-top">
+    </div>
+    <div class="card-body p-1">
+        <h5 class="card-title text-center mb-1">
+            <i class="fa fa-user me2"></i> {{user.firstName}} {{user.lastName}}
+        </h5>
+        <p class="card-text text-muted text-center">{{user.country}}</p>
+    </div>
+</div>

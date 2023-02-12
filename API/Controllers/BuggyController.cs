@@ -42,9 +42,9 @@ namespace API.Controllers
 
                 return thingToReturn;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
 
         }
