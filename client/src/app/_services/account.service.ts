@@ -8,7 +8,7 @@ import { LoggedUser } from '../_models/loggedUser';
   providedIn: 'root',
 })
 export class AccountService {
-  baseUrl = environment.appUrl;
+  baseUrl = environment.apiUrl;
   private currentuserSource = new BehaviorSubject<LoggedUser | null>(null);
   currentUser$ = this.currentuserSource.asObservable();
 
