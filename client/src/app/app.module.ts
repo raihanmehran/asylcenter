@@ -21,6 +21,7 @@ import { ErrorInterceptor } from './_interceptors/error.interceptor';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
 import { UserCardComponent } from './user/user-card.component';
+import { JwInterceptor } from './_interceptors/jw.interceptor';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { UserCardComponent } from './user/user-card.component';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: JwInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })
