@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs';
 import { LoggedUser } from '../_models/loggedUser';
 import { User } from '../_models/user';
@@ -16,7 +17,8 @@ export class UserEditComponent implements OnInit {
 
   constructor(
     private accountService: AccountService,
-    private userService: UsersService
+    private userService: UsersService,
+    private toastr: ToastrService
   ) {
     this.accountService.currentUser$.pipe(take(1)).subscribe({
       next: (loggedUser) => (this.loggedUser = loggedUser),
@@ -33,5 +35,10 @@ export class UserEditComponent implements OnInit {
     this.userService.getUser(this.loggedUser.username).subscribe({
       next: (user) => (this.user = user),
     });
+  }
+
+  updateUser() {
+    console.log(this.user);
+    this.toastr.success('Profile update successfully');
   }
 }
