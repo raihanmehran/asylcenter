@@ -22,6 +22,7 @@ import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
 import { UserCardComponent } from './user/user-card.component';
 import { JwInterceptor } from './_interceptors/jw.interceptor';
+import { UserEditComponent } from './user/user-edit.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { JwInterceptor } from './_interceptors/jw.interceptor';
     NotFoundComponent,
     ServerErrorComponent,
     UserCardComponent,
+    UserEditComponent,
   ],
   imports: [
     BrowserModule,
