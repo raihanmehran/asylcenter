@@ -53,6 +53,9 @@
                 <h4>Language</h4>
                 <p>{{user.language}}</p>
             </tab>
+            <tab heading="Photos">
+                <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery>
+            </tab>
             <tab heading="Posts">
                 <p>Posts goes here</p>
             </tab>
