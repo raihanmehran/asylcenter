@@ -1,3 +1,76 @@
-<h3 *ngIf="user">
-    {{user.userName}}
-</h3>
+<div class="row" *ngIf="user">
+    <div class="col-4">
+        <h2>Your profile</h2>
+    </div>
+    <div class="col8">
+        <div class="alert alert-info">
+            <p><strong>Information</strong>You have made changes. Any unsaved changes will be lost.</p>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="card shadow">
+            <img src="{{user.photoUrl || './assets/user.png'}}" alt="{{user.firstName}}" class="card-img-top img-thumbnail">
+            <div class="card-body">
+                <h3>{{user.firstName}} {{user.lastName}}</h3>
+                <div>
+                    <strong>ID Number:</strong>
+                    <p>{{user.idNumber}}</p>
+                </div>
+                <div>
+                    <strong>Nationality:</strong>
+                    <p>{{user.country}}</p>
+                </div>
+                <div>
+                    <strong>Age:</strong>
+                    <p>{{user.age}}</p>
+                </div>
+                <div>
+                    <strong>Last active:</strong>
+                    <p>{{user.lastActive}}</p>
+                </div>
+                <div>
+                    <strong>Since:</strong>
+                    <p>{{user.created}}</p>
+                </div>
+                <div>
+                    <strong>Since:</strong>
+                    <p>{{user.created}}</p>
+                </div>
+                <div>
+                    <strong>Address:</strong>
+                    <p>{{user.address}}</p>
+                </div>
+            </div>
+            <div class="card-footer">
+
+            </div>
+        </div>
+    </div>
+    <div class="col-8">
+        <tabset class="member-tabset">
+            <tab heading="About {{user.firstName}}">
+                <form>
+                    <div class="card shadow p-2">
+                        <div class="card-body">
+                            <h5 class="mt-2">Email</h5>
+                            <input type="email" class="form-control" [(ngModel)]="user.email" name="email">
+                            <h5>Phone Number</h5>
+                            <input type="text" class="form-control" [(ngModel)]="user.phone" name="phone">
+                            <h5>Language</h5>
+                            <input type="text" class="form-control" [(ngModel)]="user.language" name="language">
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-success fw-bold col-12"><i class="fa fa-save pe-2"></i> Save Changes</button>
+                        </div>
+                    </div>
+                </form>
+            </tab>
+            <tab heading="Photos">
+                <!-- <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery> -->
+            </tab>
+            <tab heading="Posts">
+                <p>Posts goes here</p>
+            </tab>
+        </tabset>
+    </div>
+</div>
