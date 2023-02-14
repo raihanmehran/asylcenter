@@ -13,6 +13,7 @@ import { TestErrorComponent } from './errors/test-error.component';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
 import { UserEditComponent } from './user/user-edit.component';
+import { PreventUnsavedChangesGuard } from './_guards/prevent-unsaved-changes.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -24,8 +25,15 @@ const routes: Routes = [
       { path: 'admin', component: TasksComponent },
       { path: 'admin/user/register', component: RegisterComponent },
       { path: 'users', component: UserListComponent },
-      { path: 'users/:username', component: UserDetailComponent },
-      { path: 'user/edit', component: UserEditComponent },
+      {
+        path: 'users/:username',
+        component: UserDetailComponent,
+      },
+      {
+        path: 'user/edit',
+        component: UserEditComponent,
+        canDeactivate: [PreventUnsavedChangesGuard],
+      },
       { path: 'post', component: PostComponent },
       { path: 'post/list', component: PostListComponent },
       { path: 'post/list/:id', component: PostDetailComponent },
