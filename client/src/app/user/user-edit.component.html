@@ -3,8 +3,8 @@
         <h2>Your profile</h2>
     </div>
     <div class="col8">
-        <div class="alert alert-info">
-            <p><strong>Information</strong>You have made changes. Any unsaved changes will be lost.</p>
+        <div class="alert alert-info" *ngIf="editForm.dirty">
+            <p><strong>Information:</strong> You have made changes. Any unsaved changes will be lost.</p>
         </div>
     </div>
     <div class="col-4">
@@ -60,7 +60,7 @@
                             <input type="text" class="form-control" [(ngModel)]="user.language" name="language">
                         </div>
                         <div class="card-footer">
-                            <button class="btn btn-success fw-bold col-12"><i class="fa fa-save pe-2"></i> Save Changes</button>
+                            <button [disabled]="!editForm.dirty" type="submit" class="btn btn-success fw-bold col-12"><i class="fa fa-save pe-2"></i> Save Changes</button>
                         </div>
                     </div>
                 </form>
