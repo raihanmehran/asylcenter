@@ -18,4 +18,8 @@ export class UsersService {
   getUser(username: string) {
     return this.http.get<User>(this.baseUrl + 'users/' + username);
   }
+
+  updateUser(user: User) {
+    return this.http.put(this.baseUrl + 'users', user);
+  }
 }
