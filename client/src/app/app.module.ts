@@ -23,6 +23,7 @@ import { ServerErrorComponent } from './errors/server-error/server-error.compone
 import { UserCardComponent } from './user/user-card.component';
 import { JwInterceptor } from './_interceptors/jw.interceptor';
 import { UserEditComponent } from './user/user-edit.component';
+import { LoadingInterceptor } from './_interceptors/loading.interceptor';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { UserEditComponent } from './user/user-edit.component';
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: JwInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })
