@@ -1,1 +1,11 @@
-<p>photo-editor works!</p>
+<div class="row" *ngIf="user">
+    <div class="col-2" *ngFor="let photo of user.photos">
+        <img src="{{photo.url}}" alt="user photo" class="img-thumbnail mb-1">
+        <div class="text-center">
+            <button class="btn btn-outline-success btn-sm">Main</button>
+            <button class="btn btn-sm btn-danger">
+                <i class="fa fa-trash"></i>
+            </button>
+        </div>
+    </div>
+</div>
