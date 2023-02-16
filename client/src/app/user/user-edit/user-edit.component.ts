@@ -2,10 +2,10 @@ import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs';
-import { LoggedUser } from '../_models/loggedUser';
-import { User } from '../_models/user';
-import { AccountService } from '../_services/account.service';
-import { UsersService } from '../_services/users.service';
+import { UsersService } from 'src/app/_services/users.service';
+import { LoggedUser } from 'src/app/_models/loggedUser';
+import { User } from 'src/app/_models/user';
+import { AccountService } from 'src/app/_services/account.service';
 
 @Component({
   selector: 'app-user-edit',

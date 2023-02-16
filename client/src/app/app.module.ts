@@ -20,10 +20,10 @@ import { TestErrorComponent } from './errors/test-error.component';
 import { ErrorInterceptor } from './_interceptors/error.interceptor';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
-import { UserCardComponent } from './user/user-card.component';
 import { JwInterceptor } from './_interceptors/jw.interceptor';
-import { UserEditComponent } from './user/user-edit.component';
 import { LoadingInterceptor } from './_interceptors/loading.interceptor';
+import { UserCardComponent } from './user/user-card/user-card.component';
+import { UserEditComponent } from './user/user-edit/user-edit.component';
 
 @NgModule({
   declarations: [

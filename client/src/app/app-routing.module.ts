@@ -12,8 +12,8 @@ import { AuthGuard } from './_guards/auth.guard';
 import { TestErrorComponent } from './errors/test-error.component';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
-import { UserEditComponent } from './user/user-edit.component';
 import { PreventUnsavedChangesGuard } from './_guards/prevent-unsaved-changes.guard';
+import { UserEditComponent } from './user/user-edit/user-edit.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
