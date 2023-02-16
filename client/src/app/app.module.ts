@@ -24,6 +24,7 @@ import { JwInterceptor } from './_interceptors/jw.interceptor';
 import { LoadingInterceptor } from './_interceptors/loading.interceptor';
 import { UserCardComponent } from './user/user-card/user-card.component';
 import { UserEditComponent } from './user/user-edit/user-edit.component';
+import { PhotoEditorComponent } from './user/photo-editor/photo-editor.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { UserEditComponent } from './user/user-edit/user-edit.component';
     ServerErrorComponent,
     UserCardComponent,
     UserEditComponent,
+    PhotoEditorComponent,
   ],
   imports: [
     BrowserModule,
