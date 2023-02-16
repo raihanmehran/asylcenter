@@ -14,7 +14,7 @@ import { environment } from 'src/environments/environment';
 export class PhotoEditorComponent implements OnInit {
   @Input() user: User | undefined;
   uploader: FileUploader | undefined;
-  hasBaseDropzoneOver = false;
+  hasBaseDropZoneOver = false;
   baseUrl = environment.apiUrl;
   loggedUser: LoggedUser | undefined;
 
@@ -31,13 +31,13 @@ export class PhotoEditorComponent implements OnInit {
   }
 
   fileOverBase(e: any) {
-    this.hasBaseDropzoneOver = e;
+    this.hasBaseDropZoneOver = e;
   }
 
   initializeUploader() {
     this.uploader = new FileUploader({
       url: this.baseUrl + 'users/add-photo',
-      authToken: 'Bearer' + this.loggedUser?.token,
+      authToken: 'Bearer ' + this.loggedUser?.token,
       isHTML5: true,
       allowedFileType: ['image'],
       removeAfterUpload: true,
