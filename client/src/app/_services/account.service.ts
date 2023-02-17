@@ -21,8 +21,7 @@ export class AccountService {
         map((response: LoggedUser) => {
           const user = response;
           if (user) {
-            localStorage.setItem('user', JSON.stringify(user));
-            this.currentuserSource.next(user);
+            this.setCurrentUser(user);
           }
           return user;
         })
@@ -36,8 +35,7 @@ export class AccountService {
         map((user) => {
           if (user) {
             // auto user login removed
-            // localStorage.setItem('user', JSON.stringify(user));
-            // this.currentuserSource.next(user);
+            // this.setCurrentUser(user);
             console.log(user);
           }
           return user;
@@ -46,6 +44,7 @@ export class AccountService {
   }
 
   setCurrentUser(user: LoggedUser) {
+    localStorage.setItem('user', JSON.stringify(user));
     this.currentuserSource.next(user);
   }
   logout() {
