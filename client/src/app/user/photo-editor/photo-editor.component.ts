@@ -2,8 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
 import { take } from 'rxjs';
 import { LoggedUser } from 'src/app/_models/loggedUser';
+import { Photo } from 'src/app/_models/photo';
 import { User } from 'src/app/_models/user';
 import { AccountService } from 'src/app/_services/account.service';
+import { UsersService } from 'src/app/_services/users.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -18,7 +20,10 @@ export class PhotoEditorComponent implements OnInit {
   baseUrl = environment.apiUrl;
   loggedUser: LoggedUser | undefined;
 
-  constructor(private accountService: AccountService) {
+  constructor(
+    private accountService: AccountService,
+    private userService: UsersService
+  ) {
     this.accountService.currentUser$.pipe(take(1)).subscribe({
       next: (loggedUser) => {
         if (loggedUser) this.loggedUser = loggedUser;
@@ -32,6 +37,22 @@ export class PhotoEditorComponent implements OnInit {
 
   fileOverBase(e: any) {
     this.hasBaseDropZoneOver = e;
+  }
+
+  setMainPhoto(photo: Photo) {
+    this.userService.setMainPhoto(photo.id).subscribe({
+      next: () => {
+        if (this.loggedUser && this.user) {
+          this.loggedUser.photoUrl = photo.url;
+          this.accountService.setCurrentUser(this.loggedUser);
+          this.user.photoUrl = photo.url;
+          this.user.photos.forEach((p) => {
+            if (p.isMain) p.isMain = false;
+            if (p.id === photo.id) p.isMain = true;
+          });
+        }
+      },
+    });
   }
 
   initializeUploader() {
