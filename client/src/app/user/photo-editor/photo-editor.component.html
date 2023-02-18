@@ -3,7 +3,7 @@
         <img src="{{photo.url}}" alt="user photo" class="img-thumbnail mb-1">
         <div class="text-center">
             <button [disabled]="photo.isMain" (click)="setMainPhoto(photo)" [ngClass]="photo.isMain ? 'btn-danger active':'btn-outline-success' " class="btn btn-outline-success btn-sm">Main</button>
-            <button class="btn btn-sm btn-danger">
+            <button class="btn btn-sm btn-danger" [disabled]="photo.isMain" (click)="deletePhoto(photo.id)">
                 <i class="fa fa-trash"></i>
             </button>
         </div>
