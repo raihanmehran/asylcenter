@@ -6,35 +6,35 @@
                 <hr>
                 <div class="mb-3">
                     <div class="form-floating mb-2">
-                        <input type="text" name="firstName" [(ngModel)]="model.firstName" class="form-control" id="firstName" placeholder="First Name">
+                        <input type="text" formControlName="firstName" class="form-control" id="firstName" placeholder="First Name">
                         <label for="firstName">First Name</label>
                     </div>
                     <div class="form-floating mb-2">
-                        <input type="text" name="lastName" [(ngModel)]="model.lastName" class="form-control" id="lastName" placeholder="Last Name">
+                        <input type="text" formControlName="lastName" class="form-control" id="lastName" placeholder="Last Name">
                         <label for="lastName">Last Name</label>
                     </div>
                     <div class="form-floating mb-2">
-                        <input type="text" name="dob" [(ngModel)]="model.dateOfBirth" class="form-control" id="dob" placeholder="Date of birth">
+                        <input type="text" formControlName="dob" class="form-control" id="dob" placeholder="Date of birth">
                         <label for="dob">Date of birth</label>
                     </div>
                     <div class="form-floating mb-2">
-                        <input type="text" name="nationality" [(ngModel)]="model.country" class="form-control" id="nationalit" placeholder="Nationality">
+                        <input type="text" formControlName="nationality" class="form-control" id="nationalit" placeholder="Nationality">
                         <label for="nationality">Nationality</label>
                     </div>
                     <div class="form-floating mb-2">
-                        <input type="text" name="idNumber" [(ngModel)]="model.idNumber" class="form-control" id="idNumber" placeholder="Id Number">
+                        <input type="text" formControlName="idNumber" class="form-control" id="idNumber" placeholder="Id Number">
                         <label for="idNumber">Id Number</label>
                     </div>
                     <div class="form-floating mb-2">
-                        <input type="text" name="address" [(ngModel)]="model.address" class="form-control" id="address" placeholder="Address">
+                        <input type="text" formControlName="address" class="form-control" id="address" placeholder="Address">
                         <label for="address">Address</label>
                     </div>
                     <div class="form-floating mb-2">
-                        <input type="text" name="username" [(ngModel)]="model.username" class="form-control" id="username" placeholder="Username">
+                        <input type="text" formControlName="username" class="form-control" id="username" placeholder="Username">
                         <label for="username">Username</label>
                     </div>
                     <div class="form-floating mb-2">
-                        <input type="password" name="password" [(ngModel)]="model.password" class="form-control" id="password" placeholder="Password">
+                        <input type="password" formControlName="password" class="form-control" id="password" placeholder="Password">
                         <label for="password">Password</label>
                     </div>
 
@@ -48,3 +48,6 @@
         </div>
     </div>
 </div>
+
+<p>Form value: {{registerForm.value | json}}</p>
+<p>Form status: {{registerForm.status | json}}</p>
