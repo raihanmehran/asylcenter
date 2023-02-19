@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-6">
-            <form #registerForm="ngForm" (ngSubmit)="register()" autocomplete="off">
+            <form [formGroup]="registerForm" (ngSubmit)="register()" autocomplete="off">
                 <h2 class="text-center text-primary"> New User Sign Up</h2>
                 <hr>
                 <div class="mb-3">
