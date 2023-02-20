@@ -1,5 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { AccountService } from 'src/app/_services/account.service';
 
@@ -37,6 +43,15 @@ export class RegisterComponent implements OnInit {
       idNumber: new FormControl('', Validators.required),
       address: new FormControl(),
     });
+  }
+
+  // custom validator for confirm password but here I don't use it
+  matchValues(matchTo: string): ValidatorFn {
+    return (control: AbstractControl) => {
+      return control.value === control.parent?.get(matchTo)?.value
+        ? null
+        : { notMatching: true };
+    };
   }
 
   register() {
