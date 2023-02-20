@@ -6,7 +6,7 @@
                 <hr>
                 <div class="mb-3">
                     <div class="form-floating mb-2">
-                        <input type="text" [class.is-invalid]="registerForm.get('firstName')?.errors && registerForm.get('firstName')?.touched" formControlName="firstName" class="form-control" id="firstName" placeholder="First Name">
+                        <input type="text" [class.is-invalid]="registerForm.get('firstName')?.errors && registerForm.get('firstName')?.touched" [class.is-valid]="registerForm.get('firstName')?.valid" formControlName="firstName" class="form-control" id="firstName" placeholder="First Name">
                         <label for="firstName">First Name</label>
                         <div class="invalid-feedback">Please enter First Name</div>
                     </div>
@@ -15,7 +15,7 @@
                         <label for="lastName">Last Name</label>
                     </div>
                     <div class="form-floating mb-2">
-                        <input type="text" [class.is-invalid]="registerForm.get('dob')?.errors && registerForm.get('dob')?.touched" formControlName="dob" class="form-control" id="dob" placeholder="Date of birth">
+                        <input type="text" [class.is-invalid]="registerForm.get('dob')?.errors && registerForm.get('dob')?.touched" [class.is-valid]="registerForm.get('dob')?.valid" formControlName="dob" class="form-control" id="dob" placeholder="Date of birth">
                         <label for="dob">Date of birth</label>
                         <div class="invalid-feedback">Please enter date of birth</div>
                     </div>
@@ -25,7 +25,7 @@
                         <div class="invalid-feedback">Please enter nationality</div>
                     </div>
                     <div class="form-floating mb-2">
-                        <input type="text" [class.is-invalid]="registerForm.get('idNumber')?.errors && registerForm.get('idNumber')?.touched" formControlName="idNumber" class="form-control" id="idNumber" placeholder="Id Number">
+                        <input type="text" [class.is-invalid]="registerForm.get('idNumber')?.errors && registerForm.get('idNumber')?.touched" [class.is-valid]="registerForm.get('idNumber')?.valid" formControlName="idNumber" class="form-control" id="idNumber" placeholder="Id Number">
                         <label for="idNumber">Id Number</label>
                         <div class="invalid-feedback"> Please enter ID number</div>
                     </div>
@@ -34,12 +34,12 @@
                         <label for="address">Address</label>
                     </div>
                     <div class="form-floating mb-2">
-                        <input type="text" [class.is-invalid]="registerForm.get('username')?.errors && registerForm.get('username')?.touched" formControlName="username" class="form-control" id="username" placeholder="Username">
+                        <input type="text" [class.is-invalid]="registerForm.get('username')?.errors && registerForm.get('username')?.touched" [class.is-valid]="registerForm.get('username')?.valid" formControlName="username" class="form-control" id="username" placeholder="Username">
                         <label for="username">Username</label>
                         <div class="invalid-feedback">Please enter username</div>
                     </div>
                     <div class="form-floating mb-2">
-                        <input type="password" [class.is-invalid]="registerForm.get('password')?.errors && registerForm.get('password')?.touched" formControlName="password" class="form-control" id="password" placeholder="Password">
+                        <input type="password" [class.is-invalid]="registerForm.get('password')?.errors && registerForm.get('password')?.touched" [class.is-valid]="registerForm.get('password')?.valid" formControlName="password" class="form-control" id="password" placeholder="Password">
                         <label for="password">Password</label>
                         <div class="invalid-feedback">Please enter a password</div>
                     </div>
