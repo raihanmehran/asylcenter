@@ -25,6 +25,7 @@ import { LoadingInterceptor } from './_interceptors/loading.interceptor';
 import { UserCardComponent } from './user/user-card/user-card.component';
 import { UserEditComponent } from './user/user-edit/user-edit.component';
 import { PhotoEditorComponent } from './user/photo-editor/photo-editor.component';
+import { TextInputComponent } from './_forms/text-input/text-input.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { PhotoEditorComponent } from './user/photo-editor/photo-editor.component
     UserCardComponent,
     UserEditComponent,
     PhotoEditorComponent,
+    TextInputComponent,
   ],
   imports: [
     BrowserModule,
