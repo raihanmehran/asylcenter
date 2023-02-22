@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   AbstractControl,
+  FormBuilder,
   FormControl,
   FormGroup,
   ValidatorFn,
@@ -21,7 +22,8 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private accountService: AccountService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
@@ -29,19 +31,18 @@ export class RegisterComponent implements OnInit {
   }
 
   initializeForm() {
-    this.registerForm = new FormGroup({
-      username: new FormControl('', Validators.required),
-      password: new FormControl('', [
-        Validators.required,
-        Validators.minLength(4),
-        Validators.maxLength(8),
-      ]),
-      firstName: new FormControl('', Validators.required),
-      lastName: new FormControl(),
-      dob: new FormControl('', Validators.required),
-      nationality: new FormControl('', Validators.required),
-      idNumber: new FormControl('', Validators.required),
-      address: new FormControl(),
+    this.registerForm = this.fb.group({
+      username: ['', Validators.required],
+      password: [
+        '',
+        [Validators.required, Validators.minLength(4), Validators.maxLength(8)],
+      ],
+      firstName: ['', Validators.required],
+      lastName: [],
+      dob: ['', Validators.required],
+      nationality: ['', Validators.required],
+      idNumber: ['', Validators.required],
+      address: [],
     });
   }
 
