@@ -29,18 +29,15 @@ export class AccountService {
   }
 
   register(model: any) {
-    return this.http
-      .post<LoggedUser>(this.baseUrl + 'account/register', model)
-      .pipe(
-        map((user) => {
-          if (user) {
-            // auto user login removed
-            // this.setCurrentUser(user);
-            console.log(user);
-          }
-          return user;
-        })
-      );
+    return this.http.post(this.baseUrl + 'account/register', model).pipe(
+      map((response) => {
+        if (response) {
+          // auto user login removed
+          // this.setCurrentUser(user);
+          console.log(response);
+        }
+      })
+    );
   }
 
   setCurrentUser(user: LoggedUser) {
