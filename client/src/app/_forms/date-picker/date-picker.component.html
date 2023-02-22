@@ -1,1 +1,5 @@
-<p>date-picker works!</p>
+<div class="form-floating mb-2">
+    <input type="text" [formControl]="control" [class.is-invalid]="control.touched && control.invalid" placeholder="{{label}}" [class.is-valid]="control.touched && control.valid" class="form-control" id="{{id}}" bsDatepicker [bsConfig]="bsConfig" [maxDate]="maxDate">
+    <label for="{{id}}">{{label}}</label>
+    <div class="invalid-feedback" *ngIf="control.errors?.['required']">Please select {{label}}</div>
+</div>

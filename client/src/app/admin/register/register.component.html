@@ -21,7 +21,7 @@
 
                     <app-text-input [formControl]="$any(registerForm.controls['firstName'])" [label]="'First Name'" [id]="'firstName'"></app-text-input>
                     <app-text-input [formControl]="$any(registerForm.controls['lastName'])" [label]="'Last Name'" [id]="'lastName'"></app-text-input>
-                    <app-text-input [formControl]="$any(registerForm.controls['dob'])" [label]="'Date of Birth'" [id]="'dob'"></app-text-input>
+                    <app-date-picker [formControl]="$any(registerForm.controls['dob'])" [label]="'Date of Birth'" [id]="'dob'"></app-date-picker>
                     <app-text-input [formControl]="$any(registerForm.controls['nationality'])" [label]="'Nationality'" [id]="'nationality'"></app-text-input>
                     <app-text-input [formControl]="$any(registerForm.controls['idNumber'])" [label]="'ID Number'" [id]="'idNumber'"></app-text-input>
                     <app-text-input [formControl]="$any(registerForm.controls['address'])" [label]="'Address'" [id]="'address'"></app-text-input>
