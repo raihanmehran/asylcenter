@@ -5,6 +5,20 @@
                 <h2 class="text-center text-primary"> New User Sign Up</h2>
                 <hr>
                 <div class="mb-3">
+
+                    <div class="mb-3">
+
+                        <label style="margin-right:10px">I am a: </label>
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input" id="radioMale" value="male" formControlName="gender">
+                            Male
+                        </label>
+                        <label class="form-check-label ms-3">
+                            <input type="radio" class="form-check-input" id="radioFemale" value="female" formControlName="gender">
+                            Female
+                        </label>
+                    </div>
+
                     <app-text-input [formControl]="$any(registerForm.controls['firstName'])" [label]="'First Name'" [id]="'firstName'"></app-text-input>
                     <app-text-input [formControl]="$any(registerForm.controls['lastName'])" [label]="'Last Name'" [id]="'lastName'"></app-text-input>
                     <app-text-input [formControl]="$any(registerForm.controls['dob'])" [label]="'Date of Birth'" [id]="'dob'"></app-text-input>
