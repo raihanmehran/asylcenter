@@ -4,6 +4,8 @@ using API.Data;
 using API.DTOs;
 using API.Entities;
 using API.Interfaces;
+using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,9 +15,16 @@ namespace API.Controllers
     {
         private readonly DataContext _context;
         private readonly ITokenService _tokenService;
-        public AccountController(DataContext context, ITokenService tokenService)
+        private readonly IMapper _mapper;
+
+        public AccountController(
+            DataContext context,
+            ITokenService tokenService,
+            IMapper mapper
+        )
         {
             _tokenService = tokenService;
+            _mapper = mapper;
             _context = context;
         }
 
@@ -42,31 +51,30 @@ namespace API.Controllers
             {
                 Username = user.UserName,
                 Token = _tokenService.CreateToken(user),
-                PhotoUrl = user.Photos.FirstOrDefault(p => p.IsMain)?.Url
+                PhotoUrl = user.Photos.FirstOrDefault(p => p.IsMain)?.Url,
+                FirstName = user.FirstName
             };
         }
 
+        [Authorize]
         [HttpPost("register")]
-        public async Task<ActionResult<AppUser>> Register(RegisterDto registerDto)
+        public async Task<ActionResult> Register(RegisterDto registerDto)
         {
             if (await UserExists(registerDto.Username)) return BadRequest("Username is taken");
+
+            var user = _mapper.Map<AppUser>(registerDto);
+
             using var hmac = new HMACSHA512();
 
-            var user = new AppUser
-            {
-                UserName = registerDto.Username,
-                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
-                PasswordSalt = hmac.Key,
-                IdNumber = registerDto.IdNumber,
-                FirstName = registerDto.FirstName,
-                LastName = registerDto.LastName,
-                Country = registerDto.Country
-            };
+            user.UserName = registerDto.Username;
+            user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password));
+            user.PasswordSalt = hmac.Key;
 
             _context.Users.Add(user);
-            await _context.SaveChangesAsync();
 
-            return user;
+            if (await _context.SaveChangesAsync() > 0) return NoContent();
+
+            return BadRequest("Something went wrong while registering a new user");
         }
 
         private async Task<bool> UserExists(string username)

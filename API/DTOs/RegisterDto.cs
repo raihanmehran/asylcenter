@@ -17,5 +17,8 @@ namespace API.DTOs
         [StringLength(8, MinimumLength = 4)]
         public string Country { get; set; }
         public string Address { get; set; }
+        public string Gender { get; set; }
+        [Required]
+        public DateOnly? DateOfBirth { get; set; }
     }
 }
