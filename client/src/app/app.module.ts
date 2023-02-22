@@ -26,6 +26,7 @@ import { UserCardComponent } from './user/user-card/user-card.component';
 import { UserEditComponent } from './user/user-edit/user-edit.component';
 import { PhotoEditorComponent } from './user/photo-editor/photo-editor.component';
 import { TextInputComponent } from './_forms/text-input/text-input.component';
+import { DatePickerComponent } from './_forms/date-picker/date-picker.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { TextInputComponent } from './_forms/text-input/text-input.component';
     UserEditComponent,
     PhotoEditorComponent,
     TextInputComponent,
+    DatePickerComponent,
   ],
   imports: [
     BrowserModule,
