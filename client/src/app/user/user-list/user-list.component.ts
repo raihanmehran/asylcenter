@@ -11,10 +11,10 @@ import { UsersService } from 'src/app/_services/users.service';
 })
 export class UserListComponent implements OnInit {
   // users$: Observable<User[]> | undefined;
-  users: User[] = []
-  pagination: Pagination | undefined
-  pageNumber = 1
-  pageSize=5
+  users: User[] = [];
+  pagination: Pagination | undefined;
+  pageNumber = 1;
+  pageSize = 5;
 
   constructor(private usersService: UsersService) {}
 
@@ -25,14 +25,19 @@ export class UserListComponent implements OnInit {
 
   loadUsers() {
     this.usersService.getUsers(this.pageNumber, this.pageSize).subscribe({
-      next: response => {
-        if(response.result && response.pagination){
+      next: (response) => {
+        if (response.result && response.pagination) {
           this.users = response.result;
           this.pagination = response.pagination;
         }
-      }
-    })
+      },
+    });
   }
 
-
+  pageChanged(event: any) {
+    if (this.pageNumber !== event.page) {
+      this.pageNumber = event.page;
+      this.loadUsers();
+    }
+  }
 }
