@@ -6,7 +6,7 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-sm-4 col-md-3 col-xl-2" *ngFor="let user of users$ | async">
+        <div class="col-sm-4 col-md-3 col-xl-2" *ngFor="let user of users">
             <app-user-card [user]="user"></app-user-card>
         </div>
     </div>
