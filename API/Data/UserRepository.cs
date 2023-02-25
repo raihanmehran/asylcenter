@@ -63,12 +63,20 @@ namespace API.Data
             //     .ProjectTo<UserDto>(_mapper.ConfigurationProvider)
             //     .ToListAsync();
 
-            var query = _context.Users
-                .ProjectTo<UserDto>(_mapper.ConfigurationProvider)
-                .AsNoTracking();
+            // var query = _context.Users
+            //     .ProjectTo<UserDto>(_mapper.ConfigurationProvider)
+            //     .AsNoTracking();
+
+            var query = _context.Users.AsQueryable();
+
+            query = query.Where(u => u.UserName != userParams.CurrentUsername);
+            query = query.Where(u => u.Gender == userParams.Gender);
 
             return await PagedList<UserDto>
-                .CreateAsync(query, userParams.PageNumber, userParams.PageSize);
+                .CreateAsync(
+                    query.AsNoTracking().ProjectTo<UserDto>(_mapper.ConfigurationProvider),
+                    userParams.PageNumber,
+                    userParams.PageSize);
         }
     }
 }
