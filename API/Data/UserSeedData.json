@@ -1,97 +1,86 @@
-[
-  {
-    "UserName": "johndoe",
-    "IdNumber": "123456789",
-    "FirstName": "John",
-    "LastName": "Doe",
-    "Country": "USA",
-    "DateOfBirth": "1990-01-01",
-    "Phone": "+1 123 456 7890",
-    "Email": "john.doe@example.com",
-    "Gender": "Male",
-    "Language": "English",
-    "Address": "1.1.28",
-    "Photos": [
-      {
-        "Url": "https://randomuser.me/api/portraits/men/10.jpg",
-        "IsMain": true
-      }
-    ]
-  },
-  {
-    "UserName": "janedoe",
-    "IdNumber": "987654321",
-    "FirstName": "Jane",
-    "LastName": "Doe",
-    "Country": "USA",
-    "DateOfBirth": "1992-02-14",
-    "Phone": "+1 123 456 7891",
-    "Email": "jane.doe@example.com",
-    "Gender": "Female",
-    "Language": "English",
-    "Address": "2.0.10",
-    "Photos": [
-      {
-        "Url": "https://randomuser.me/api/portraits/men/15.jpg",
-        "IsMain": true
-      }
-    ]
-  },
-  {
-    "UserName": "jimsmith",
-    "IdNumber": "111222333",
-    "FirstName": "Jim",
-    "LastName": "Smith",
-    "Country": "Lebnan",
-    "DateOfBirth": "1985-03-20",
-    "Phone": "+1 123 456 7892",
-    "Email": "jim.smith@example.com",
-    "Gender": "Male",
-    "Language": "Arabic",
-    "Address": "4.1.13",
-    "Photos": [
-      {
-        "Url": "https://randomuser.me/api/portraits/men/20.jpg",
-        "IsMain": true
-      }
-    ]
-  },
-  {
-    "UserName": "jessica",
-    "IdNumber": "333222112",
-    "FirstName": "Jessica",
-    "LastName": "Brown",
-    "Country": "USA",
-    "DateOfBirth": "1988-05-10",
-    "Phone": "+1 123 456 7893",
-    "Email": "jessica.brown@example.com",
-    "Gender": "Female",
-    "Language": "English",
-    "Address": "8.1.19",
-    "Photos": [
-      {
-        "Url": "https://randomuser.me/api/portraits/women/10.jpg",
-        "IsMain": true
-      }
-    ]
-  },
-  {
-    "UserName": "marialarsen",
-    "IdNumber": "333222119",
-    "FirstName": "Maria",
-    "LastName": "Larsen",
-    "Country": "Brazil",
-    "DateOfBirth": "1988-05-10",
-    "Phone": "+1 123 456 7893",
-    "Email": "jessica.brown@example.com",
-    "Gender": "Female",
-    "Language": "Spanish",
-    "Address": "8.1.19",
-    "Photos": [
-      {
-        "Url": "https://randomuser.me/api/portraits/women/20.jpg",
-        "IsMain": true
-      }
-    ]
-  }
+[{
+        "UserName": "johndoe",
+        "IdNumber": "123456789",
+        "FirstName": "John",
+        "LastName": "Doe",
+        "Country": "USA",
+        "DateOfBirth": "1990-01-01",
+        "Phone": "+1 123 456 7890",
+        "Email": "john.doe@example.com",
+        "Gender": "male",
+        "Language": "English",
+        "Address": "1.1.28",
+        "Photos": [{
+            "Url": "https://randomuser.me/api/portraits/men/10.jpg",
+            "IsMain": true
+        }]
+    },
+    {
+        "UserName": "janedoe",
+        "IdNumber": "987654321",
+        "FirstName": "Jane",
+        "LastName": "Doe",
+        "Country": "USA",
+        "DateOfBirth": "1992-02-14",
+        "Phone": "+1 123 456 7891",
+        "Email": "jane.doe@example.com",
+        "Gender": "female",
+        "Language": "English",
+        "Address": "2.0.10",
+        "Photos": [{
+            "Url": "https://randomuser.me/api/portraits/men/15.jpg",
+            "IsMain": true
+        }]
+    },
+    {
+        "UserName": "jimsmith",
+        "IdNumber": "111222333",
+        "FirstName": "Jim",
+        "LastName": "Smith",
+        "Country": "Lebnan",
+        "DateOfBirth": "1985-03-20",
+        "Phone": "+1 123 456 7892",
+        "Email": "jim.smith@example.com",
+        "Gender": "male",
+        "Language": "Arabic",
+        "Address": "4.1.13",
+        "Photos": [{
+            "Url": "https://randomuser.me/api/portraits/men/20.jpg",
+            "IsMain": true
+        }]
+    },
+    {
+        "UserName": "jessica",
+        "IdNumber": "333222112",
+        "FirstName": "Jessica",
+        "LastName": "Brown",
+        "Country": "USA",
+        "DateOfBirth": "1988-05-10",
+        "Phone": "+1 123 456 7893",
+        "Email": "jessica.brown@example.com",
+        "Gender": "female",
+        "Language": "English",
+        "Address": "8.1.19",
+        "Photos": [{
+            "Url": "https://randomuser.me/api/portraits/women/10.jpg",
+            "IsMain": true
+        }]
+    },
+    {
+        "UserName": "marialarsen",
+        "IdNumber": "333222119",
+        "FirstName": "Maria",
+        "LastName": "Larsen",
+        "Country": "Brazil",
+        "DateOfBirth": "1988-05-10",
+        "Phone": "+1 123 456 7893",
+        "Email": "jessica.brown@example.com",
+        "Gender": "female",
+        "Language": "Spanish",
+        "Address": "8.1.19",
+        "Photos": [{
+            "Url": "https://randomuser.me/api/portraits/women/20.jpg",
+            "IsMain": true
+        }]
+    }
 ]
