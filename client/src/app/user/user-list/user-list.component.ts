@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, take } from 'rxjs';
+import { LoggedUser } from 'src/app/_models/loggedUser';
 import { Pagination } from 'src/app/_models/pagination';
 import { User } from 'src/app/_models/user';
+import { UserParams } from 'src/app/_models/userParams';
+import { AccountService } from 'src/app/_services/account.service';
 import { UsersService } from 'src/app/_services/users.service';
 
 @Component({
@@ -13,10 +16,22 @@ export class UserListComponent implements OnInit {
   // users$: Observable<User[]> | undefined;
   users: User[] = [];
   pagination: Pagination | undefined;
-  pageNumber = 1;
-  pageSize = 5;
+  userParams: UserParams | undefined;
+  loggedUser: LoggedUser | undefined;
 
-  constructor(private usersService: UsersService) {}
+  constructor(
+    private usersService: UsersService,
+    private accountService: AccountService
+  ) {
+    this.accountService.currentUser$.pipe(take(1)).subscribe({
+      next: (loggedUser) => {
+        if (loggedUser) {
+          this.userParams = new UserParams(loggedUser);
+          this.loggedUser = loggedUser;
+        }
+      },
+    });
+  }
 
   ngOnInit(): void {
     // this.users$ = this.usersService.getUsers();
@@ -24,7 +39,8 @@ export class UserListComponent implements OnInit {
   }
 
   loadUsers() {
-    this.usersService.getUsers(this.pageNumber, this.pageSize).subscribe({
+    if (!this.userParams) return;
+    this.usersService.getUsers(this.userParams).subscribe({
       next: (response) => {
         if (response.result && response.pagination) {
           this.users = response.result;
@@ -35,8 +51,8 @@ export class UserListComponent implements OnInit {
   }
 
   pageChanged(event: any) {
-    if (this.pageNumber !== event.page) {
-      this.pageNumber = event.page;
+    if (this.userParams && this.userParams.pageNumber !== event.page) {
+      this.userParams.pageNumber = event.page;
       this.loadUsers();
     }
   }
