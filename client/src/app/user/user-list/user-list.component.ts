@@ -18,6 +18,10 @@ export class UserListComponent implements OnInit {
   pagination: Pagination | undefined;
   userParams: UserParams | undefined;
   loggedUser: LoggedUser | undefined;
+  genderList = [
+    { value: 'male', display: 'Males' },
+    { value: 'female', display: 'Females' },
+  ];
 
   constructor(
     private usersService: UsersService,
@@ -48,6 +52,13 @@ export class UserListComponent implements OnInit {
         }
       },
     });
+  }
+
+  resetFilter() {
+    if (this.loggedUser) {
+      this.userParams = new UserParams(this.loggedUser);
+      this.loadUsers();
+    }
   }
 
   pageChanged(event: any) {

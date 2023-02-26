@@ -4,14 +4,6 @@
     </div>
 </div> -->
 
-<div class="container">
-    <div class="row">
-        <div class="col-sm-4 col-md-3 col-xl-2" *ngFor="let user of users">
-            <app-user-card [user]="user"></app-user-card>
-        </div>
-    </div>
-</div>
-
 <div class="d-flex justify-content-center" *ngIf="pagination">
     <pagination [boundaryLinks]="true" [totalItems]="pagination.totalItems" [itemsPerPage]="pagination.itemsPerPage" [maxSize]="10" [(ngModel)]="pagination.currentPage" (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;"
         lastText="&raquo;">
