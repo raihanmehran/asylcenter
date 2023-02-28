@@ -18,6 +18,16 @@
             <label class="col-form-label">Age to:</label>
             <input type="number" name="maxAge" style="width: 70px;" [(ngModel)]="userParams.maxAge" class="form-control ms-1">
         </div>
+
+        <div class="d-flex px-2">
+            <label class="col-form-label me-2">Show:</label>
+            <select name="gender" style="width:140px;" class="form-select ms-1" [(ngModel)]="userParams.gender">
+                <option *ngFor="let gender of genderList" [value]="gender.value">{{gender.display}}</option>
+            </select>
+        </div>
+
+        <button class="btn btn-primary ms-1" type="submit">Apply Filters</button>
+        <button class="btn btn-secondary ms-1" style="background-color: rgb(214, 214, 214)" (click)="resetFilter()" type="submit">Reset Filters</button>
     </form>
 </div>
 
