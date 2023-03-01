@@ -10,5 +10,6 @@ namespace API.Entities
         public string Description { get; set; }
         public bool IsCollected { get; set; } = false;
         public int AddedBy { get; set; }
+        public DateTime Created { get; set; }
     }
 }
