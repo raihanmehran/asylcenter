@@ -12,10 +12,15 @@ import { UserParams } from '../_models/userParams';
 export class UsersService {
   baseUrl = environment.apiUrl;
   users: User[] = [];
+  usersCache = new Map();
 
   constructor(private http: HttpClient) {}
 
   getUsers(userParams: UserParams) {
+    const response = this.usersCache.get(Object.values(userParams).join('-'));
+
+    if (response) return of(response);
+
     let params = this.getPaginationHeader(
       userParams.pageNumber,
       userParams.pageSize
@@ -26,7 +31,12 @@ export class UsersService {
     params = params.append('gender', userParams.gender);
     params = params.append('orderBy', userParams.orderBy);
 
-    return this.getPaginatedResult<User[]>(this.baseUrl + 'users', params);
+    return this.getPaginatedResult<User[]>(this.baseUrl + 'users', params).pipe(
+      map((response) => {
+        this.usersCache.set(Object.values(userParams).join('-'), response);
+        return response;
+      })
+    );
   }
 
   private getPaginatedResult<T>(url: string, params: HttpParams) {
