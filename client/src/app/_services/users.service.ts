@@ -39,25 +39,6 @@ export class UsersService {
     );
   }
 
-  private getPaginatedResult<T>(url: string, params: HttpParams) {
-    const paginatedResult: PaginatedResult<T> = new PaginatedResult<T>();
-    return this.http.get<T>(url, { observe: 'response', params }).pipe(
-      map((response) => {
-        if (response.body) {
-          paginatedResult.result = response.body;
-        }
-
-        const pagination = response.headers.get('Pagination');
-
-        if (pagination) {
-          paginatedResult.pagination = JSON.parse(pagination);
-        }
-
-        return paginatedResult;
-      })
-    );
-  }
-
   private getPaginationHeader(pageNumber: number, pageSize: number) {
     let params = new HttpParams();
 
@@ -68,8 +49,12 @@ export class UsersService {
   }
 
   getUser(username: string) {
-    const user = this.users.find((u) => u.userName === username);
+    const user = [...this.usersCache.values()]
+      .reduce((arr, elem) => arr.concat(elem.result), [])
+      .find((user: User) => user.userName === username);
+
     if (user) return of(user);
+
     return this.http.get<User>(this.baseUrl + 'users/' + username);
   }
 
@@ -88,5 +73,24 @@ export class UsersService {
 
   deletePhoto(photoId: number) {
     return this.http.delete(this.baseUrl + 'users/delete-photo/' + photoId);
+  }
+
+  private getPaginatedResult<T>(url: string, params: HttpParams) {
+    const paginatedResult: PaginatedResult<T> = new PaginatedResult<T>();
+    return this.http.get<T>(url, { observe: 'response', params }).pipe(
+      map((response) => {
+        if (response.body) {
+          paginatedResult.result = response.body;
+        }
+
+        const pagination = response.headers.get('Pagination');
+
+        if (pagination) {
+          paginatedResult.pagination = JSON.parse(pagination);
+        }
+
+        return paginatedResult;
+      })
+    );
   }
 }
