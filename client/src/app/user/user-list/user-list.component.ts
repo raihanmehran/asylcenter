@@ -17,24 +17,13 @@ export class UserListComponent implements OnInit {
   users: User[] = [];
   pagination: Pagination | undefined;
   userParams: UserParams | undefined;
-  loggedUser: LoggedUser | undefined;
   genderList = [
     { value: 'male', display: 'Males' },
     { value: 'female', display: 'Females' },
   ];
 
-  constructor(
-    private usersService: UsersService,
-    private accountService: AccountService
-  ) {
-    this.accountService.currentUser$.pipe(take(1)).subscribe({
-      next: (loggedUser) => {
-        if (loggedUser) {
-          this.userParams = new UserParams(loggedUser);
-          this.loggedUser = loggedUser;
-        }
-      },
-    });
+  constructor(private usersService: UsersService) {
+    this.userParams = this.usersService.getUserParams();
   }
 
   ngOnInit(): void {
@@ -43,27 +32,28 @@ export class UserListComponent implements OnInit {
   }
 
   loadUsers() {
-    if (!this.userParams) return;
-    this.usersService.getUsers(this.userParams).subscribe({
-      next: (response) => {
-        if (response.result && response.pagination) {
-          this.users = response.result;
-          this.pagination = response.pagination;
-        }
-      },
-    });
+    if (this.userParams) {
+      this.usersService.setUserParams(this.userParams);
+      this.usersService.getUsers(this.userParams).subscribe({
+        next: (response) => {
+          if (response.result && response.pagination) {
+            this.users = response.result;
+            this.pagination = response.pagination;
+          }
+        },
+      });
+    }
   }
 
   resetFilter() {
-    if (this.loggedUser) {
-      this.userParams = new UserParams(this.loggedUser);
-      this.loadUsers();
-    }
+    this.userParams = this.usersService.resetUserParams();
+    this.loadUsers();
   }
 
   pageChanged(event: any) {
     if (this.userParams && this.userParams.pageNumber !== event.page) {
       this.userParams.pageNumber = event.page;
+      this.usersService.setUserParams(this.userParams);
       this.loadUsers();
     }
   }
