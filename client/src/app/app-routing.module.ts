@@ -13,6 +13,7 @@ import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
 import { PreventUnsavedChangesGuard } from './_guards/prevent-unsaved-changes.guard';
 import { UserEditComponent } from './user/user-edit/user-edit.component';
+import { PostEditorComponent } from './post/post-editor/post-editor.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -33,7 +34,7 @@ const routes: Routes = [
         component: UserEditComponent,
         canDeactivate: [PreventUnsavedChangesGuard],
       },
-
+      { path: 'post/post-editor', component: PostEditorComponent },
       { path: 'post/list', component: PostListComponent },
       { path: 'post/list/:id', component: PostDetailComponent },
     ],
