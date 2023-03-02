@@ -13,6 +13,11 @@ namespace API.Data
         {
             _context = context;
         }
+        public async Task<bool> PostExists(int postId)
+        {
+            return await _context.Posts.AnyAsync(post =>
+                post.Id == postId);
+        }
         public async Task AddPost(Post post)
         {
             await _context.Posts.AddAsync(post);

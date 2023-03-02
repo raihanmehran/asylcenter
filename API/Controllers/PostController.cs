@@ -42,5 +42,10 @@ namespace API.Controllers
 
             return BadRequest("Failed to add post");
         }
+
+        [HttpGet("get-post")]
+        public async Task<IActionResult<Post>> GetPost(int postId){
+            
+        }
     }
 }
