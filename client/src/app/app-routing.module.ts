@@ -6,7 +6,6 @@ import { UserListComponent } from './user/user-list/user-list.component';
 import { HomeComponent } from './home/home.component';
 import { PostDetailComponent } from './post/post-detail/post-detail.component';
 import { PostListComponent } from './post/post-list/post-list.component';
-import { PostComponent } from './post/post/post.component';
 import { RegisterComponent } from './admin/register/register.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { TestErrorComponent } from './errors/test-error.component';
@@ -34,7 +33,7 @@ const routes: Routes = [
         component: UserEditComponent,
         canDeactivate: [PreventUnsavedChangesGuard],
       },
-      { path: 'post', component: PostComponent },
+
       { path: 'post/list', component: PostListComponent },
       { path: 'post/list/:id', component: PostDetailComponent },
     ],

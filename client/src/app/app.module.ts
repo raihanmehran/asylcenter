@@ -14,7 +14,6 @@ import { UserListComponent } from './user/user-list/user-list.component';
 import { UserDetailComponent } from './user/user-detail/user-detail.component';
 import { PostListComponent } from './post/post-list/post-list.component';
 import { PostDetailComponent } from './post/post-detail/post-detail.component';
-import { PostComponent } from './post/post/post.component';
 import { SharedModule } from './_modules/shared.module';
 import { TestErrorComponent } from './errors/test-error.component';
 import { ErrorInterceptor } from './_interceptors/error.interceptor';
@@ -27,6 +26,7 @@ import { UserEditComponent } from './user/user-edit/user-edit.component';
 import { PhotoEditorComponent } from './user/photo-editor/photo-editor.component';
 import { TextInputComponent } from './_forms/text-input/text-input.component';
 import { DatePickerComponent } from './_forms/date-picker/date-picker.component';
+import { PostEditorComponent } from './post/post-editor/post-editor.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +39,6 @@ import { DatePickerComponent } from './_forms/date-picker/date-picker.component'
     UserDetailComponent,
     PostListComponent,
     PostDetailComponent,
-    PostComponent,
     TestErrorComponent,
     NotFoundComponent,
     ServerErrorComponent,
@@ -48,6 +47,7 @@ import { DatePickerComponent } from './_forms/date-picker/date-picker.component'
     PhotoEditorComponent,
     TextInputComponent,
     DatePickerComponent,
+    PostEditorComponent,
   ],
   imports: [
     BrowserModule,
