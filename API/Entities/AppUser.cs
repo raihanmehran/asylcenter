@@ -22,7 +22,6 @@ namespace API.Entities
         public string Address { get; set; }
         public bool IsAccountActive { get; set; } = true;
         public List<Photo> Photos { get; set; } = new();
-        public List<Post> Posts { get; set; }
 
         // public int GetAge()
         // {

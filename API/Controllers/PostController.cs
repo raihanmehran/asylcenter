@@ -11,10 +11,8 @@ namespace API.Controllers
     {
         private readonly IPostRepository _postRepository;
         private readonly IMapper _mapper;
-        private readonly IUserRepository _userRepository;
-        public PostController(IPostRepository postRepository, IMapper mapper, IUserRepository userRepository)
+        public PostController(IPostRepository postRepository, IMapper mapper)
         {
-            _userRepository = userRepository;
             _mapper = mapper;
             _postRepository = postRepository;
         }
@@ -22,32 +20,27 @@ namespace API.Controllers
         [HttpPost("add-post")]
         public async Task<IActionResult> AddPost(PostDto postDto)
         {
-            // var addedByUserId = User.GetUserId();
-            // var user = await _userRepository.GetUserByIdAsync(id: userId);
-
-            // if (user == null) return NotFound();
-
-            // user.Posts.Add(post);
-
-            // if()
-            if (postDto.AppUserId == null) return NotFound();
+            if (postDto.AppUserId <= 0) return NotFound();
 
             postDto.AddedBy = User.GetUserId();
 
-            if (postDto.AddedBy == null) return NotFound();
+            if (postDto.AddedBy <= 0) return NotFound();
 
-            var user = await _userRepository.GetUserByIdAsync(postDto.AppUserId);
+            //var post = _mapper.Map<Post>(postDto);
 
-            if (user == null) return NotFound();
+            var post = new Post
+            {
+                Title = postDto.Title,
+                Description = postDto.Description,
+                AddedBy = postDto.AddedBy,
+                AppUserId = postDto.AppUserId
+            };
 
-            var post = _mapper.Map<Post>(postDto);
+            await _postRepository.AddPost(post);
 
-            user.Posts.Add(post);
-
-            if (await _userRepository.SaveAllAsync()) return NoContent();
+            if (await _postRepository.SaveAllAsync()) return NoContent();
 
             return BadRequest("Failed to add post");
-
         }
     }
 }
