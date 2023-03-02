@@ -25,8 +25,10 @@ namespace API.Data
 
         public async Task<IEnumerable<Post>> GetAllPostsForUserByUserId(int userId)
         {
-            // has to be implemented in userRepository
-            throw new NotImplementedException();
+            return await _context.Posts
+                .Where(post => post.AppUserId == userId)
+                .OrderByDescending(p => p.Created)
+                .ToListAsync();
         }
 
         public async Task<Post> GetPost(int postId)

@@ -11,8 +11,10 @@ namespace API.Controllers
     {
         private readonly IPostRepository _postRepository;
         private readonly IMapper _mapper;
-        public PostController(IPostRepository postRepository, IMapper mapper)
+        private readonly IUserRepository _userRepository;
+        public PostController(IPostRepository postRepository, IMapper mapper, IUserRepository userRepository)
         {
+            _userRepository = userRepository;
             _mapper = mapper;
             _postRepository = postRepository;
         }
@@ -62,5 +64,6 @@ namespace API.Controllers
 
             return Ok(postDto);
         }
+
     }
 }
