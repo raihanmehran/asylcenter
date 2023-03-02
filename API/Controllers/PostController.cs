@@ -65,5 +65,16 @@ namespace API.Controllers
             return Ok(postDto);
         }
 
+        [HttpGet("get-all-posts/{userId}")]
+        public async Task<ActionResult<IEnumerable<PostDto>>> GetAllPostsForUserByUserId(int userId)
+        {
+            // write code that verifies that UserExists. (The UserExists function is initialized in AccountController which must be moved to UserRepository to access it from any where).
+
+            if (User.GetUserId() <= 0) return NotFound();
+
+            var posts = await _postRepository.GetAllPostsForUserByUserId(userId: userId);
+
+            return Ok(posts);
+        }
     }
 }

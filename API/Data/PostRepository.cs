@@ -30,6 +30,11 @@ namespace API.Data
                 .OrderByDescending(p => p.Created)
                 .ToListAsync();
         }
+        public async Task<IEnumerable<Post>> GetAllPostsForUserByUserIdNotCollected(int userId)
+        {
+            // this filtering can be done in the Angular client app
+            throw new NotImplementedException();
+        }
 
         public async Task<Post> GetPost(int postId)
         {
