@@ -18,7 +18,7 @@ namespace API.Controllers
         }
 
         [HttpPost("add-post")]
-        public async Task<IActionResult> AddPost(PostDto postDto)
+        public async Task<ActionResult> AddPost(PostDto postDto)
         {
             if (postDto.AppUserId <= 0) return NotFound();
 
@@ -43,9 +43,24 @@ namespace API.Controllers
             return BadRequest("Failed to add post");
         }
 
-        [HttpGet("get-post")]
-        public async Task<IActionResult<Post>> GetPost(int postId){
-            
+        [HttpGet("get-post/{postId}")]
+        public async Task<ActionResult<PostDto>> GetPost(int postId)
+        {
+            if (postId <= 0) return BadRequest("Cannot find post with no or zero id");
+            if (!(await _postRepository.PostExists(postId: postId))) return NotFound();
+
+            var post = await _postRepository.GetPost(postId: postId);
+
+            var postDto = new PostDto
+            {
+                Title = post.Title,
+                Description = post.Description,
+                Id = post.Id,
+                IsCollected = post.IsCollected,
+                Created = post.Created
+            };
+
+            return Ok(postDto);
         }
     }
 }
