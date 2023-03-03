@@ -26,7 +26,16 @@
                 <div class="card-header bg-success text-light align-items-center ">
                     <div class="row ">
                         <div class="col-8 ">
-                            <h5 class="card-title ">{{post?.title}}</h5>
+                            <div class="row">
+                                <div class="col-2">
+                                    <button class="btn btn-sm btn-outline-dark">
+                                        Read
+                                    </button>
+                                </div>
+                                <div class="col-10">
+                                    <h5 class="card-title ">{{post?.title}}</h5>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-4 text-end ">
                             <button (click)="deTranslate() " class="btn btn-danger ">Close</button>
@@ -34,9 +43,18 @@
                     </div>
                 </div>
                 <div class="card-body ">
-                    <p class="card-text ">{{post?.description}}</p>
+                    <div class="row">
+                        <div class="col-1">
+                            <button class="btn btn-sm btn-outline-dark">
+                                Read
+                            </button>
+                        </div>
+                        <div class="col-11">
+                            <p class="card-text ">{{post?.description}}</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-footer bg-primary-emphasis ">
+                <div class="card-footer">
                 </div>
             </div>
         </div>
