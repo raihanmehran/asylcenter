@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription, take } from 'rxjs';
+import { take } from 'rxjs';
 import { Post } from 'src/app/_models/post';
 import { PostService } from 'src/app/_services/post.service';
 
@@ -12,6 +12,7 @@ import { PostService } from 'src/app/_services/post.service';
 export class PostDetailComponent implements OnInit {
   post: Post | undefined;
   id: number | undefined;
+  public isTranslate: boolean = false;
 
   constructor(private route: ActivatedRoute, private postService: PostService) {
     this.getIdFromRoute();
@@ -19,6 +20,7 @@ export class PostDetailComponent implements OnInit {
   ngOnInit(): void {
     console.log('Id : ' + this.id);
     this.getPost();
+    this.isTranslate = false;
   }
 
   getIdFromRoute() {
@@ -39,5 +41,13 @@ export class PostDetailComponent implements OnInit {
           },
         });
     }
+  }
+
+  translate() {
+    this.isTranslate = true;
+  }
+
+  deTranslate() {
+    this.isTranslate = false;
   }
 }

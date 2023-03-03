@@ -1,1 +1,44 @@
-<p>post-detail works!</p>
+<ng-container>
+    <div *ngIf="post">
+        <div class="container py-3">
+            <div class="card border-primary shadow mb-3">
+                <div class="card-header bg-primary text-light align-items-center">
+                    <div class="row">
+                        <div class="col-8">
+                            <h5 class="card-title">{{post.title}}</h5>
+                        </div>
+                        <div class="col-4 text-end">
+                            <button (click)="translate()" class="btn btn-outline-warning">Translate</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">{{post.description}}</p>
+                </div>
+                <div class="card-footer bg-primary-emphasis">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="isTranslate">
+        <div class=" container py-3 ">
+            <div class="card border-success shadow mb-3 ">
+                <div class="card-header bg-success text-light align-items-center ">
+                    <div class="row ">
+                        <div class="col-8 ">
+                            <h5 class="card-title ">{{post?.title}}</h5>
+                        </div>
+                        <div class="col-4 text-end ">
+                            <button (click)="deTranslate() " class="btn btn-danger ">Close</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body ">
+                    <p class="card-text ">{{post?.description}}</p>
+                </div>
+                <div class="card-footer bg-primary-emphasis ">
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>
