@@ -13,6 +13,7 @@ import { PostService } from 'src/app/_services/post.service';
 export class PostListComponent implements OnInit {
   posts: Post[] = [];
   loggedUser: LoggedUser | undefined;
+  userId: number | undefined;
 
   constructor(
     private postService: PostService,
@@ -20,16 +21,21 @@ export class PostListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getUser();
     this.getPosts();
   }
 
   getPosts() {
-    this.postService.getPosts(3).subscribe({
-      next: (response) => {
-        this.posts = response;
-      },
-    });
+    this.getUser();
+    if (this.loggedUser) {
+      this.userId = this.loggedUser.userId;
+
+      this.postService.getPosts(this.userId).subscribe({
+        next: (response) => {
+          this.posts = response;
+          console.log(this.posts);
+        },
+      });
+    }
   }
 
   getUser() {

@@ -1,4 +1,5 @@
 export interface LoggedUser {
+  userId: number;
   username: string;
   token: string;
   photoUrl: string;
