@@ -1,8 +1,22 @@
 <div class="container">
     <h3>Post List</h3>
-    <ul class="list-group">
-        <div *ngFor="let post of posts">
-            <app-post-card [post]="post"></app-post-card>
-        </div>
-    </ul>
+    <div *ngIf="posts">
+        <ul class="list-group">
+            <div *ngFor="let post of posts">
+                <app-post-card [post]="post"></app-post-card>
+            </div>
+        </ul>
+    </div>
+    <div *ngIf="posts.length === 0">
+        <ul class="no-posts">
+            <li>
+                <div class="card shadow m-2">
+                    <div class="row p-3 align-items-center">
+                        <strong>No posts yet!</strong>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
 </div>
