@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs';
+import { map, take } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Post } from '../_models/post';
 
@@ -21,5 +21,11 @@ export class PostService {
           return response;
         })
       );
+  }
+
+  getPost(postId: number) {
+    return this.http
+      .get<Post>(this.baseUrl + 'post/get-post/' + postId)
+      .pipe(map((response) => response));
   }
 }
