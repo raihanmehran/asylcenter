@@ -49,6 +49,7 @@ namespace API.Controllers
 
             return new UserLoggedDto
             {
+                UserId = user.Id,
                 Username = user.UserName,
                 Token = _tokenService.CreateToken(user),
                 PhotoUrl = user.Photos.FirstOrDefault(p => p.IsMain)?.Url,

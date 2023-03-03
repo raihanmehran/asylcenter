@@ -2,6 +2,7 @@ namespace API.DTOs
 {
     public class UserLoggedDto
     {
+        public int UserId { get; set; }
         public string Username { get; set; }
         public string Token { get; set; }
         public string PhotoUrl { get; set; }
