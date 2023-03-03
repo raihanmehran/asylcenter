@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { take } from 'rxjs';
+import { LoggedUser } from 'src/app/_models/loggedUser';
 import { Post } from 'src/app/_models/post';
+import { AccountService } from 'src/app/_services/account.service';
 import { PostService } from 'src/app/_services/post.service';
 
 @Component({
@@ -9,10 +12,15 @@ import { PostService } from 'src/app/_services/post.service';
 })
 export class PostListComponent implements OnInit {
   posts: Post[] = [];
+  loggedUser: LoggedUser | undefined;
 
-  constructor(private postService: PostService) {}
+  constructor(
+    private postService: PostService,
+    private accountServie: AccountService
+  ) {}
 
   ngOnInit(): void {
+    this.getUser();
     this.getPosts();
   }
 
@@ -20,6 +28,16 @@ export class PostListComponent implements OnInit {
     this.postService.getPosts(3).subscribe({
       next: (response) => {
         this.posts = response;
+      },
+    });
+  }
+
+  getUser() {
+    this.accountServie.currentUser$.pipe(take(1)).subscribe({
+      next: (loggedUser) => {
+        if (loggedUser) {
+          this.loggedUser = loggedUser;
+        }
       },
     });
   }

@@ -1,6 +1,8 @@
 <div class="container">
     <h3>Post List</h3>
-    <div *ngFor="let post of posts">
-        <app-post-card [post]="post"></app-post-card>
-    </div>
+    <ul class="list-group">
+        <div *ngFor="let post of posts">
+            <app-post-card [post]="post"></app-post-card>
+        </div>
+    </ul>
 </div>
