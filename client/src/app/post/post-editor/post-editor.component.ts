@@ -79,35 +79,15 @@ export class PostEditorComponent implements OnInit {
   }
 
   fetchUser() {
-    
+    if (this.users && this.username) {
+      const user = this.users.find(
+        (user: User) => user.userName === this.username
+      );
+
+      if (user) this.user = user;
+      else this.user = undefined;
+    }
   }
-
-  // the above function is used for optimization
-  // fetchUser() {
-  //   this.userService
-  //     .getUser(this.username)
-  //     .pipe(take(1))
-  //     .subscribe({
-  //       next: (user) => {
-  //         console.log('Fetch User:');
-
-  //         console.log(user);
-
-  //         this.user = undefined;
-
-  //         if (user) {
-  //           console.log('In');
-
-  //           this.user = user;
-  //           console.log(this.user);
-  //         }
-  //       },
-  //       error: (error) => {
-  //         console.log(error);
-  //         this.toastr.error(error.error);
-  //       },
-  //     });
-  // }
 
   fetchLoggedUser() {
     this.accountService.currentUser$.subscribe({
