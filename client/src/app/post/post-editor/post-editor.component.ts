@@ -18,6 +18,7 @@ export class PostEditorComponent implements OnInit {
   user: User | undefined;
   loggedUser: LoggedUser | undefined;
   username: string = '';
+  users: User[] | undefined;
 
   a: any;
 
@@ -30,6 +31,7 @@ export class PostEditorComponent implements OnInit {
   ngOnInit(): void {
     this.initializeForm();
     this.fetchLoggedUser();
+    this.fetchAllUsers();
     this.getUser();
   }
 
@@ -77,30 +79,35 @@ export class PostEditorComponent implements OnInit {
   }
 
   fetchUser() {
-    this.userService
-      .getUser(this.username)
-      .pipe(take(1))
-      .subscribe({
-        next: (user) => {
-          console.log('Fetch User:');
-
-          console.log(user);
-
-          this.user = undefined;
-
-          if (user) {
-            console.log('In');
-
-            this.user = user;
-            console.log(this.user);
-          }
-        },
-        error: (error) => {
-          console.log(error);
-          this.toastr.error(error.error);
-        },
-      });
+    
   }
+
+  // the above function is used for optimization
+  // fetchUser() {
+  //   this.userService
+  //     .getUser(this.username)
+  //     .pipe(take(1))
+  //     .subscribe({
+  //       next: (user) => {
+  //         console.log('Fetch User:');
+
+  //         console.log(user);
+
+  //         this.user = undefined;
+
+  //         if (user) {
+  //           console.log('In');
+
+  //           this.user = user;
+  //           console.log(this.user);
+  //         }
+  //       },
+  //       error: (error) => {
+  //         console.log(error);
+  //         this.toastr.error(error.error);
+  //       },
+  //     });
+  // }
 
   fetchLoggedUser() {
     this.accountService.currentUser$.subscribe({
@@ -114,6 +121,22 @@ export class PostEditorComponent implements OnInit {
         this.toastr.error(error.error);
       },
     });
+  }
+
+  fetchAllUsers() {
+    this.userService
+      .getAllUsers()
+      .pipe()
+      .subscribe({
+        next: (users) => {
+          if (users) {
+            this.users = users;
+          }
+        },
+        error: (error) => {
+          this.toastr.error(error.error);
+        },
+      });
   }
 
   public validateUserId() {

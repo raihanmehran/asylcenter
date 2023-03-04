@@ -34,7 +34,6 @@ namespace API.Controllers
                 userParams.Gender = currentUser.Gender == "male" ? "female" : "male";
             }
 
-
             var users = await _userRepository.GetUsersAsync(userParams);
 
             Response.AddPaginationHeader(new PaginationHeader(
@@ -58,7 +57,7 @@ namespace API.Controllers
 
             if (users is null) return NotFound();
 
-            var usersDto = _mapper.Map<UserDto>(users);
+            var usersDto = _mapper.Map<List<UserDto>>(users);
 
             return Ok(usersDto);
         }

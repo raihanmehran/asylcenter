@@ -40,7 +40,8 @@ namespace API.Data
 
         public async Task<IEnumerable<AppUser>> GetAllUsersNoPhotosAsync()
         {
-            return await _context.Users.ToListAsync();
+            return await _context.Users
+                .ToListAsync();
         }
 
         public async Task<bool> SaveAllAsync()

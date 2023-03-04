@@ -90,6 +90,12 @@ export class UsersService {
     return this.http.get<User>(this.baseUrl + 'users/' + username);
   }
 
+  getAllUsers() {
+    return this.http
+      .get<User[]>(this.baseUrl + 'users/all')
+      .pipe(map((response) => response));
+  }
+
   updateUser(user: User) {
     return this.http.put(this.baseUrl + 'users', user).pipe(
       map(() => {
