@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { take } from 'rxjs';
+import { LoggedUser } from 'src/app/_models/loggedUser';
+import { User } from 'src/app/_models/user';
+import { AccountService } from 'src/app/_services/account.service';
+import { UsersService } from 'src/app/_services/users.service';
 
 @Component({
   selector: 'app-post-editor',
@@ -10,11 +15,21 @@ import { ToastrService } from 'ngx-toastr';
 export class PostEditorComponent implements OnInit {
   postForm: FormGroup = new FormGroup({});
   validationErrors: string[] | undefined;
+  user: User | undefined;
+  loggedUser: LoggedUser | undefined;
+  username: string = '';
+
   a: any;
 
-  constructor(private fb: FormBuilder, private toastr: ToastrService) {}
+  constructor(
+    private fb: FormBuilder,
+    private toastr: ToastrService,
+    private accountService: AccountService,
+    private userService: UsersService
+  ) {}
   ngOnInit(): void {
     this.initializeForm();
+    this.fetchLoggedUser();
     this.getUser();
   }
 
@@ -28,7 +43,6 @@ export class PostEditorComponent implements OnInit {
         '',
         [
           Validators.required,
-          Validators.pattern('^[0-9]*$'),
           Validators.minLength(7),
           Validators.maxLength(10),
         ],
@@ -40,17 +54,69 @@ export class PostEditorComponent implements OnInit {
   }
 
   getUser() {
+    this.getSearchId();
+  }
+
+  private getSearchId() {
     this.postForm.controls['appUserId'].valueChanges.subscribe({
       next: (value) => {
-        console.log('ID:  ' + value);
+        console.log('ID:  ' + value + ' ' + this.validateUserId());
+
         if (this.validateUserId()) {
-          console.log('I am here');
+          this.username = value;
+          console.log(this.username);
+          this.fetchUser();
+          console.log('after');
+          console.log(this.user);
         }
+      },
+      error: (error) => {
+        this.toastr.error(error.error);
       },
     });
   }
 
-  private validateUserId() {
-    return !this.postForm.controls['appUserId'].invalid.valueOf();
+  fetchUser() {
+    this.userService
+      .getUser(this.username)
+      .pipe(take(1))
+      .subscribe({
+        next: (user) => {
+          console.log('Fetch User:');
+
+          console.log(user);
+
+          this.user = undefined;
+
+          if (user) {
+            console.log('In');
+
+            this.user = user;
+            console.log(this.user);
+          }
+        },
+        error: (error) => {
+          console.log(error);
+          this.toastr.error(error.error);
+        },
+      });
+  }
+
+  fetchLoggedUser() {
+    this.accountService.currentUser$.subscribe({
+      next: (loggedUser) => {
+        if (loggedUser) {
+          this.loggedUser = loggedUser;
+        }
+      },
+      error: (error) => {
+        console.log(error);
+        this.toastr.error(error.error);
+      },
+    });
+  }
+
+  public validateUserId() {
+    return this.postForm.controls['appUserId'].valid.valueOf();
   }
 }

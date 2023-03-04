@@ -8,39 +8,48 @@
                 <div class="col-md-12">
                     <div class="row">
                         <div class="col-md-6">
-                            <app-text-input [formControl]="$any(postForm.controls['appUserId'])" [label]="'Person ID'" [id]="'appUserId'" [type]="'number'"></app-text-input>
-                            <div class="card shadow align-items-center pt-3 px-3">
+                            <app-text-input [formControl]="$any(postForm.controls['appUserId'])" [label]="'Person ID'" [id]="'appUserId'"></app-text-input>
 
-                                <div class="col-md-12 align-items-center">
-                                    <div class="row ">
-                                        <div class="col-md-6 ">
-                                            <div class="form-floating mb-3 ">
-                                                <input type="email " class="form-control readonly " readonly id="floatingInput " placeholder="name@example.com ">
-                                                <label for="floatingInput ">First Name</label>
+                            <div class="card shadow ">
+                                <div *ngIf="user && validateUserId() && user !== null">
+                                    <div class="align-items-center pt-3 px-3">
+                                        <div class="col-md-12 align-items-center">
+                                            <div class="row ">
+                                                <div class="col-md-6 ">
+                                                    <div class="form-floating mb-3 ">
+                                                        <input type="text" value="{{user.firstName}}" class="form-control readonly" readonly id="firstName" placeholder="First Name">
+                                                        <label for="firstName">First Name</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 ">
+                                                    <div class="form-floating mb-3 ">
+                                                        <input type="text" value="{{user.lastName}}" class="form-control readonly " readonly id="lastName" placeholder="First Name">
+                                                        <label for="lastName">Last Name</label>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6 ">
-                                            <div class="form-floating mb-3 ">
-                                                <input type="email " class="form-control readonly " readonly id="floatingInput " placeholder="name@example.com ">
-                                                <label for="floatingInput ">Last Name</label>
+                                        <div class="col-md-12 ">
+                                            <div class="row ">
+                                                <div class="col-md-6 ">
+                                                    <div class="form-floating mb-3 ">
+                                                        <input type="text" value="{{user.country}}" class="form-control readonly " readonly id="country" placeholder="Nationality">
+                                                        <label for="country">Nationality</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 ">
+                                                    <div class="form-floating mb-3 ">
+                                                        <input type="text" value="{{user.address}}" class="form-control readonly " readonly id="address " placeholder="Address">
+                                                        <label for="address">Address</label>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12 ">
-                                    <div class="row ">
-                                        <div class="col-md-6 ">
-                                            <div class="form-floating mb-3 ">
-                                                <input type="email " class="form-control readonly " readonly id="floatingInput " placeholder="name@example.com ">
-                                                <label for="floatingInput ">Nationality</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 ">
-                                            <div class="form-floating mb-3 ">
-                                                <input type="email " class="form-control readonly " readonly id="floatingInput " placeholder="name@example.com ">
-                                                <label for="floatingInput ">Address</label>
-                                            </div>
-                                        </div>
+                                <div *ngIf="!user || !validateUserId() || user === null">
+                                    <div class="col-md-12 align-items-center p-4">
+                                        <strong>User not found!</strong>
                                     </div>
                                 </div>
                             </div>
@@ -52,7 +61,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card-footer ">
+            <div class="card-footer">
                 <div class="row ">
                     <div class="col text-start ">
                         <button [formGroup]="postForm " type="submit " class="btn btn-primary m-1 ">Add Post</button>
