@@ -12,10 +12,20 @@ export class PostEditorComponent implements OnInit {
   validationErrors: string[] | undefined;
 
   constructor(private fb: FormBuilder, private toastr: ToastrService) {}
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.initializeForm();
+  }
 
   addPost() {
     console.log('Add Post method called');
   }
 
+  initializeForm() {
+    this.postForm = this.fb.group({
+      appUserId: ['', Validators.required],
+      title: ['', Validators.required],
+      description: [''],
+      addedBy: ['', Validators.required],
+    });
+  }
 }
