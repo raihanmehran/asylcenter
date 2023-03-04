@@ -20,14 +20,13 @@ export class PostEditorComponent implements OnInit {
   username: string = '';
   users: User[] | undefined;
 
-  a: any;
-
   constructor(
     private fb: FormBuilder,
     private toastr: ToastrService,
     private accountService: AccountService,
     private userService: UsersService
   ) {}
+
   ngOnInit(): void {
     this.initializeForm();
     this.fetchLoggedUser();
@@ -37,6 +36,10 @@ export class PostEditorComponent implements OnInit {
 
   addPost() {
     console.log('Add Post method called');
+    console.log(this.validationErrors);
+    if (this.postForm.valid) {
+      console.log(this.postForm.value);
+    }
   }
 
   initializeForm() {
@@ -66,10 +69,7 @@ export class PostEditorComponent implements OnInit {
 
         if (this.validateUserId()) {
           this.username = value;
-          console.log(this.username);
           this.fetchUser();
-          console.log('after');
-          console.log(this.user);
         }
       },
       error: (error) => {
@@ -97,7 +97,6 @@ export class PostEditorComponent implements OnInit {
         }
       },
       error: (error) => {
-        console.log(error);
         this.toastr.error(error.error);
       },
     });
