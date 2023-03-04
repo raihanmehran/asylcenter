@@ -38,6 +38,11 @@ namespace API.Data
                 .ToListAsync();
         }
 
+        public async Task<IEnumerable<AppUser>> GetAllUsersNoPhotosAsync()
+        {
+            return await _context.Users.ToListAsync();
+        }
+
         public async Task<bool> SaveAllAsync()
         {
             return await _context.SaveChangesAsync() > 0;

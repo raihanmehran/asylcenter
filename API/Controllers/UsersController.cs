@@ -46,6 +46,24 @@ namespace API.Controllers
             return Ok(users);
         }
 
+        [HttpGet("all")]
+        public async Task<ActionResult<IEnumerable<UserDto>>> GetAllUsers()
+        {
+            var userId = User.GetUserId();
+            var currentUser = await _userRepository.GetUserByIdAsync(id: userId);
+
+            if (currentUser is null) return BadRequest("It was a bad request");
+
+            var users = await _userRepository.GetAllUsersNoPhotosAsync();
+
+            if (users is null) return NotFound();
+
+            var usersDto = _mapper.Map<UserDto>(users);
+
+            return Ok(usersDto);
+        }
+
+
         [HttpGet("{username}")]
         public async Task<ActionResult<UserDto>> GetUser(string username)
         {
