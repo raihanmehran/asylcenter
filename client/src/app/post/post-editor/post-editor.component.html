@@ -9,28 +9,58 @@
                     <div class="row">
                         <div class="col-md-6">
                             <app-text-input [formControl]="$any(postForm.controls['appUserId'])" [label]="'Person ID'" [id]="'appUserId'" [type]="'number'"></app-text-input>
-                            <div class="form-floating mb-3">
-                                <input type="email" class="form-control readonly" readonly id="floatingInput" placeholder="name@example.com">
-                                <label for="floatingInput">Person Name</label>
-                            </div>
+                            <div class="card shadow align-items-center pt-3 px-3">
 
+                                <div class="col-md-12 align-items-center">
+                                    <div class="row ">
+                                        <div class="col-md-6 ">
+                                            <div class="form-floating mb-3 ">
+                                                <input type="email " class="form-control readonly " readonly id="floatingInput " placeholder="name@example.com ">
+                                                <label for="floatingInput ">First Name</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 ">
+                                            <div class="form-floating mb-3 ">
+                                                <input type="email " class="form-control readonly " readonly id="floatingInput " placeholder="name@example.com ">
+                                                <label for="floatingInput ">Last Name</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 ">
+                                    <div class="row ">
+                                        <div class="col-md-6 ">
+                                            <div class="form-floating mb-3 ">
+                                                <input type="email " class="form-control readonly " readonly id="floatingInput " placeholder="name@example.com ">
+                                                <label for="floatingInput ">Nationality</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 ">
+                                            <div class="form-floating mb-3 ">
+                                                <input type="email " class="form-control readonly " readonly id="floatingInput " placeholder="name@example.com ">
+                                                <label for="floatingInput ">Address</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <app-text-input [formControl]="$any(postForm.controls['title'])" [label]="'Title'" [id]="'title'"></app-text-input>
-                            <app-text-input [formControl]="$any(postForm.controls['description'])" [label]="'Description'" [id]="'description'" [type]="'textarea'"></app-text-input>
-                            <input type="" class="text-area">
+                        <div class="col-md-6 ">
+                            <app-text-input [formControl]="$any(postForm.controls[ 'title']) " [label]=" 'Title' " [id]=" 'title' "></app-text-input>
+                            <app-text-area [formControl]="$any(postForm.controls[ 'description']) " [label]=" 'Description' " [id]=" 'description' "></app-text-area>
+
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="card-footer">
-                <div class="row">
-                    <div class="col text-start">
-                        <button [formGroup]="postForm" type="submit" class="btn btn-primary m-1">Add Post</button>
+            <div class="card-footer ">
+                <div class="row ">
+                    <div class="col text-start ">
+                        <button [formGroup]="postForm " type="submit " class="btn btn-primary m-1 ">Add Post</button>
                     </div>
-                    <div class="col text-end">
-                        <button class="btn btn-warning m-1">Clear All</button>
-                        <button class="btn btn-secondary m-1">Cancel</button>
+                    <div class="col text-end ">
+                        <button class="btn btn-warning m-1 ">Clear All</button>
+                        <button class="btn btn-secondary m-1 ">Cancel</button>
                     </div>
                 </div>
             </div>

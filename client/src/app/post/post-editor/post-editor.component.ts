@@ -24,7 +24,7 @@ export class PostEditorComponent implements OnInit {
     this.postForm = this.fb.group({
       appUserId: ['', Validators.required],
       title: ['', Validators.required],
-      description: [''],
+      description: ['', Validators.maxLength(5000)],
       addedBy: ['', Validators.required],
     });
   }
