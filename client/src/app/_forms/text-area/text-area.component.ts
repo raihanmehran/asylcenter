@@ -10,7 +10,9 @@ export class TextAreaComponent implements ControlValueAccessor {
   @Input() label = '';
   @Input() id = '';
 
-  constructor(@Self() public ngControl: NgControl) {}
+  constructor(@Self() public ngControl: NgControl) {
+    this.ngControl.valueAccessor = this;
+  }
 
   writeValue(obj: any): void {}
   registerOnChange(fn: any): void {}
