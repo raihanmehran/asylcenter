@@ -17,7 +17,8 @@
                         </div>
                         <div class="col-md-6">
                             <app-text-input [formControl]="$any(postForm.controls['title'])" [label]="'Title'" [id]="'title'"></app-text-input>
-                            <app-text-input [formControl]="$any(postForm.controls['description'])" [label]="'Description'" [id]="'description'"></app-text-input>
+                            <app-text-input [formControl]="$any(postForm.controls['description'])" [label]="'Description'" [id]="'description'" [type]="'textarea'"></app-text-input>
+                            <input type="" class="text-area">
                         </div>
                     </div>
                 </div>

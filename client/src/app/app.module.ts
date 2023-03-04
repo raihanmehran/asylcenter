@@ -28,6 +28,7 @@ import { TextInputComponent } from './_forms/text-input/text-input.component';
 import { DatePickerComponent } from './_forms/date-picker/date-picker.component';
 import { PostEditorComponent } from './post/post-editor/post-editor.component';
 import { PostCardComponent } from './post/post-card/post-card.component';
+import { TextAreaComponent } from './_forms/text-area/text-area.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { PostCardComponent } from './post/post-card/post-card.component';
     DatePickerComponent,
     PostEditorComponent,
     PostCardComponent,
+    TextAreaComponent,
   ],
   imports: [
     BrowserModule,
