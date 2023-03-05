@@ -54,6 +54,7 @@ namespace API.Data
         public async Task<IEnumerable<Post>> GetNotCollectedPosts()
         {
             return await _context.Posts
+                .Include(post => post.AppUser)
                 .Where(post => post.IsCollected == false)
                 .OrderByDescending(post => post.Created)
                 .ToListAsync();

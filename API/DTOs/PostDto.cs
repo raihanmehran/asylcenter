@@ -8,6 +8,7 @@ namespace API.DTOs
         public bool IsCollected { get; set; }
         public DateTime Created { get; set; }
         public int AppUserId { get; set; }
+        public string IdNumber { get; set; }
         public int AddedBy { get; set; }
     }
 }

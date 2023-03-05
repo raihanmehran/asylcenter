@@ -21,7 +21,9 @@ namespace API.Helpers
             CreateMap<RegisterDto, AppUser>();
             CreateMap<PostDto, Post>();
             CreateMap<AppUser, PostUserDto>();
-            CreateMap<Post, PostDto>();
+            CreateMap<Post, PostDto>()
+                .ForMember(dest => dest.IdNumber, opt => opt
+                    .MapFrom(src => src.AppUser.IdNumber));
         }
     }
 }
