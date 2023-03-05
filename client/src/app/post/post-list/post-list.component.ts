@@ -31,8 +31,9 @@ export class PostListComponent implements OnInit {
 
       this.postService.getPosts(this.userId).subscribe({
         next: (response) => {
-          this.posts = response;
-          console.log(this.posts);
+          if (response) {
+            this.posts = response;
+          }
         },
       });
     }

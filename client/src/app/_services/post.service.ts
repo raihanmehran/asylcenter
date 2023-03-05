@@ -29,6 +29,16 @@ export class PostService {
       .pipe(map((response) => response));
   }
 
+  getNotCollectedPosts() {
+    return this.http
+      .get<Post[]>(this.baseUrl + 'post/get-posts/not-collected')
+      .pipe(
+        map((response) => {
+          return response;
+        })
+      );
+  }
+
   addPost(model: any) {
     return this.http.post(this.baseUrl + 'post/add-post', model).pipe(
       map((response) => {

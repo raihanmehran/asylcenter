@@ -23,7 +23,9 @@
                         <strong>No Posts found!</strong>
                     </div>
                     <div>
-                        <app-search-post-card [post]="searchedPost"></app-search-post-card>
+                        <div *ngFor="let post of posts">
+                            <app-search-post-card [post]="post"></app-search-post-card>
+                        </div>
                     </div>
                 </div>
             </div>

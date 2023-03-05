@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Post } from 'src/app/_models/post';
+import { PostService } from 'src/app/_services/post.service';
 
 @Component({
   selector: 'app-search-post',
@@ -13,9 +14,10 @@ export class SearchPostComponent implements OnInit {
   posts: Post[] | undefined;
   searchedPost: Post | undefined;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private postService: PostService) {}
   ngOnInit(): void {
     this.initializeForm();
+    this.fetchAllPosts();
   }
 
   initializeForm() {
@@ -28,6 +30,16 @@ export class SearchPostComponent implements OnInit {
           Validators.maxLength(12),
         ],
       ],
+    });
+  }
+
+  fetchAllPosts() {
+    this.postService.getNotCollectedPosts().subscribe({
+      next: (posts) => {
+        if (posts) {
+          this.posts = posts;
+        }
+      },
     });
   }
 }
