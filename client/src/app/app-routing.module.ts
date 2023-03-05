@@ -14,6 +14,7 @@ import { ServerErrorComponent } from './errors/server-error/server-error.compone
 import { PreventUnsavedChangesGuard } from './_guards/prevent-unsaved-changes.guard';
 import { UserEditComponent } from './user/user-edit/user-edit.component';
 import { PostEditorComponent } from './post/post-editor/post-editor.component';
+import { SearchPostComponent } from './post/search-post/search-post.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -37,6 +38,7 @@ const routes: Routes = [
       { path: 'post/list', component: PostListComponent },
       { path: 'post/post-editor', component: PostEditorComponent },
       { path: 'post/list/:id', component: PostDetailComponent },
+      { path: 'post/search', component: SearchPostComponent },
     ],
   },
   { path: 'errors', component: TestErrorComponent },

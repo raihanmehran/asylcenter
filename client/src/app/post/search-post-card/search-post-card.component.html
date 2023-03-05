@@ -1,1 +1,18 @@
-<p>search-post-card works!</p>
+<div class="card shadow m-1">
+    <div class="row px-3 py-2 align-items-center">
+        <div class="d-flex flex-row col-2">
+            {{post?.created | date}} <strong>|</strong> {{post?.created | timeago}}
+        </div>
+        <div class="d-flex flex-row col-4">
+            <strong> {{post?.title}} </strong>
+        </div>
+        <div class="d-flex flex-row-reverse col-4">
+            <div class="d-grid gap-2">
+                <div class="button-group ">
+                    <button class="btn btn-primary me-2">View</button>
+                    <button class="btn btn-danger"> .... </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
