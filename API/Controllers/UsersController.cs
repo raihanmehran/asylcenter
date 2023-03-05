@@ -46,7 +46,7 @@ namespace API.Controllers
         }
 
         [HttpGet("all")]
-        public async Task<ActionResult<IEnumerable<UserDto>>> GetAllUsers()
+        public async Task<ActionResult<IEnumerable<PostUserDto>>> GetAllUsers()
         {
             var userId = User.GetUserId();
             var currentUser = await _userRepository.GetUserByIdAsync(id: userId);
@@ -57,7 +57,7 @@ namespace API.Controllers
 
             if (users is null) return NotFound();
 
-            var usersDto = _mapper.Map<List<UserDto>>(users);
+            var usersDto = _mapper.Map<List<PostUserDto>>(users);
 
             return Ok(usersDto);
         }
