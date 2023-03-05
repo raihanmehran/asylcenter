@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs';
 import { LoggedUser } from 'src/app/_models/loggedUser';
@@ -26,7 +27,8 @@ export class PostEditorComponent implements OnInit {
     private toastr: ToastrService,
     private accountService: AccountService,
     private userService: UsersService,
-    private postService: PostService
+    private postService: PostService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -52,12 +54,7 @@ export class PostEditorComponent implements OnInit {
   }
 
   addPost() {
-    console.log('Add Post method called');
-    console.log(this.validationErrors);
     if (this.postForm.valid) {
-      console.log('In');
-
-      console.log(this.postForm.value);
       if (this.user) {
         const values = { ...this.postForm.value, appUserId: this.user.id };
 
@@ -69,12 +66,12 @@ export class PostEditorComponent implements OnInit {
                 ' with title: ' +
                 values.title
             );
+            this.resetForm();
           },
           error: (error) => {
             this.toastr.error(error.error);
           },
         });
-        console.log(values);
       }
     }
   }
@@ -141,5 +138,16 @@ export class PostEditorComponent implements OnInit {
 
   public validateUserId() {
     return this.postForm.controls['appUserId'].valid.valueOf();
+  }
+
+  cancel() {
+    this.router.navigateByUrl('admin');
+  }
+
+  resetForm() {
+    this.user = undefined;
+    this.postForm.controls['appUserId'].setValue('');
+    this.postForm.controls['title'].setValue('');
+    this.postForm.controls['description'].setValue('');
   }
 }
