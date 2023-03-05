@@ -51,6 +51,14 @@ namespace API.Data
                 .ToListAsync();
         }
 
+        public async Task<IEnumerable<Post>> GetNotCollectedPosts()
+        {
+            return await _context.Posts
+                .Where(post => post.IsCollected == false)
+                .OrderByDescending(post => post.Created)
+                .ToListAsync();
+        }
+
         public async Task<bool> SaveAllAsync()
         {
             return await _context.SaveChangesAsync() > 0;

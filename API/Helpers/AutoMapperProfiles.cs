@@ -21,6 +21,7 @@ namespace API.Helpers
             CreateMap<RegisterDto, AppUser>();
             CreateMap<PostDto, Post>();
             CreateMap<AppUser, PostUserDto>();
+            CreateMap<Post, PostDto>();
         }
     }
 }

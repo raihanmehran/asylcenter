@@ -53,14 +53,18 @@ namespace API.Controllers
 
             var post = await _postRepository.GetPost(postId: postId);
 
-            var postDto = new PostDto
-            {
-                Title = post.Title,
-                Description = post.Description,
-                Id = post.Id,
-                IsCollected = post.IsCollected,
-                Created = post.Created
-            };
+            // var postDto = new PostDto
+            // {
+            //     Title = post.Title,
+            //     Description = post.Description,
+            //     Id = post.Id,
+            //     IsCollected = post.IsCollected,
+            //     Created = post.Created
+            // };
+
+            if (post is null) return NotFound();
+
+            var postDto = _mapper.Map<PostDto>(post);
 
             return Ok(postDto);
         }
@@ -74,7 +78,39 @@ namespace API.Controllers
 
             var posts = await _postRepository.GetAllPostsForUserByUserId(userId: userId);
 
-            return Ok(posts);
+            if (posts is null) return NotFound();
+
+            var postDto = _mapper.Map<List<PostDto>>(posts);
+
+            return Ok(postDto);
+        }
+
+        [HttpGet("get-posts/dates")]
+        public async Task<ActionResult<IEnumerable<PostDto>>> GetPostsBetweenDates(DateTime from, DateTime to)
+        {
+            if (User.GetUserId() <= 0) return BadRequest("Bad Request");
+
+            var posts = await _postRepository.GetPostsBtwDates(fromDate: from, toDate: to);
+
+            if (posts is null) return NotFound();
+
+            var postDto = _mapper.Map<List<PostDto>>(posts);
+
+            return Ok(postDto);
+        }
+
+        [HttpGet("get-posts/not-collected")]
+        public async Task<ActionResult<IEnumerable<PostDto>>> GetNotCollectedPosts()
+        {
+            if (User.GetUserId() <= 0) return BadRequest("Bad Request");
+
+            var posts = await _postRepository.GetNotCollectedPosts();
+
+            if (posts is null) return NotFound();
+
+            var postDto = _mapper.Map<List<PostDto>>(posts);
+
+            return Ok(postDto);
         }
     }
 }

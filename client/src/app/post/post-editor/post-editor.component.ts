@@ -83,8 +83,6 @@ export class PostEditorComponent implements OnInit {
   private getSearchId() {
     this.postForm.controls['appUserId'].valueChanges.subscribe({
       next: (value) => {
-        console.log('ID:  ' + value + ' ' + this.validateUserId());
-
         if (this.validateUserId()) {
           this.username = value;
           this.fetchUser();
