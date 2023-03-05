@@ -28,4 +28,14 @@ export class PostService {
       .get<Post>(this.baseUrl + 'post/get-post/' + postId)
       .pipe(map((response) => response));
   }
+
+  addPost(model: any) {
+    return this.http.post(this.baseUrl + 'post/add-post', model).pipe(
+      map((response) => {
+        if (response) {
+          console.log(response);
+        }
+      })
+    );
+  }
 }

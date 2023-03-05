@@ -5,6 +5,7 @@ import { take } from 'rxjs';
 import { LoggedUser } from 'src/app/_models/loggedUser';
 import { User } from 'src/app/_models/user';
 import { AccountService } from 'src/app/_services/account.service';
+import { PostService } from 'src/app/_services/post.service';
 import { UsersService } from 'src/app/_services/users.service';
 
 @Component({
@@ -24,7 +25,8 @@ export class PostEditorComponent implements OnInit {
     private fb: FormBuilder,
     private toastr: ToastrService,
     private accountService: AccountService,
-    private userService: UsersService
+    private userService: UsersService,
+    private postService: PostService
   ) {}
 
   ngOnInit(): void {
@@ -32,14 +34,6 @@ export class PostEditorComponent implements OnInit {
     this.fetchLoggedUser();
     this.fetchAllUsers();
     this.getUser();
-  }
-
-  addPost() {
-    console.log('Add Post method called');
-    console.log(this.validationErrors);
-    if (this.postForm.valid) {
-      console.log(this.postForm.value);
-    }
   }
 
   initializeForm() {
@@ -54,8 +48,18 @@ export class PostEditorComponent implements OnInit {
       ],
       title: ['', Validators.required],
       description: ['', Validators.maxLength(5000)],
-      addedBy: ['', Validators.required],
     });
+  }
+
+  addPost() {
+    console.log('Add Post method called');
+    console.log(this.validationErrors);
+    if (this.postForm.valid) {
+      console.log('In');
+
+      console.log(this.postForm.value);
+      
+    }
   }
 
   getUser() {

@@ -65,6 +65,7 @@
                 <div class="row ">
                     <div class="col text-start ">
                         <button [formGroup]="postForm " type="submit " class="btn btn-primary m-1 ">Add Post</button>
+                        <p>{{this.postForm.valid}}</p>
                     </div>
                     <div class="col text-end ">
                         <button class="btn btn-warning m-1 ">Clear All</button>
