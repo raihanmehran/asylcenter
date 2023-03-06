@@ -20,7 +20,7 @@ export class SearchPostCardComponent implements OnInit {
   }
 
   deletePost() {
-    this.postToCollect.emit(this.post);
+    this.postToDelete.emit(this.post);
   }
 
   viewPost() {

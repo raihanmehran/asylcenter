@@ -57,6 +57,22 @@ export class SearchPostComponent implements OnInit {
       });
     }
   }
+  deletePost($event: Post) {
+    if (this.posts) {
+      const post = $event;
+      const postId = post.id;
+
+      this.postService.deletePost(postId).subscribe({
+        next: (_) => {
+          this.posts = this.posts?.filter((p) => p !== post);
+          this.toastr.success('Post has deleted');
+        },
+        error: (error) => {
+          this.toastr.error(error.error);
+        },
+      });
+    }
+  }
 
   getSearchId() {
     this.searchForm.controls['idNumber'].valueChanges.subscribe({
