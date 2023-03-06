@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { Post } from 'src/app/_models/post';
 import { PostService } from 'src/app/_services/post.service';
 
@@ -16,7 +17,11 @@ export class SearchPostComponent implements OnInit {
   searchedPosts: Post[] | undefined;
   searchIdNumber: string = '';
 
-  constructor(private fb: FormBuilder, private postService: PostService) {}
+  constructor(
+    private fb: FormBuilder,
+    private postService: PostService,
+    private toastr: ToastrService
+  ) {}
   ngOnInit(): void {
     this.initializeForm();
     this.fetchAllPosts();
@@ -34,6 +39,23 @@ export class SearchPostComponent implements OnInit {
         ],
       ],
     });
+  }
+
+  collectPost($event: Post) {
+    if (this.posts) {
+      $event.isCollected = true;
+      const post = $event;
+
+      this.postService.collectPost(post).subscribe({
+        next: (_) => {
+          this.posts = this.posts?.filter((p) => p !== post);
+          this.toastr.success('Post has collected');
+        },
+        error: (error) => {
+          this.toastr.error(error.error);
+        },
+      });
+    }
   }
 
   getSearchId() {

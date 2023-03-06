@@ -48,4 +48,12 @@ export class PostService {
       })
     );
   }
+
+  collectPost(post: Post) {
+    return this.http.put(this.baseUrl + 'post', post).pipe(
+      map((_) => {
+        return;
+      })
+    );
+  }
 }
