@@ -112,5 +112,19 @@ namespace API.Controllers
 
             return Ok(postDto);
         }
+
+        [HttpPut]
+        public async Task<ActionResult> UpdatePost(PostDto postDto)
+        {
+            var post = await _postRepository.GetPost(postId: postDto.Id);
+
+            if (post == null) return NotFound();
+
+            _mapper.Map(postDto, post);
+
+            if (await _postRepository.SaveAllAsync()) return NoContent();
+
+            return BadRequest("Failed to update post");
+        }
     }
 }
