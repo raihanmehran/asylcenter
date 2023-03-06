@@ -20,7 +20,9 @@ export class SearchPostCardComponent implements OnInit {
   }
 
   deletePost() {
-    this.postToDelete.emit(this.post);
+    if (confirm('Are you sure want to delete?')) {
+      this.postToDelete.emit(this.post);
+    }
   }
 
   viewPost() {
