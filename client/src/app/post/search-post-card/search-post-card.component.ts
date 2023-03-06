@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { Post } from 'src/app/_models/post';
-import { PostService } from 'src/app/_services/post.service';
 
 @Component({
   selector: 'app-search-post-card',
@@ -10,11 +10,20 @@ import { PostService } from 'src/app/_services/post.service';
 export class SearchPostCardComponent implements OnInit {
   @Input() post: Post | undefined;
   @Output() postToCollect = new EventEmitter<Post>();
+  @Output() postToDelete = new EventEmitter<Post>();
 
-  constructor(private postService: PostService) {}
+  constructor(private toastr: ToastrService) {}
   ngOnInit(): void {}
 
   collectPost() {
     this.postToCollect.emit(this.post);
+  }
+
+  deletePost() {
+    this.postToCollect.emit(this.post);
+  }
+
+  viewPost() {
+    this.toastr.info('Under development');
   }
 }
