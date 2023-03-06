@@ -64,6 +64,10 @@ namespace API.Data
         {
             _context.Entry(post).State = EntityState.Modified;
         }
+        public void DeletePost(Post post)
+        {
+            _context.Entry(post).State = EntityState.Modified;
+        }
         public async Task<bool> SaveAllAsync()
         {
             return await _context.SaveChangesAsync() > 0;

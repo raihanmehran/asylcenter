@@ -13,8 +13,8 @@
             </div>
             <div class="d-flex flex-row-reverse col-4">
                 <div class="d-grid gap-2">
-                    <span *ngIf="post.isCollected" class="badge bg-warning"> Not Collected </span>
-                    <span *ngIf="!post.isCollected" class="badge bg-success"> Collected </span>
+                    <span *ngIf="!post.isCollected" class="badge bg-warning"> Not Collected </span>
+                    <span *ngIf="post.isCollected" class="badge bg-success"> Collected </span>
                     <div class="button-group ">
                         <button (click)="viewPost(post.id)" class="btn btn-primary me-2">View</button>
                         <button class="btn btn-danger"> .... </button>

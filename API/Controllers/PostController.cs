@@ -126,5 +126,20 @@ namespace API.Controllers
 
             return BadRequest("Failed to update post");
         }
+        [HttpDelete]
+        public async Task<ActionResult> DeletePost(PostDto postDto)
+        {
+            var post = await _postRepository.GetPost(postId: postDto.Id);
+
+            if (post == null) return NotFound();
+
+            if (post.IsDeleted == true) return BadRequest("Post already deleted!");
+
+            _mapper.Map(postDto, post);
+
+            if (await _postRepository.SaveAllAsync()) return NoContent();
+
+            return BadRequest("Failed to delete post");
+        }
     }
 }

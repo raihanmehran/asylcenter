@@ -12,5 +12,6 @@ namespace API.Interfaces
         Task<IEnumerable<Post>> GetPostsBtwDates(DateTime fromDate, DateTime toDate);
         Task<IEnumerable<Post>> GetNotCollectedPosts();
         void CollectPost(Post post);
+        void DeletePost(Post post);
     }
 }

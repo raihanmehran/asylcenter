@@ -60,7 +60,7 @@ export class PostEditorComponent implements OnInit {
 
         this.postService.addPost(values).subscribe({
           next: () => {
-            this.toastr.info(
+            this.toastr.success(
               'Post Added Successfully to: ' +
                 this.user?.firstName +
                 ' with title: ' +

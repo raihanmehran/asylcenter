@@ -20,8 +20,8 @@
                         <div class="row">
                             <div class="col"> {{post.created | date}} | {{post.created | timeago}} </div>
                             <div class="col">
-                                <span *ngIf="post.isCollected" class="badge bg-warning"> Not Collected </span>
-                                <span *ngIf="!post.isCollected" class="badge bg-success"> Collected </span>
+                                <span *ngIf="!post.isCollected" class="badge bg-warning"> Not Collected </span>
+                                <span *ngIf="post.isCollected" class="badge bg-success"> Collected </span>
                             </div>
                         </div>
                     </div>
