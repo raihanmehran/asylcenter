@@ -126,16 +126,16 @@ namespace API.Controllers
 
             return BadRequest("Failed to update post");
         }
-        [HttpDelete]
-        public async Task<ActionResult> DeletePost(PostDto postDto)
+        [HttpDelete("delete-post/{postId}")]
+        public async Task<ActionResult> DeletePost(int postId)
         {
-            var post = await _postRepository.GetPost(postId: postDto.Id);
+            var post = await _postRepository.GetPost(postId: postId);
 
             if (post == null) return NotFound();
 
             if (post.IsDeleted == true) return BadRequest("Post already deleted!");
 
-            _mapper.Map(postDto, post);
+            post.IsDeleted = true;
 
             if (await _postRepository.SaveAllAsync()) return NoContent();
 

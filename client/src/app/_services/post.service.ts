@@ -56,4 +56,12 @@ export class PostService {
       })
     );
   }
+
+  deletePost(postId: number) {
+    return this.http.delete(this.baseUrl + 'post/delete-post/' + postId).pipe(
+      map((_) => {
+        return;
+      })
+    );
+  }
 }

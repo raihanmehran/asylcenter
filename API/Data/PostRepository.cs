@@ -72,5 +72,10 @@ namespace API.Data
         {
             return await _context.SaveChangesAsync() > 0;
         }
+
+        public void DeletePost(int postId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

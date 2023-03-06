@@ -5,4 +5,5 @@ export interface Post {
   isCollected: boolean;
   created: Date;
   idNumber: string;
+  isDeleted: boolean;
 }
