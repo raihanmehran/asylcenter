@@ -12,17 +12,20 @@ export class SearchPostComponent implements OnInit {
   searchForm: FormGroup = new FormGroup({});
   validationErrors: string[] | undefined;
   posts: Post[] | undefined;
-  searchedPost: Post | undefined;
+  tempPosts: Post[] | undefined;
+  searchedPosts: Post[] | undefined;
+  searchIdNumber: string = '';
 
   constructor(private fb: FormBuilder, private postService: PostService) {}
   ngOnInit(): void {
     this.initializeForm();
     this.fetchAllPosts();
+    this.getSearchId();
   }
 
   initializeForm() {
     this.searchForm = this.fb.group({
-      appUserId: [
+      idNumber: [
         '',
         [
           Validators.required,
@@ -33,6 +36,29 @@ export class SearchPostComponent implements OnInit {
     });
   }
 
+  getSearchId() {
+    this.searchForm.controls['idNumber'].valueChanges.subscribe({
+      next: (value) => {
+        this.searchInputHasValue();
+        if (this.validateSearchInput()) {
+          this.searchIdNumber = value;
+          this.fetchPost();
+        }
+      },
+    });
+  }
+
+  fetchPost() {
+    if (this.posts && this.searchIdNumber) {
+      const post: Post[] = this.posts.filter(
+        (post: Post) => post.idNumber === this.searchIdNumber
+      );
+
+      if (post) this.searchedPosts = post;
+      else this.searchedPosts = undefined;
+    }
+  }
+
   fetchAllPosts() {
     this.postService.getNotCollectedPosts().subscribe({
       next: (posts) => {
@@ -41,5 +67,17 @@ export class SearchPostComponent implements OnInit {
         }
       },
     });
+  }
+
+  searchInputHasValue() {
+    const value = this.searchForm.controls['idNumber'].value;
+    console.log('Value: ' + value);
+
+    if (value) return true;
+    return false;
+  }
+
+  public validateSearchInput() {
+    return this.searchForm.controls['idNumber'].valid.valueOf();
   }
 }
