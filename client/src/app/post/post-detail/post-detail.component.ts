@@ -4,6 +4,9 @@ import { take } from 'rxjs';
 import { Post } from 'src/app/_models/post';
 import { PostService } from 'src/app/_services/post.service';
 
+declare var SpeechSynthesis: any;
+declare var SpeechSynthesisUtterance: any;
+
 @Component({
   selector: 'app-post-detail',
   templateUrl: './post-detail.component.html',
@@ -12,7 +15,7 @@ import { PostService } from 'src/app/_services/post.service';
 export class PostDetailComponent implements OnInit {
   post: Post | undefined;
   id: number | undefined;
-  public isTranslate: boolean = false;
+  isTranslate: boolean = false;
 
   constructor(private route: ActivatedRoute, private postService: PostService) {
     this.getIdFromRoute();
@@ -49,5 +52,11 @@ export class PostDetailComponent implements OnInit {
 
   deTranslate() {
     this.isTranslate = false;
+  }
+
+  speak(text: string) {
+    const synth = window.speechSynthesis;
+    const utterance = new SpeechSynthesisUtterance(text);
+    synth.speak(utterance);
   }
 }
