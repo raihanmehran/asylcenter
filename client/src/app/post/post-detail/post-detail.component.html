@@ -5,15 +5,24 @@
                 <div class="card-header bg-primary text-light align-items-center">
                     <div class="row">
                         <div class="col-8">
+
                             <h5 class="card-title">{{post.title}}</h5>
                         </div>
                         <div class="col-4 text-end">
+                            <button class="btn btn-dark mx-2"> Read </button>
                             <button (click)="translate()" class="btn btn-outline-warning">Translate</button>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
-                    <p class="card-text">{{post.description}}</p>
+                    <div class="row">
+                        <div class="col-md-11">
+                            <p class="card-text">{{post.description}}</p>
+                        </div>
+                        <div class="col-md-1">
+                            <button class="btn btn-sm btn-dark mx-2"> Read </button>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-footer bg-primary-emphasis">
                     <div class="col">
