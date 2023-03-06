@@ -15,8 +15,9 @@ namespace API.Data
         }
         public async Task<bool> PostExists(int postId)
         {
-            return await _context.Posts.AnyAsync(post =>
-                post.Id == postId);
+            return await _context.Posts
+                .Where(post => post.IsDeleted != true)
+                .AnyAsync(post => post.Id == postId);
         }
         public async Task AddPost(Post post)
         {
@@ -27,6 +28,7 @@ namespace API.Data
         {
             return await _context.Posts
                 .Where(post => post.AppUserId == userId)
+                .Where(post => post.IsDeleted != true)
                 .OrderByDescending(p => p.Created)
                 .ToListAsync();
         }
@@ -40,6 +42,7 @@ namespace API.Data
         {
             return await _context.Posts
                 .Where(post => post.Id == postId)
+                .Where(post => post.IsDeleted != true)
                 .SingleOrDefaultAsync();
         }
 
@@ -56,15 +59,12 @@ namespace API.Data
             return await _context.Posts
                 .Include(post => post.AppUser)
                 .Where(post => post.IsCollected == false)
+                .Where(post => post.IsDeleted != true)
                 .OrderByDescending(post => post.Created)
                 .ToListAsync();
         }
 
-        public void CollectPost(Post post)
-        {
-            _context.Entry(post).State = EntityState.Modified;
-        }
-        public void DeletePost(Post post)
+        public void UpdatePost(Post post)
         {
             _context.Entry(post).State = EntityState.Modified;
         }

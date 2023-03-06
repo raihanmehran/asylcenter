@@ -114,7 +114,7 @@ namespace API.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> UpdatePost(PostDto postDto)
+        public async Task<ActionResult> CollectPost(PostDto postDto)
         {
             var post = await _postRepository.GetPost(postId: postDto.Id);
 
