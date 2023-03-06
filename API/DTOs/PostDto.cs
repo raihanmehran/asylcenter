@@ -10,5 +10,6 @@ namespace API.DTOs
         public int AppUserId { get; set; }
         public string IdNumber { get; set; }
         public int AddedBy { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

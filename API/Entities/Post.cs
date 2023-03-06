@@ -11,6 +11,7 @@ namespace API.Entities
         public bool IsCollected { get; set; } = false;
         public int AppUserId { get; set; }
         public int AddedBy { get; set; }
+        public bool IsDeleted { get; set; } = false;
         public DateTime Created { get; set; } = DateTime.Now;
         public AppUser AppUser { get; set; }
     }
