@@ -8,7 +8,7 @@
                             <h5 class="card-title">{{post.title}}</h5>
                         </div>
                         <div class="col-4 text-end">
-                            <button class="btn btn-dark mx-2"> Read </button>
+                            <button (click)="readTitle()" class="btn btn-dark mx-2"> Read </button>
                             <button (click)="translate()" class="btn btn-outline-warning">Translate</button>
                         </div>
                     </div>
@@ -19,7 +19,7 @@
                             <p class="card-text">{{post.description}}</p>
                         </div>
                         <div class="col-md-1">
-                            <button (click)="speak('Hello, How are you?')" class="btn btn-sm btn-dark mx-2"> Read Ok </button>
+                            <button (click)="readDescription()" class="btn btn-sm btn-dark mx-2"> Read</button>
                         </div>
                     </div>
                 </div>
@@ -33,7 +33,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

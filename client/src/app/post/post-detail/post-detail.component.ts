@@ -3,9 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs';
 import { Post } from 'src/app/_models/post';
 import { PostService } from 'src/app/_services/post.service';
-
-declare var SpeechSynthesis: any;
-declare var SpeechSynthesisUtterance: any;
+import { ReadService } from 'src/app/_services/read.service';
 
 @Component({
   selector: 'app-post-detail',
@@ -17,11 +15,14 @@ export class PostDetailComponent implements OnInit {
   id: number | undefined;
   isTranslate: boolean = false;
 
-  constructor(private route: ActivatedRoute, private postService: PostService) {
+  constructor(
+    private route: ActivatedRoute,
+    private postService: PostService,
+    private readService: ReadService
+  ) {
     this.getIdFromRoute();
   }
   ngOnInit(): void {
-    console.log('Id : ' + this.id);
     this.getPost();
     this.isTranslate = false;
   }
@@ -40,7 +41,6 @@ export class PostDetailComponent implements OnInit {
         .subscribe({
           next: (post) => {
             this.post = post;
-            console.log(this.post);
           },
         });
     }
@@ -54,9 +54,14 @@ export class PostDetailComponent implements OnInit {
     this.isTranslate = false;
   }
 
-  speak(text: string) {
-    const synth = window.speechSynthesis;
-    const utterance = new SpeechSynthesisUtterance(text);
-    synth.speak(utterance);
+  readTitle() {
+    this.read(this.post?.title as string);
+  }
+  readDescription() {
+    this.read(this.post?.description as string);
+  }
+
+  read(text: string) {
+    if (text) this.readService.read(text);
   }
 }
