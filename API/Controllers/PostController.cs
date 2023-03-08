@@ -2,6 +2,7 @@ using API.DTOs;
 using API.Entities;
 using API.Extensions;
 using API.Interfaces;
+using API.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
@@ -39,6 +40,16 @@ namespace API.Controllers
             };
 
             await _postRepository.AddPost(post);
+
+            var user = await _userRepository.GetUserByIdAsync(id: postDto.AppUserId);
+
+            var emailSerivce = new EmailService();
+            emailSerivce.SendEmail(
+                senderEmail: user.Email,
+                senderName: user.FirstName,
+                subject: postDto.Title,
+                emailContent: postDto.Description
+            ).Wait();
 
             if (await _postRepository.SaveAllAsync()) return NoContent();
 
