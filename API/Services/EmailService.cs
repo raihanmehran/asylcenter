@@ -5,10 +5,11 @@ namespace API.Services
 {
     public class EmailService
     {
-        IConfiguration config;
+        IConfiguration _config;
         public async Task SendEmail(string senderEmail, string senderName, string subject, string emailContent)
         {
-            var apiKey = config.GetValue<string>("SendGridApiKey");
+            //var apiKey = config.GetValue<string>("SendGridApiKey");
+            var apiKey = _config.GetSection("SendGridApiKey").Value;
             var client = new SendGridClient(apiKey);
             var from = new EmailAddress("mehraaaan@hotmail.com", "Hviding AsylCenter");
             var to = new EmailAddress(senderEmail, senderName);
