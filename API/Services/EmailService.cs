@@ -8,8 +8,6 @@ namespace API.Services
 {
     public class EmailService : IEmailService
     {
-
-        private readonly SendGridSettings _sendGrid;
         private string _apiKey;
         public EmailService(IOptions<SendGridSettings> config)
         {
@@ -17,8 +15,6 @@ namespace API.Services
         }
         public async Task SendEmail(string senderEmail, string senderName, string subject, string emailContent)
         {
-            //var apiKey = config.GetValue<string>("SendGridApiKey");
-            // var apiKey = _config.GetSection("SendGridApiKey").Value;
             var apiKey = _apiKey;
             var client = new SendGridClient(apiKey);
             var from = new EmailAddress("mehraaaan@hotmail.com", "Hviding AsylCenter");

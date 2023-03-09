@@ -73,6 +73,7 @@ namespace API.Data
             return await _context.SaveChangesAsync() > 0;
         }
 
+        // No need for this method , because we are not actually deleting the post just hiding them from the user.
         public void DeletePost(int postId)
         {
             throw new NotImplementedException();
