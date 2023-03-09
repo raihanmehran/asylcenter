@@ -22,7 +22,7 @@ namespace API.Extensions
             services.AddScoped<IPhotoService, PhotoService>();
             services.AddScoped<LogUserActivity>();
             services.AddScoped<IPostRepository, PostRepository>();
-            services.Configure<string>(config.GetSection("SendGridApiKey"));
+            services.Configure<SendGridSettings>(config.GetSection("SendGridSettings"));
             services.AddScoped<IEmailService, EmailService>();
 
             return services;

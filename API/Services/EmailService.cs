@@ -1,3 +1,4 @@
+using API.Helpers;
 using API.Interfaces;
 using Microsoft.Extensions.Options;
 using SendGrid;
@@ -7,10 +8,12 @@ namespace API.Services
 {
     public class EmailService : IEmailService
     {
-        string _apiKey = "";
-        public EmailService(IOptions<string> config)
+
+        private readonly SendGridSettings _sendGrid;
+        private string _apiKey;
+        public EmailService(IOptions<SendGridSettings> config)
         {
-            _apiKey = config.Value.ToString();
+            _apiKey = config.Value.ApiKey;
         }
         public async Task SendEmail(string senderEmail, string senderName, string subject, string emailContent)
         {
