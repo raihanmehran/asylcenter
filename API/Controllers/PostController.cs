@@ -13,9 +13,12 @@ namespace API.Controllers
         private readonly IPostRepository _postRepository;
         private readonly IMapper _mapper;
         private readonly IUserRepository _userRepository;
-        public PostController(IPostRepository postRepository, IMapper mapper, IUserRepository userRepository)
+        private readonly IEmailService _emailService;
+
+        public PostController(IPostRepository postRepository, IMapper mapper, IUserRepository userRepository, IEmailService emailService)
         {
             _userRepository = userRepository;
+            _emailService = emailService;
             _mapper = mapper;
             _postRepository = postRepository;
         }
@@ -43,13 +46,12 @@ namespace API.Controllers
 
             var user = await _userRepository.GetUserByIdAsync(id: postDto.AppUserId);
 
-            // var emailSerivce = new EmailService();
-            // emailSerivce.SendEmail(
-            //     senderEmail: user.Email,
-            //     senderName: user.FirstName,
-            //     subject: postDto.Title,
-            //     emailContent: postDto.Description
-            // ).Wait();
+            await _emailService.SendEmail(
+                senderEmail: user.Email,
+                senderName: user.FirstName,
+                subject: postDto.Title,
+                emailContent: postDto.Description
+            );
 
             if (await _postRepository.SaveAllAsync()) return NoContent();
 
