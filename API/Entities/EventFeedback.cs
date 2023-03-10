@@ -6,8 +6,8 @@ namespace API.Entities
     public class EventFeedback
     {
         public int Id { get; set; }
-        public bool Liked { get; set; }
-        public bool Interested { get; set; }
+        public bool Liked { get; set; } = false;
+        public bool Interested { get; set; } = false;
         public string Comment { get; set; }
         public string IdNmber { get; set; }
         public int EventId { get; set; }
