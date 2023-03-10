@@ -46,11 +46,14 @@ namespace API.Controllers
 
             var user = await _userRepository.GetUserByIdAsync(id: postDto.AppUserId);
 
-            _emailService.SendEmail(
-                senderEmail: user.Email,
-                senderName: user.FirstName,
-                subject: postDto.Title
-            ).Wait();
+            if (!string.IsNullOrEmpty(user.Email))
+            {
+                _emailService.SendEmail(
+                    senderEmail: user.Email,
+                    senderName: user.FirstName,
+                    subject: postDto.Title
+                ).Wait();
+            }
 
             if (await _postRepository.SaveAllAsync()) return NoContent();
 
@@ -61,18 +64,10 @@ namespace API.Controllers
         public async Task<ActionResult<PostDto>> GetPost(int postId)
         {
             if (postId <= 0) return BadRequest("Cannot find post with no or zero id");
+
             if (!(await _postRepository.PostExists(postId: postId))) return NotFound();
 
             var post = await _postRepository.GetPost(postId: postId);
-
-            // var postDto = new PostDto
-            // {
-            //     Title = post.Title,
-            //     Description = post.Description,
-            //     Id = post.Id,
-            //     IsCollected = post.IsCollected,
-            //     Created = post.Created
-            // };
 
             if (post is null) return NotFound();
 
