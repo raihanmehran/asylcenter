@@ -11,6 +11,7 @@ namespace API.Entities
         public string PublicId { get; set; }
         public DateTime Created { get; set; } = DateTime.Now;
         public bool IsDeleted { get; set; } = false;
+        public bool IsCompleted { get; set; } = false;
         public int AddedBy { get; set; }
         public List<EventFeedback> EventFeedback { get; set; } = new();
     }
