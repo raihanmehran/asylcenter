@@ -9,15 +9,17 @@ namespace API.Services
     public class EmailService : IEmailService
     {
         private string _apiKey;
+
         public EmailService(IOptions<SendGridSettings> config)
         {
             _apiKey = config.Value.ApiKey;
         }
-        public async Task SendEmail(string senderEmail, string senderName, string subject, string emailContent)
+        public async Task SendEmail(string senderEmail, string senderName, string subject)
         {
             var apiKey = _apiKey;
             var client = new SendGridClient(apiKey);
-            var from = new EmailAddress("mehraaaan@hotmail.com", "Hviding AsylCenter");
+            var from = new EmailAddress("raihan.mehran1073@gmail.com", "Hviding AsylCenter");
+            var emailContent = $"Hello {senderName},\n\nYou got a post from the Hviding AsylCenter, please login to your account and check it out!\n\nLink to your post: https://localhost:4200/post/list \n\nSincerely,\nHviding AsylCenter";
             var to = new EmailAddress(senderEmail, senderName);
             var htmlContent = $"<strong>{emailContent}</strong>";
             var msg = MailHelper.CreateSingleEmail(from, to, subject, emailContent, htmlContent);

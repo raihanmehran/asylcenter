@@ -45,7 +45,7 @@ export class PostEditorComponent implements OnInit {
         [
           Validators.required,
           Validators.minLength(7),
-          Validators.maxLength(10),
+          Validators.maxLength(12),
         ],
       ],
       title: ['', Validators.required],
@@ -66,7 +66,7 @@ export class PostEditorComponent implements OnInit {
                 ' with title: ' +
                 values.title
             );
-            this.resetForm();
+            this.initializeForm();
           },
           error: (error) => {
             this.toastr.error(error.error);

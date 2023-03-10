@@ -46,12 +46,11 @@ namespace API.Controllers
 
             var user = await _userRepository.GetUserByIdAsync(id: postDto.AppUserId);
 
-            await _emailService.SendEmail(
+            _emailService.SendEmail(
                 senderEmail: user.Email,
                 senderName: user.FirstName,
-                subject: postDto.Title,
-                emailContent: postDto.Description
-            );
+                subject: postDto.Title
+            ).Wait();
 
             if (await _postRepository.SaveAllAsync()) return NoContent();
 
