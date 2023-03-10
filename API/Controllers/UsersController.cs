@@ -90,7 +90,7 @@ namespace API.Controllers
 
             if (user == null) return NotFound();
 
-            var result = await _photoService.AddPhotoAsync(file);
+            var result = await _photoService.AddPhotoAsync(file: file, storageFolder: "asylcenter-net7");
 
             if (result.Error != null) return BadRequest(result.Error.Message);
 
@@ -112,7 +112,7 @@ namespace API.Controllers
                     _mapper.Map<PhotoDto>(photo));
             }
 
-            return BadRequest("Problem happend in adding photo");
+            return BadRequest("Problem happened in adding photo");
         }
 
         [HttpPut("set-main-photo/{photoId}")]

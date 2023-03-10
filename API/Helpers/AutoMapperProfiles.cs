@@ -24,6 +24,7 @@ namespace API.Helpers
             CreateMap<Post, PostDto>()
                 .ForMember(dest => dest.IdNumber, opt => opt
                     .MapFrom(src => src.AppUser.IdNumber));
+            CreateMap<EventDto, Event>();
         }
     }
 }

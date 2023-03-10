@@ -24,6 +24,7 @@ namespace API.Extensions
             services.AddScoped<IPostRepository, PostRepository>();
             services.Configure<SendGridSettings>(config.GetSection("SendGridSettings"));
             services.AddScoped<IEmailService, EmailService>();
+            services.AddScoped<IEventRepository, EventRepository>();
 
             return services;
         }
