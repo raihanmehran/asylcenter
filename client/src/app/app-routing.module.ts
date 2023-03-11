@@ -15,6 +15,7 @@ import { PreventUnsavedChangesGuard } from './_guards/prevent-unsaved-changes.gu
 import { UserEditComponent } from './user/user-edit/user-edit.component';
 import { PostEditorComponent } from './post/post-editor/post-editor.component';
 import { SearchPostComponent } from './post/search-post/search-post.component';
+import { EventListComponent } from './event/event-list/event-list.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -39,6 +40,8 @@ const routes: Routes = [
       { path: 'post/post-editor', component: PostEditorComponent },
       { path: 'post/list/:id', component: PostDetailComponent },
       { path: 'post/search', component: SearchPostComponent },
+
+      { path: 'events/list', component: EventListComponent },
     ],
   },
   { path: 'errors', component: TestErrorComponent },
