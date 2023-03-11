@@ -32,6 +32,7 @@ import { TextAreaComponent } from './_forms/text-area/text-area.component';
 import { SearchPostComponent } from './post/search-post/search-post.component';
 import { SearchPostCardComponent } from './post/search-post-card/search-post-card.component';
 import { EventListComponent } from './event/event-list/event-list.component';
+import { EventCardComponent } from './event/event-card/event-card.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { EventListComponent } from './event/event-list/event-list.component';
     SearchPostComponent,
     SearchPostCardComponent,
     EventListComponent,
+    EventCardComponent,
   ],
   imports: [
     BrowserModule,
