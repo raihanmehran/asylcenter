@@ -7,7 +7,7 @@ namespace API.Interfaces
         Task<bool> SaveAllAsync();
         Task AddEvent(Event events);
         //Task<Event> GetEvent(int eventId);
-        //Task<IEnumerable<Event>> GetEvents();
+        Task<IEnumerable<Event>> GetEvents();
 
     }
 }

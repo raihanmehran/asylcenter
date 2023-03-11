@@ -10,5 +10,6 @@ namespace API.DTOs
         public DateOnly Date { get; set; }
         public TimeOnly Time { get; set; }
         public string PhotoUrl { get; set; }
+        public DateTime Created { get; set; }
     }
 }
