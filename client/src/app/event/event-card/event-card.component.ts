@@ -12,4 +12,13 @@ export class EventCardComponent implements OnInit {
 
   constructor() {}
   ngOnInit(): void {}
+
+  formatTime(time: Time): string {
+    var timeString = time.toLocaleString();
+    var timeArr = timeString.split(':');
+    var hours = parseInt(timeArr[0]);
+    var minutes = timeArr[1];
+
+    return `${hours}:${minutes}`;
+  }
 }
