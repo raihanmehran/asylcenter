@@ -10,6 +10,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { TimeagoModule } from 'ngx-timeago';
+import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 
 @NgModule({
   declarations: [],
@@ -29,6 +30,7 @@ import { TimeagoModule } from 'ngx-timeago';
     PaginationModule.forRoot(),
     ButtonsModule.forRoot(),
     TimeagoModule.forRoot(),
+    TimepickerModule.forRoot(),
   ],
   exports: [
     BsDropdownModule,
@@ -41,6 +43,7 @@ import { TimeagoModule } from 'ngx-timeago';
     PaginationModule,
     ButtonsModule,
     TimeagoModule,
+    TimepickerModule,
   ],
 })
 export class SharedModule {}

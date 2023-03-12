@@ -1,0 +1,22 @@
+<div class="container-fluid">
+    <div class="card">
+        <form>
+            <div class="card-header text-bg-primary">
+                <div class="class-title ">
+                    <strong>Add Event</strong>
+                </div>
+            </div>
+            <div class="card-body px-3 py-2">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-6">
+                            <app-timepicker [formControl]="$any(eventForm.controls['time'])" [id]="'time'"></app-timepicker>
+
+                        </div>
+                        <div class="col-6">Photo Uplad</div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

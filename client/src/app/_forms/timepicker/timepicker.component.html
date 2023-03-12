@@ -1,0 +1,13 @@
+<div class="mb-2">
+    <div class="row align-items-center">
+        <div class="col-2">
+            <label for="{{id}}">{{label}}</label>
+        </div>
+        <div class="col-10">
+            <timepicker [formControl]="control" [showMeridian]="isMeridian" [showSpinners]="showSpinners" [arrowkeys]="allowArrowKeys"></timepicker>
+        </div>
+    </div>
+    <div class="invalid-feedback " *ngIf="control.errors?.[ 'required'] ">Please enter {{label}}</div>
+    <div class="invalid-feedback " *ngIf="control.errors?.[ 'minlength'] ">{{label}} must be at least {{control.errors?.['minlength'].requiredLength}} characters</div>
+    <div class="invalid-feedback " *ngIf="control.errors?.[ 'maxlength'] ">{{label}} must be at most {{control.errors?.['maxlength'].requiredLength}} characters</div>
+</div>
