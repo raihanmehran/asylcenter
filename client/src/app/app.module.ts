@@ -33,6 +33,7 @@ import { SearchPostComponent } from './post/search-post/search-post.component';
 import { SearchPostCardComponent } from './post/search-post-card/search-post-card.component';
 import { EventListComponent } from './event/event-list/event-list.component';
 import { EventCardComponent } from './event/event-card/event-card.component';
+import { EventEditorComponent } from './event/event-editor/event-editor.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { EventCardComponent } from './event/event-card/event-card.component';
     SearchPostCardComponent,
     EventListComponent,
     EventCardComponent,
+    EventEditorComponent,
   ],
   imports: [
     BrowserModule,
