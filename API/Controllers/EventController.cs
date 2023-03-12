@@ -34,6 +34,7 @@ namespace API.Controllers
 
             var events = _mapper.Map<Event>(eventDto);
             events.AddedBy = user.Id;
+            events.Created = DateTime.Now;
 
             if (photo is not null)
             {

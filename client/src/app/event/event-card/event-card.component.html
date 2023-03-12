@@ -1,7 +1,7 @@
 <div class="card mb-3" *ngIf="event">
     <div class="row g-0">
         <div class="col-md-4" style="height: 250px;">
-            <img src="https://randomuser.me/api/portraits/women/8.jpg" style="height: 100%; object-fit: cover;" class="img-fluid rounded-start" alt="...">
+            <img src="{{event.photoUrl}}" style="height: 100%; object-fit: cover;" class="img-fluid rounded-start" alt="...">
         </div>
         <div class="col-md-8">
             <div class="card-body">
@@ -26,28 +26,32 @@
                         <div class="col-4 text-end"> <small> <i class="fa fa-map-marker"></i> -- under cons </small></div>
                     </div>
                 </div>
-                <hr class="pb-0 mb-0">
-                <div class="col-12 pb-1">
-                    <div class="row">
-                        <div class="col-4">
-                            <span style="width: 66px;" class="badge text-bg-primary">135</span>
+
+                <!-- The feedback part is set to not visible yet, should create a new component for the feedback -->
+                <div *ngIf="!event">
+                    <hr class="pb-0 mb-0">
+                    <div class="col-12 pb-1">
+                        <div class="row">
+                            <div class="col-4">
+                                <span style="width: 66px;" class="badge text-bg-primary">135</span>
+                            </div>
+                            <div class="col-4 text-center"> <span style="width: 102px;" class="badge text-bg-dark">23</span> </div>
+                            <div class="col-4 text-end"> <span style="width: 104px;" class="badge text-bg-success">45</span> </div>
                         </div>
-                        <div class="col-4 text-center"> <span style="width: 102px;" class="badge text-bg-dark">23</span> </div>
-                        <div class="col-4 text-end"> <span style="width: 104px;" class="badge text-bg-success">45</span> </div>
                     </div>
-                </div>
-                <div class="col-12">
-                    <div class="row">
-                        <div class="col-4">
-                            <button class="btn btn-outline-primary">Like
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-4">
+                                <button class="btn btn-outline-primary">Like
                                 <i class="fa fa-thumbs-o-up"></i>
                             </button>
-                        </div>
-                        <div class="col-4 text-center">
-                            <button class="btn btn-outline-dark">Comment <i class="fa fa-commenting-o"></i> </button>
-                        </div>
-                        <div class="col-4 text-end">
-                            <button class="btn btn-outline-success"> Interested <i class="fa fa-hand-paper-o"></i> </button>
+                            </div>
+                            <div class="col-4 text-center">
+                                <button class="btn btn-outline-dark">Comment <i class="fa fa-commenting-o"></i> </button>
+                            </div>
+                            <div class="col-4 text-end">
+                                <button class="btn btn-outline-success"> Interested <i class="fa fa-hand-paper-o"></i> </button>
+                            </div>
                         </div>
                     </div>
                 </div>
