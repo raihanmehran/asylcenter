@@ -53,7 +53,7 @@ namespace API.Controllers
             return BadRequest("Problem happened in adding event");
         }
 
-        [HttpGet("list")]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<EventDto>>> GetEvents()
         {
             var user = await _userRepository.GetUserByIdAsync(id: User.GetUserId());
