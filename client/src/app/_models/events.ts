@@ -6,6 +6,7 @@ export interface Events {
   content: string;
   date: Date;
   time: Time;
+  location: string;
   photoUrl: string;
   created: Date;
 }

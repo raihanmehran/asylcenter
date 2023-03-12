@@ -7,6 +7,7 @@ namespace API.Entities
         public string Content { get; set; }
         public DateOnly Date { get; set; }
         public TimeOnly Time { get; set; }
+        public string Location { get; set; }
         public string PhotoUrl { get; set; }
         public string PublicId { get; set; }
         public DateTime Created { get; set; } = DateTime.Now;
