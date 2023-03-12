@@ -1,4 +1,4 @@
-<div class="card mb-3">
+<div class="card mb-3" *ngIf="event">
     <div class="row g-0">
         <div class="col-md-4" style="height: 250px;">
             <img src="https://randomuser.me/api/portraits/women/8.jpg" style="height: 100%; object-fit: cover;" class="img-fluid rounded-start" alt="...">
@@ -8,24 +8,22 @@
                 <div class="col-12">
                     <div class="row">
                         <div class="col-9">
-                            <h5 class="card-title">Event title</h5>
+                            <h5 class="card-title"> {{event.title}} </h5>
                         </div>
                         <div class="col-3 text-end">
-                            <p class="card-text"><small class="text-muted"> <cite> 3 mins ago </cite></small></p>
+                            <p class="card-text"><small class="text-muted"> <cite> {{event.created | timeago}} </cite></small></p>
                         </div>
                     </div>
                 </div>
-                <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos necessitatibus atque magnam commodi nobis molestiae fuga nulla numquam rem, voluptatibus blanditiis natus esse. Dicta non tempora accusantium cupiditate praesentium
-                    facilis?
-                </p>
+                <p class="card-text"> {{event.content}} </p>
 
                 <div class="col-12">
                     <div class="row">
                         <div class="col-4 fs-6">
-                            <small><i class="fa fa-calendar"></i> Mar 09, 2023 </small>
+                            <small><i class="fa fa-calendar"></i> {{event.date | date}} </small>
                         </div>
-                        <div class="col-4 text-center"> <small> <i class="fa fa-clock-o"></i> 18:30 </small></div>
-                        <div class="col-4 text-end"> <small> <i class="fa fa-map-marker"></i> Building 19 </small></div>
+                        <div class="col-4 text-center"> <small> <i class="fa fa-clock-o"></i> {{event.time}}  </small></div>
+                        <div class="col-4 text-end"> <small> <i class="fa fa-map-marker"></i> -- under cons </small></div>
                     </div>
                 </div>
                 <hr class="pb-0 mb-0">
