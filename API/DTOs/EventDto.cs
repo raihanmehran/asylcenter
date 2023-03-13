@@ -11,5 +11,6 @@ namespace API.DTOs
         public string Location { get; set; }
         public string PhotoUrl { get; set; }
         public DateTime Created { get; set; }
+        public FormFile photo { get; set; }
     }
 }

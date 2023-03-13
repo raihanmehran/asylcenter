@@ -23,6 +23,68 @@ namespace API.Controllers
             _eventRepository = eventRepository;
         }
 
+        [HttpPost("add")]
+        public async Task<ActionResult> AddEvent()
+        {
+            var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+            if (user == null) return NotFound();
+
+            var photo = Request.Form.Files[0];
+
+            var eventDto = new EventDto
+            {
+                Title = Request.Form["title"].ToString(),
+                Content = Request.Form["content"].ToString(),
+                Date = DateOnly.Parse(Request.Form["date"].ToString()),
+                Location = Request.Form["location"].ToString(),
+            };
+
+            var time = Request.Form["time"].ToString();
+
+            if (time != "")
+            {
+                eventDto.Time = TimeOnly.Parse(Request.Form["time"].ToString());
+            }
+
+            var events = _mapper.Map<Event>(eventDto);
+            events.AddedBy = user.Id;
+            events.Created = DateTime.Now;
+
+            if (photo is not null)
+            {
+                var result = await _photoService
+                    .AddPhotoAsync(file: photo, storageFolder: "hviding-events");
+
+                if (result.Error != null) return BadRequest(result.Error.Message);
+
+                events.PhotoUrl = result.SecureUrl.AbsoluteUri;
+                events.PublicId = result.PublicId;
+            }
+
+            await _eventRepository.AddEvent(events: events);
+
+            if (await _eventRepository.SaveAllAsync()) return NoContent();
+
+            return BadRequest("Problem happened in adding event");
+
+
+            // var photoFile = (Request.Form.Files.Count != 0) ? Request.Form.Files[0] : null;
+
+            // var eventDto = new EventDto
+            // {
+            //     Title = Request.Form["title"],
+            //     Content = Request.Form["content"],
+            //     Date = DateOnly.Parse(Request.Form["date"]),
+            //     Time = TimeOnly.Parse(Request.Form["time"]),
+            // };
+
+            // var user = await _userRepository.GetUserByIdAsync(User.GetUserId());
+
+            // System.Console.WriteLine("");
+            // System.Console.WriteLine("");
+            // System.Console.WriteLine("");
+        }
+
         [HttpPost("add-event")]
         public async Task<ActionResult> AddEvent([FromForm] IFormFile photo, [FromForm] string eventObject)
         {
