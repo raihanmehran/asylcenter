@@ -68,37 +68,6 @@ namespace API.Controllers
             return BadRequest("Problem happened in adding event");
         }
 
-        [HttpPost("add-event")]
-        public async Task<ActionResult> AddEvent([FromForm] IFormFile photo, [FromForm] string eventObject)
-        {
-            var user = await _userRepository.GetUserByIdAsync(id: User.GetUserId());
-
-            if (user is null) return BadRequest("It was a bad request");
-
-            var eventDto = JsonConvert.DeserializeObject<EventDto>(eventObject);
-
-            var events = _mapper.Map<Event>(eventDto);
-            events.AddedBy = user.Id;
-            events.Created = DateTime.Now;
-
-            if (photo is not null)
-            {
-                var result = await _photoService
-                    .AddPhotoAsync(file: photo, storageFolder: "hviding-events");
-
-                if (result.Error != null) return BadRequest(result.Error.Message);
-
-                events.PhotoUrl = result.SecureUrl.AbsoluteUri;
-                events.PublicId = result.PublicId;
-            }
-
-            await _eventRepository.AddEvent(events: events);
-
-            if (await _eventRepository.SaveAllAsync()) return NoContent();
-
-            return BadRequest("Problem happened in adding event");
-        }
-
         [HttpGet]
         public async Task<ActionResult<IEnumerable<EventDto>>> GetEvents()
         {
