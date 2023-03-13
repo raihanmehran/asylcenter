@@ -10,7 +10,7 @@
                 <div *ngIf="!events">
                     <strong>No Posts found!</strong>
                 </div>
-                <div *ngIf="!events">
+                <div *ngIf="events">
                     <div class="card my-2 text-bg-primary">
                         <div class="row px-3 py-2">
                             <div class="col-12">
@@ -24,25 +24,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card my-2">
-                        <div class="row px-3 py-2">
-                            <div class="col-12">
-                                <div class="row align-items-center">
-                                    <div class="col-4 col-md-2">Image</div>
-                                    <div class="col-8 col-md-4 fw-bold">Title</div>
-                                    <div class="col-6 col-md-2">Date | Time</div>
-                                    <div class="col-6 col-md-2">
-                                        <span class="badge rounded-pill text-bg-primary mx-1">Likes: 101</span>
-                                        <span class="badge rounded-pill text-bg-warning mx-1">Comments: 101</span>
-                                        <span class="badge rounded-pill text-bg-success mx-1">Interested: 101</span>
-                                    </div>
-                                    <div class="col-12 col-md-2">
-                                        <button class="btn btn-outline-primary mx-1"><i class="fa fa-pencil"></i></button>
-                                        <button class="btn btn-outline-danger"><i class="fa fa-trash"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div *ngFor="let event of events">
+                        <app-event-search-card [event]="event"></app-event-search-card>
                     </div>
                 </div>
             </div>
