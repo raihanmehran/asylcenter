@@ -23,7 +23,8 @@ namespace API.Data
             return await _context.Events
                 .Where(e => e.IsDeleted == false)
                 .Where(e => e.IsCompleted == false)
-                .OrderByDescending(e => e.Date)
+                .OrderBy(e => e.Date)
+                .ThenBy(e => e.Time)
                 .ToListAsync();
         }
 

@@ -17,6 +17,7 @@ import { PostEditorComponent } from './post/post-editor/post-editor.component';
 import { SearchPostComponent } from './post/search-post/search-post.component';
 import { EventListComponent } from './event/event-list/event-list.component';
 import { EventEditorComponent } from './event/event-editor/event-editor.component';
+import { EventSearchComponent } from './event/event-search/event-search.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -44,6 +45,7 @@ const routes: Routes = [
 
       { path: 'events/editor', component: EventEditorComponent },
       { path: 'events/list', component: EventListComponent },
+      { path: 'events/search', component: EventSearchComponent },
     ],
   },
   { path: 'errors', component: TestErrorComponent },

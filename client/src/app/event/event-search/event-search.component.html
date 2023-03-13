@@ -1,1 +1,22 @@
-<p>event-search works!</p>
+<div class="text-center mt-3">
+    <h3>Total <span *ngIf="events">{{events.length}}</span> <span *ngIf="!events">0</span> upcomming events</h3>
+</div>
+
+<div class="container mt-3">
+
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div *ngIf="!events">
+                    <strong>No Posts found!</strong>
+                </div>
+                <div *ngIf="!events">
+                    <div class="col-12">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
