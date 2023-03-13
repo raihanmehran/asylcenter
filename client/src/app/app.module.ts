@@ -37,6 +37,7 @@ import { EventEditorComponent } from './event/event-editor/event-editor.componen
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { TimepickerComponent } from './_forms/timepicker/timepicker.component';
 import { EventSearchComponent } from './event/event-search/event-search.component';
+import { EventSearchCardComponent } from './event/event-search-card/event-search-card.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { EventSearchComponent } from './event/event-search/event-search.componen
     EventEditorComponent,
     TimepickerComponent,
     EventSearchComponent,
+    EventSearchCardComponent,
   ],
   imports: [
     BrowserModule,
