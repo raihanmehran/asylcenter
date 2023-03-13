@@ -68,39 +68,6 @@ export class EventEditorComponent implements OnInit {
   addEvent() {
     const dateOnly = this.getDateOnly(this.eventForm.controls['date'].value);
     const timeOnly = this.getTimeOnly(this.eventForm.controls['time'].value);
-
-    // const values = {
-    //   ...this.eventForm.value,
-    //   date: dateOnly,
-    //   time: timeOnly,
-    //   photo: this.image,
-    // };
-    // const photo = this.eventForm.controls['photo'].value;
-    // console.log('values:');
-    // console.log(values);
-
-    // this.eventService
-    //   .addEvent2(values)
-    //   .pipe()
-    //   .subscribe({
-    //     next: (response) => {
-    //       this.toastr.success('Event added successfully');
-    //       console.log(response);
-    //     },
-    //     error: (error) => this.toastr.error(error.error),
-    //   });
-
-    // this.eventService
-    //   .addEvent(photo, values)
-    //   .pipe()
-    //   .subscribe({
-    //     next: (response) => {
-    //       this.toastr.success('Event added successfully');
-    //       console.log(response);
-    //     },
-    //     error: (error) => this.toastr.error(error.error),
-    //   });
-
     const formData = new FormData();
 
     if (this.selectedFile)
@@ -123,8 +90,6 @@ export class EventEditorComponent implements OnInit {
 
   resetForm() {
     this.initializeForm();
-    // this.imageUrl = '';
-    // this.image = undefined;
     this.eventForm.controls['time'].setValue(void 0);
   }
 

@@ -66,23 +66,6 @@ namespace API.Controllers
             if (await _eventRepository.SaveAllAsync()) return NoContent();
 
             return BadRequest("Problem happened in adding event");
-
-
-            // var photoFile = (Request.Form.Files.Count != 0) ? Request.Form.Files[0] : null;
-
-            // var eventDto = new EventDto
-            // {
-            //     Title = Request.Form["title"],
-            //     Content = Request.Form["content"],
-            //     Date = DateOnly.Parse(Request.Form["date"]),
-            //     Time = TimeOnly.Parse(Request.Form["time"]),
-            // };
-
-            // var user = await _userRepository.GetUserByIdAsync(User.GetUserId());
-
-            // System.Console.WriteLine("");
-            // System.Console.WriteLine("");
-            // System.Console.WriteLine("");
         }
 
         [HttpPost("add-event")]
