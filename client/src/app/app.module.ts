@@ -34,7 +34,6 @@ import { SearchPostCardComponent } from './post/search-post-card/search-post-car
 import { EventListComponent } from './event/event-list/event-list.component';
 import { EventCardComponent } from './event/event-card/event-card.component';
 import { EventEditorComponent } from './event/event-editor/event-editor.component';
-import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { TimepickerComponent } from './_forms/timepicker/timepicker.component';
 import { EventSearchComponent } from './event/event-search/event-search.component';
 import { EventSearchCardComponent } from './event/event-search-card/event-search-card.component';
@@ -78,7 +77,6 @@ import { EventSearchCardComponent } from './event/event-search-card/event-search
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
-    TimepickerModule.forRoot(),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

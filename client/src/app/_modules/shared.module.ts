@@ -11,6 +11,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { TimeagoModule } from 'ngx-timeago';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
   declarations: [],
@@ -31,6 +32,7 @@ import { TimepickerModule } from 'ngx-bootstrap/timepicker';
     ButtonsModule.forRoot(),
     TimeagoModule.forRoot(),
     TimepickerModule.forRoot(),
+    ModalModule.forRoot(),
   ],
   exports: [
     BsDropdownModule,
@@ -44,6 +46,7 @@ import { TimepickerModule } from 'ngx-bootstrap/timepicker';
     ButtonsModule,
     TimeagoModule,
     TimepickerModule,
+    ModalModule,
   ],
 })
 export class SharedModule {}
