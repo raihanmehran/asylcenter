@@ -17,9 +17,8 @@ import { EventService } from 'src/app/_services/event.service';
 })
 export class EventEditorComponent implements OnInit {
   eventForm: FormGroup = new FormGroup({});
-  imageUrl: string = '';
-  image: File | undefined;
   selectedFile: File | undefined;
+  imageUrl: string = '';
 
   constructor(
     private fb: FormBuilder,
@@ -42,7 +41,6 @@ export class EventEditorComponent implements OnInit {
     });
   }
   onFileSelected(event: any) {
-    this.imageUrl = '';
     this.selectedFile = <File>event.target.files[0];
 
     const file: File = event.target.files[0];
@@ -51,10 +49,6 @@ export class EventEditorComponent implements OnInit {
       this.toastr.warning('Invalid file type selected!');
     } else {
       if (file) {
-        this.image = file;
-
-        console.log(file);
-
         const reader = new FileReader();
         reader.onload = (e: any) => {
           const fileContents = e.target.result;
@@ -66,30 +60,36 @@ export class EventEditorComponent implements OnInit {
   }
 
   addEvent() {
-    const dateOnly = this.getDateOnly(this.eventForm.controls['date'].value);
-    const timeOnly = this.getTimeOnly(this.eventForm.controls['time'].value);
-    const formData = new FormData();
+    if (this.eventForm.valid) {
+      const dateOnly = this.getDateOnly(this.eventForm.controls['date'].value);
+      const timeOnly = this.getTimeOnly(this.eventForm.controls['time'].value);
+      const formData = new FormData();
 
-    if (this.selectedFile)
-      formData.append('image', this.selectedFile, this.selectedFile.name);
-    formData.append('title', this.eventForm.controls['title'].value);
-    formData.append('content', this.eventForm.controls['content'].value);
-    formData.append('date', dateOnly!.toString());
-    formData.append('time', timeOnly!.toString());
-    formData.append('location', this.eventForm.controls['location'].value);
-    console.log(formData);
+      if (this.selectedFile)
+        formData.append('image', this.selectedFile, this.selectedFile.name);
 
-    this.eventService.addEvent2(formData).subscribe({
-      next: (response) => {
-        this.toastr.success('Event added successfully');
-        console.log(response);
-      },
-      error: (error) => this.toastr.error(error.error),
-    });
+      formData.append('title', this.eventForm.controls['title'].value);
+      formData.append('content', this.eventForm.controls['content'].value);
+      formData.append('date', dateOnly!.toString());
+      formData.append('time', timeOnly!.toString());
+      formData.append('location', this.eventForm.controls['location'].value);
+
+      this.eventService.addEvent(formData).subscribe({
+        next: (response) => {
+          this.toastr.success('Event added successfully');
+          console.log(response);
+        },
+        error: (error) => this.toastr.error(error.error),
+      });
+    } else {
+      this.toastr.warning('Please fill the required fields');
+    }
   }
 
   resetForm() {
     this.initializeForm();
+    this.imageUrl = '';
+    this.selectedFile = undefined;
     this.eventForm.controls['time'].setValue(void 0);
   }
 
