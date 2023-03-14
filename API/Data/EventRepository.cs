@@ -18,6 +18,15 @@ namespace API.Data
             await _context.Events.AddAsync(events);
         }
 
+        public async Task<Event> GetEvent(int eventId)
+        {
+            return await _context.Events
+                .Where(e => e.Id == eventId)
+                .Where(e => e.IsDeleted == false)
+                .Where(e => e.IsCompleted == false)
+                .SingleOrDefaultAsync();
+        }
+
         public async Task<IEnumerable<Event>> GetEvents()
         {
             return await _context.Events
