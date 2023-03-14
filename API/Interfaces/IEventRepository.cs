@@ -8,6 +8,6 @@ namespace API.Interfaces
         Task AddEvent(Event events);
         Task<Event> GetEvent(int eventId);
         Task<IEnumerable<Event>> GetEvents();
-
+        void UpdateEvent(Event events);
     }
 }

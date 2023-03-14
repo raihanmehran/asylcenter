@@ -83,5 +83,19 @@ namespace API.Controllers
 
             return Ok(events);
         }
+
+        [HttpDelete("delete-event/{eventId}")]
+        public async Task<ActionResult> DeleteEvent(int eventId)
+        {
+            var events = await _eventRepository.GetEvent(eventId: eventId);
+
+            if (events == null) return NotFound();
+
+            events.IsDeleted = true;
+
+            if (await _eventRepository.SaveAllAsync()) return NoContent();
+
+            return BadRequest("Something bad happened while deleting event!");
+        }
     }
 }

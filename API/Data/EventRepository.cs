@@ -23,7 +23,6 @@ namespace API.Data
             return await _context.Events
                 .Where(e => e.Id == eventId)
                 .Where(e => e.IsDeleted == false)
-                .Where(e => e.IsCompleted == false)
                 .SingleOrDefaultAsync();
         }
 
@@ -37,9 +36,15 @@ namespace API.Data
                 .ToListAsync();
         }
 
+        public void UpdateEvent(Event events)
+        {
+            _context.Entry(events).State = EntityState.Modified;
+        }
+
         public async Task<bool> SaveAllAsync()
         {
             return await _context.SaveChangesAsync() > 0;
         }
+
     }
 }

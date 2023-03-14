@@ -73,7 +73,7 @@ export class EventSearchComponent implements OnInit {
             this.events = this.events?.filter((e) => e.id !== eventId);
             this.toastr.success('Event removed successfully!');
           },
-          error: (error) => this.toastr.error(error.errors.error),
+          error: (error) => this.toastr.error(error.error),
         });
     }
   }
