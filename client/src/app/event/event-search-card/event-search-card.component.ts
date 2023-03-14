@@ -1,4 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  TemplateRef,
+} from '@angular/core';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Events } from 'src/app/_models/events';
 
 @Component({
@@ -8,7 +16,17 @@ import { Events } from 'src/app/_models/events';
 })
 export class EventSearchCardComponent implements OnInit {
   @Input() event: Events | undefined;
+  @Output() editEvent = new EventEmitter<Events>();
+  @Output() deleteEvent = new EventEmitter<Events>();
 
   constructor() {}
   ngOnInit(): void {}
+
+  edit() {
+    this.editEvent.emit(this.event);
+  }
+
+  delete() {
+    this.deleteEvent.emit(this.event);
+  }
 }

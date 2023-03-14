@@ -24,4 +24,14 @@ export class EventService {
       .post(this.baseUrl + 'event/add', model)
       .pipe(map((response) => response));
   }
+
+  deleteEvent(eventId: number) {
+    return this.http
+      .delete(this.baseUrl + 'event/delete-event/' + eventId)
+      .pipe(
+        map((_) => {
+          return;
+        })
+      );
+  }
 }
