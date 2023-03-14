@@ -34,6 +34,8 @@ export class EventSearchComponent implements OnInit {
         next: (response) => {
           if (response) {
             this.events = response;
+            console.log(this.events);
+
           }
         },
         error: (error) => this.toastr.error(error.error),

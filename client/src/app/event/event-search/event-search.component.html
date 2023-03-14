@@ -16,8 +16,8 @@
                             <div class="col-12">
                                 <div class="row">
                                     <div class="col-4 col-md-2 fw-bold">Image</div>
-                                    <div class="col-8 col-md-4 fw-bold">Title</div>
-                                    <div class="col-6 col-md-2 fw-bold">Date | Time</div>
+                                    <div class="col-8 col-md-3 fw-bold">Title</div>
+                                    <div class="col-6 col-md-3 fw-bold">Date | Time | Place</div>
                                     <div class="col-6 col-md-2 fw-bold">Feedback</div>
                                     <div class="col-12 col-md-2 fw-bold">Action Buttons</div>
                                 </div>
@@ -35,7 +35,7 @@
 </div>
 
 <ng-template #confirmDialog>
-    <div class="modal-body text-center">
+    <div class="modal-body text-center bg-text-danger">
         <p>Are you sure want to delete?</p>
         <button type="button" class="btn btn-default" (click)="confirm()">Yes</button>
         <button type="button" class="btn btn-primary" (click)="decline()">No</button>

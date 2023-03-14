@@ -84,6 +84,24 @@ namespace API.Controllers
             return Ok(events);
         }
 
+        [HttpPut]
+        public async Task<ActionResult> UpdateEvent(EventDto eventDto)
+        {
+            var events = await _eventRepository.GetEvent(eventId: eventDto.Id);
+
+            if (events == null) return NotFound();
+
+            events.Title = eventDto.Title;
+            events.Content = eventDto.Content;
+            events.Date = eventDto.Date;
+            events.Time = eventDto.Time;
+            events.Location = eventDto.Location;
+
+            if (await _eventRepository.SaveAllAsync()) return NoContent();
+
+            return BadRequest("Something bad happened while updating event!");
+        }
+
         [HttpDelete("delete-event/{eventId}")]
         public async Task<ActionResult> DeleteEvent(int eventId)
         {
