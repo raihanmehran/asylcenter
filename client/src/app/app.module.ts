@@ -37,6 +37,7 @@ import { EventEditorComponent } from './event/event-editor/event-editor.componen
 import { TimepickerComponent } from './_forms/timepicker/timepicker.component';
 import { EventSearchComponent } from './event/event-search/event-search.component';
 import { EventSearchCardComponent } from './event/event-search-card/event-search-card.component';
+import { EventUpdateComponent } from './event/event-update/event-update.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { EventSearchCardComponent } from './event/event-search-card/event-search
     TimepickerComponent,
     EventSearchComponent,
     EventSearchCardComponent,
+    EventUpdateComponent,
   ],
   imports: [
     BrowserModule,
