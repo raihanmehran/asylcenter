@@ -27,6 +27,7 @@ export class EventSearchComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.getEvents();
+    this.openModal(this.editDialogRef!);
   }
 
   getEvents() {

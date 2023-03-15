@@ -1,61 +1,57 @@
 <div>
     <tabset>
-        <tab heading="Edit Event's Details" id="tab1">Basic content</tab>
-        <tab heading="Edit Event's Photo">Basic content 1</tab>
-        <tab heading="Basic Title 2">Basic content 2</tab>
-    </tabset>
-</div>
-<div class="container-fluid">
-    <div class="card">
-        <form [formGroup]="eventForm" (ngSubmit)="updateEvent()" autocomplete="off">
-            <div class="card-header text-bg-primary">
-                <div class="class-title ">
-                    <strong>Add Event</strong>
-                </div>
-            </div>
-            <div class="card-body px-3 py-2">
-                <div class="col-12">
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="col-12">
-                                <app-text-input [formControl]="$any(eventForm.controls['title'])" [label]="'Event Title'" [id]="'title'"></app-text-input>
+        <tab heading="Edit Event's Details" id="tab1">
+            <div class="container-fluid mt-2">
+                <div class="card">
+                    <form [formGroup]="eventForm" (ngSubmit)="updateEvent()" autocomplete="off">
+                        <div class="card-header text-bg-primary">
+                            <div class="class-title ">
+                                <strong>Update Event</strong>
                             </div>
+                        </div>
+                        <div class="card-body px-3 py-2">
                             <div class="col-12">
-                                <app-text-area [formControl]="$any(eventForm.controls['content'])" [label]="'Content'" [id]="'content'"></app-text-area>
-                            </div>
-
-                            <div class="col-12">
-                                <div class="row align-items-center">
-                                    <div class="col-6">
-                                        <app-date-picker [formControl]="$any(eventForm.controls['date'])" [label]="'Date'" [id]="'date'"></app-date-picker>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <app-text-input [formControl]="$any(eventForm.controls['title'])" [label]="'Event Title'" [id]="'title'"></app-text-input>
                                     </div>
-                                    <div class="col-6">
-                                        <app-timepicker [formControl]="$any(eventForm.controls['time'])" [id]="'time'"></app-timepicker>
+                                    <div class="col-12">
+                                        <app-text-area [formControl]="$any(eventForm.controls['content'])" [label]="'Content'" [id]="'content'"></app-text-area>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="row align-items-center">
+                                            <div class="col-6">
+                                                <app-date-picker [formControl]="$any(eventForm.controls['date'])" [label]="'Date'" [id]="'date'"></app-date-picker>
+                                            </div>
+                                            <div class="col-6">
+                                                <app-timepicker [formControl]="$any(eventForm.controls['time'])" [id]="'time'"></app-timepicker>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <app-text-input [formControl]="$any(eventForm.controls['location'])" [label]="'Location'" [id]="'location'"></app-text-input>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="col-12">
-                                <app-text-input [formControl]="$any(eventForm.controls['location'])" [label]="'Location'" [id]="'location'"></app-text-input>
+                        </div>
+                        <div class="card-footer">
+                            <div class="row">
+                                <div class="text-end">
+                                    <button class="btn btn-primary mx-2">Update Event</button>
+                                    <button (click)="resetForm()" class="btn btn-secondary mx-2">Reset</button>
+                                    <button class="btn btn-danger mx-2">Cancel</button>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-6">
-                        </div>
-                    </div>
+                    </form>
                 </div>
             </div>
-            <div class="card-footer">
-                <div class="row">
-                    <div class="text-end">
-                        <button class="btn btn-primary mx-2">Update Event</button>
-                        <button (click)="resetForm()" class="btn btn-secondary mx-2">Reset</button>
-                        <button class="btn btn-danger mx-2">Cancel</button>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
+        </tab>
+        <tab heading="Edit Event's Photo">Basic content 1</tab>
+    </tabset>
 </div>
+
 
 <p>Form value: {{eventForm.value | json}}</p>
 <p>Form status: {{eventForm.status | json}}</p>
