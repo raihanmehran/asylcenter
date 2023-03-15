@@ -16,6 +16,9 @@ export class EventSearchComponent implements OnInit {
   @ViewChild('confirmDialog', { static: true }) confirmDialogRef:
     | TemplateRef<any>
     | undefined;
+  @ViewChild('editDialog', { static: true }) editDialogRef:
+    | TemplateRef<any>
+    | undefined;
 
   constructor(
     private eventService: EventService,
@@ -35,7 +38,6 @@ export class EventSearchComponent implements OnInit {
           if (response) {
             this.events = response;
             console.log(this.events);
-
           }
         },
         error: (error) => this.toastr.error(error.error),
@@ -44,15 +46,16 @@ export class EventSearchComponent implements OnInit {
 
   delete($event: Events) {
     this.event = $event;
-    this.openConfirmModal(this.confirmDialogRef!);
+    this.openModal(this.confirmDialogRef!);
   }
 
   edit($event: Events) {
     this.event = $event;
+    this.openModal(this.editDialogRef!);
     this.toastr.show('Post edited');
   }
-  openConfirmModal(onfirmDialog: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(onfirmDialog, { class: 'modal-sm' });
+  openModal(onfirmDialog: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(onfirmDialog, { class: 'modal-lg' });
   }
 
   confirm() {
