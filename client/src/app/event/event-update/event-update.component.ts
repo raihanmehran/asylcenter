@@ -29,6 +29,7 @@ export class EventUpdateComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.initializeForm();
+    console.log(this.event);
   }
 
   initializeForm() {
@@ -50,7 +51,8 @@ export class EventUpdateComponent implements OnInit {
 
         this.event.title = this.eventForm.controls['title'].value;
         this.event.content = this.eventForm.controls['content'].value;
-        this.event.date = new Date(dateOnly!);
+        this.event.date = this.eventForm.controls['date'];
+
         this.event.time = this.eventForm.controls['time'].value
           .toTimeString()
           .substring(0, 8);
@@ -112,6 +114,10 @@ export class EventUpdateComponent implements OnInit {
     )
       .toISOString()
       .slice(0, 10);
+  }
+  private parseShortDate(dateOnly: string):Date{
+    const[day,month,year]=dateOnly.split('/');
+    return new 
   }
   private getTimeOnly(timeString: string | undefined) {
     if (!timeString) return;
