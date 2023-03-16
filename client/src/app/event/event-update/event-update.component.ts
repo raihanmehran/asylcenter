@@ -42,7 +42,24 @@ export class EventUpdateComponent implements OnInit {
   }
 
   eventUpdate() {
-    
+    if (this.event) {
+      if (this.eventForm.valid) {
+        const dateOnly = this.getDateOnly(
+          this.eventForm.controls['date'].value
+        );
+
+        this.event.title = this.eventForm.controls['title'].value;
+        this.event.content = this.eventForm.controls['content'].value;
+        this.event.date = new Date(dateOnly!);
+        this.event.time = this.eventForm.controls['time'].value
+          .toTimeString()
+          .substring(0, 8);
+        this.event.location = this.eventForm.controls['location'].value;
+        console.log('updated:');
+
+        console.log(this.event);
+      }
+    }
   }
   resetForm() {}
 
