@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FileUploader } from 'ng2-file-upload';
 import { ToastrService } from 'ngx-toastr';
@@ -16,7 +16,7 @@ import { environment } from 'src/environments/environment';
 export class EventUpdateComponent implements OnInit {
   eventForm: FormGroup = new FormGroup({});
   @Input() event: Events | undefined;
-  @Output() eventToUpdate: Events | undefined;
+  @Output() updateEvent = new EventEmitter<Event>();
   uploader: FileUploader | undefined;
   hasBaseDropZoneOver = false;
   baseUrl = environment.apiUrl;
@@ -38,11 +38,12 @@ export class EventUpdateComponent implements OnInit {
       date: ['', Validators.required],
       time: [''],
       location: [''],
-      photo: [''],
     });
   }
 
-  updateEvent() {}
+  eventUpdate() {
+    
+  }
   resetForm() {}
 
   getLoggedUser() {
@@ -84,5 +85,25 @@ export class EventUpdateComponent implements OnInit {
         // }
       }
     };
+  }
+
+  private getDateOnly(date: string | undefined) {
+    if (!date) return;
+    let theDate = new Date(date);
+    return new Date(
+      theDate.setMinutes(theDate.getMinutes() - theDate.getTimezoneOffset())
+    )
+      .toISOString()
+      .slice(0, 10);
+  }
+  private getTimeOnly(timeString: string | undefined) {
+    if (!timeString) return;
+
+    const date = new Date(timeString);
+    const hours = date.getHours().toString().padStart(2, '0');
+    const mins = date.getMinutes().toString().padStart(2, '0');
+    const secs = date.getSeconds().toString().padStart(2, '0');
+
+    return `${hours}:${mins}:${secs}`;
   }
 }
