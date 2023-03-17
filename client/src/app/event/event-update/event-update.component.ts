@@ -45,21 +45,13 @@ export class EventUpdateComponent implements OnInit {
   eventUpdate() {
     if (this.event) {
       if (this.eventForm.valid) {
-        const dateOnly = this.getDateOnly(
-          this.eventForm.controls['date'].value
-        );
-
         this.event.title = this.eventForm.controls['title'].value;
         this.event.content = this.eventForm.controls['content'].value;
-        this.event.date = this.eventForm.controls['date'];
-
+        this.event.date = this.eventForm.controls['date'].value;
         this.event.time = this.eventForm.controls['time'].value
           .toTimeString()
           .substring(0, 8);
         this.event.location = this.eventForm.controls['location'].value;
-        console.log('updated:');
-
-        console.log(this.event);
       }
     }
   }
@@ -106,7 +98,7 @@ export class EventUpdateComponent implements OnInit {
     };
   }
 
-  private getDateOnly(date: string | undefined) {
+  private getDateOnly(date: Date) {
     if (!date) return;
     let theDate = new Date(date);
     return new Date(
@@ -115,10 +107,7 @@ export class EventUpdateComponent implements OnInit {
       .toISOString()
       .slice(0, 10);
   }
-  private parseShortDate(dateOnly: string):Date{
-    const[day,month,year]=dateOnly.split('/');
-    return new 
-  }
+
   private getTimeOnly(timeString: string | undefined) {
     if (!timeString) return;
 
