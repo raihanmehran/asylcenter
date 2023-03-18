@@ -21,6 +21,7 @@ export class EventUpdateComponent implements OnInit {
   hasBaseDropZoneOver = false;
   baseUrl = environment.apiUrl;
   loggedUser: LoggedUser | undefined;
+  eventToUpdate: Events | undefined;
 
   constructor(
     private fb: FormBuilder,
