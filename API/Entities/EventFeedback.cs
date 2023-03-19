@@ -9,7 +9,7 @@ namespace API.Entities
         public bool Liked { get; set; } = false;
         public bool Interested { get; set; } = false;
         public string Comment { get; set; }
-        public string IdNmber { get; set; }
+        public string IdNumber { get; set; }
         public int EventId { get; set; }
         public Event Event { get; set; }
     }
