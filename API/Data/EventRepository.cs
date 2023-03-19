@@ -35,6 +35,10 @@ namespace API.Data
                 .ThenBy(e => e.Time)
                 .ToListAsync();
         }
+        public Task AddEventFeedback(EventFeedback feedback)
+        {
+            throw new NotImplementedException();
+        }
 
         public void UpdateEvent(Event events)
         {
@@ -45,6 +49,5 @@ namespace API.Data
         {
             return await _context.SaveChangesAsync() > 0;
         }
-
     }
 }

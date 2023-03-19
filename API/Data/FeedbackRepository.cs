@@ -13,9 +13,9 @@ namespace API.Data
             _context = context;
         }
 
-        public Task AddEventFeedback(EventFeedback feedback)
+        public async Task AddEventFeedback(EventFeedback feedback)
         {
-            throw new NotImplementedException();
+            await _context.EventFeedbacks.AddAsync(feedback);
         }
 
         public async Task<IEnumerable<EventFeedback>> GetEventFeedback(int eventId)

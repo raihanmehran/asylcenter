@@ -9,5 +9,6 @@ namespace API.Interfaces
         Task<Event> GetEvent(int eventId);
         Task<IEnumerable<Event>> GetEvents();
         void UpdateEvent(Event events);
+        Task AddEventFeedback(EventFeedback feedback);
     }
 }
