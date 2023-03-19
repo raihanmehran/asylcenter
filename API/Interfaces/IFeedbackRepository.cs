@@ -6,5 +6,7 @@ namespace API.Interfaces
     {
         Task<IEnumerable<EventFeedback>> GetEventFeedback(int eventId);
         Task AddEventFeedback(EventFeedback feedback);
+
+        
     }
 }

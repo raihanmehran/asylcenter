@@ -27,6 +27,7 @@ namespace API.Helpers
             CreateMap<EventDto, Event>();
             CreateMap<Event, EventDto>();
             CreateMap<EventFeedbackDto, EventFeedback>();
+            CreateMap<EventFeedback, EventFeedbackDto>();
         }
     }
 }

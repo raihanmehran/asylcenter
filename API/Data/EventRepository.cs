@@ -29,6 +29,7 @@ namespace API.Data
         public async Task<IEnumerable<Event>> GetEvents()
         {
             return await _context.Events
+                .Include(e => e.EventFeedback)
                 .Where(e => e.IsDeleted == false)
                 .Where(e => e.IsCompleted == false)
                 .OrderBy(e => e.Date)
