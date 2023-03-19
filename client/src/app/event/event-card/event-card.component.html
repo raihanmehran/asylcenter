@@ -36,21 +36,23 @@
                                 <span style="width: 66px;" class="badge text-bg-primary">{{likes}}</span>
                             </div>
                             <div class="col-4 text-center"> <span style="width: 102px;" class="badge text-bg-dark">{{comments}}</span> </div>
-                            <div class="col-4 text-end"> <span style="width: 104px;" class="badge text-bg-success">{{interested}}</span> </div>
+                            <div class="col-4 text-end"> <span style="width: 90px;" class="badge text-bg-success">{{interested}}</span> </div>
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="row">
                             <div class="col-4">
-                                <button class="btn btn-outline-primary">Like
+                                <button class="btn {{(eventLiked===false)?'btn-outline-primary':'btn-primary'}}"> {{(eventLiked===false)?'Like':'Liked'}}
                                 <i class="fa fa-thumbs-o-up"></i>
                             </button>
                             </div>
                             <div class="col-4 text-center">
-                                <button class="btn btn-outline-dark">Comment <i class="fa fa-commenting-o"></i> </button>
+                                <button class="btn {{(eventCommented===false)?'btn-outline-dark':'btn-dark'}}"> {{(eventCommented===false)?'Comment':'Commented'}}
+                                    <i class="fa fa-commenting-o"></i> </button>
                             </div>
                             <div class="col-4 text-end">
-                                <button class="btn btn-outline-success"> Interested <i class="fa fa-hand-paper-o"></i> </button>
+                                <button class="btn {{(eventInterested===false)?'btn-outline-success':'btn-success'}}"> {{(eventInterested===false)?'Interest':'Interested'}}
+                                    <i class="fa fa-hand-paper-o"></i> </button>
                             </div>
                         </div>
                     </div>

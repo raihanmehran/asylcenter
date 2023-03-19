@@ -1,6 +1,9 @@
 import { Time } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
+import { take } from 'rxjs';
 import { Events } from 'src/app/_models/events';
+import { LoggedUser } from 'src/app/_models/loggedUser';
+import { AccountService } from 'src/app/_services/account.service';
 
 @Component({
   selector: 'app-event-card',
@@ -12,10 +15,24 @@ export class EventCardComponent implements OnInit {
   likes: number = 0;
   interested: number = 0;
   comments: number = 0;
+  loggedUser: LoggedUser | undefined;
+  eventLiked: boolean = false;
+  eventInterested: boolean = false;
+  eventCommented: boolean = false;
 
-  constructor() {}
+  constructor(private accountService: AccountService) {}
+
   ngOnInit(): void {
     this.calculateFeedback();
+  }
+
+  getLoggedUser() {
+    this.accountService.currentUser$.pipe(take(1)).subscribe({
+      next: (user) => {
+        if (user) this.loggedUser = user;
+      },
+      error: (error) => console.log(error.error),
+    });
   }
 
   formatTime(time: Time): string {
