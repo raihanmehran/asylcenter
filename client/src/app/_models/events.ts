@@ -1,4 +1,5 @@
 import { Time } from '@angular/common';
+import { EventFeedback } from './eventFeedback';
 
 export interface Events {
   id: number;
@@ -9,4 +10,5 @@ export interface Events {
   location: string;
   photoUrl: string;
   created: Date;
+  eventFeedback: EventFeedback[];
 }
