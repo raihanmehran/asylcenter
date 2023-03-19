@@ -13,5 +13,6 @@ namespace API.Data
         public DbSet<AppUser> Users { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Event> Events { get; set; }
+        public DbSet<EventFeedback> EventFeedbacks { get; set; }
     }
 }
