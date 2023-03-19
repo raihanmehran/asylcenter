@@ -26,6 +26,7 @@ namespace API.Helpers
                     .MapFrom(src => src.AppUser.IdNumber));
             CreateMap<EventDto, Event>();
             CreateMap<Event, EventDto>();
+            CreateMap<EventFeedbackDto, EventFeedback>();
         }
     }
 }

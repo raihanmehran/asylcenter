@@ -6,5 +6,7 @@ namespace API.DTOs
         public bool Like { get; set; }
         public bool Interested { get; set; }
         public string Comment { get; set; }
+        public string IdNumber { get; set; }
+        public int EventId { get; set; }
     }
 }
