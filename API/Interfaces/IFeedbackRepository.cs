@@ -4,9 +4,9 @@ namespace API.Interfaces
 {
     public interface IFeedbackRepository
     {
-        Task<IEnumerable<EventFeedback>> GetEventFeedback(int eventId);
+        Task<EventFeedback> GetEventFeedback(int feedbackId);
         Task AddEventFeedback(EventFeedback feedback);
 
-        
+
     }
 }

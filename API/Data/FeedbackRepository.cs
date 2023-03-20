@@ -18,11 +18,11 @@ namespace API.Data
             await _context.EventFeedbacks.AddAsync(feedback);
         }
 
-        public async Task<IEnumerable<EventFeedback>> GetEventFeedback(int eventId)
+        public async Task<EventFeedback> GetEventFeedback(int feedbackId)
         {
             return await _context.EventFeedbacks
-                .Where(e => e.EventId == eventId)
-                .ToListAsync();
+                .Where(e => e.Id == feedbackId)
+                .SingleOrDefaultAsync();
         }
     }
 }
