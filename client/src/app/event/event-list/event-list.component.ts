@@ -12,7 +12,6 @@ import { EventService } from 'src/app/_services/event.service';
 })
 export class EventListComponent implements OnInit {
   events: Events[] = [];
-  responseFeedback: EventFeedback | undefined;
 
   constructor(
     private eventService: EventService,
@@ -30,7 +29,6 @@ export class EventListComponent implements OnInit {
         next: (response) => {
           if (response) {
             this.events = response;
-            console.log(this.events);
           }
         },
       });
@@ -41,14 +39,8 @@ export class EventListComponent implements OnInit {
     this.eventService.addFeedback(feedback).subscribe({
       next: (response) => {
         if (response) {
-          this.responseFeedback = response;
-          console.log('Feedback:');
-          console.log(this.events);
-          if (this.responseFeedback) {
-            this.sendAddedFeedback();
-            this.toastr.success('Your feedback saved!');
-            this.getEvents();
-          }
+          this.toastr.success('Your feedback saved!');
+          this.getEvents();
         }
       },
       error: (error) => this.toastr.error(error.error),
@@ -63,9 +55,5 @@ export class EventListComponent implements OnInit {
       },
       error: (error) => this.toastr.error(error.error),
     });
-  }
-
-  sendAddedFeedback() {
-    return this.responseFeedback;
   }
 }
