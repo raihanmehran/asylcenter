@@ -55,8 +55,8 @@ export class EventSearchComponent implements OnInit {
     this.openModal(this.editDialogRef!);
     this.toastr.show('Post edited');
   }
-  openModal(onfirmDialog: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(onfirmDialog, { class: 'modal-lg' });
+  openModal(confirmDialog: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(confirmDialog, { class: 'modal-lg' });
   }
 
   confirm() {

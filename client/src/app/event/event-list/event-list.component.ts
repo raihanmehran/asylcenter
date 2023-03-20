@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs';
 import { EventFeedback } from 'src/app/_models/eventFeedback';
@@ -12,13 +13,19 @@ import { EventService } from 'src/app/_services/event.service';
 })
 export class EventListComponent implements OnInit {
   events: Events[] = [];
+  modalRef: BsModalRef | undefined;
+  @ViewChild('feedbackDialog', { static: true }) feedbackDialogRef:
+    | TemplateRef<any>
+    | undefined;
 
   constructor(
     private eventService: EventService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private modalService: BsModalService
   ) {}
   ngOnInit(): void {
     this.getEvents();
+    this.openModal(this.feedbackDialogRef!);
   }
 
   getEvents() {
@@ -34,6 +41,10 @@ export class EventListComponent implements OnInit {
       });
   }
 
+  openModal(modal: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(modal, { class: 'modal-md' });
+  }
+
   addFeedback($event: EventFeedback) {
     const feedback = $event;
     this.eventService.addFeedback(feedback).subscribe({
@@ -44,6 +55,7 @@ export class EventListComponent implements OnInit {
       error: (error) => this.toastr.error(error.error),
     });
   }
+
   removeFeedback($event: number) {
     const feedbackId = $event;
     this.eventService.deleteFeedback(feedbackId).subscribe({

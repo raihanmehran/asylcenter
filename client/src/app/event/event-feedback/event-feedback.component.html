@@ -1,1 +1,103 @@
-<p>event-feedback works!</p>
+<div class="container">
+
+    <div id="Likes" *ngIf="isLikes">
+        <div class="card text-bg-primary my-2">
+            <div class="card-header">
+                <h4 class="card-title fw-bold">
+                    <span>  0 </span>
+                    <span>  Likes </span>
+                </h4>
+            </div>
+            <div class="card-body">
+                <div class="row align-items-center py-2">
+                    <div class="col-2">
+                        <img width="40px" class="rounded-circle" src="{{'./assets/user.png'}}" alt="User profile picture">
+                    </div>
+                    <div class="col-10">
+                        <strong>Firstname Lastname</strong>
+                    </div>
+                </div>
+                <div class="row align-items-center py-2">
+                    <div class="col-2">
+                        <img width="40px" class="rounded-circle" src="{{'./assets/user.png'}}" alt="User profile picture">
+                    </div>
+                    <div class="col-10">
+                        <strong>Firstname Lastname</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="Interests" *ngIf="isInterests">
+        <div class="card text-bg-success my-2">
+            <div class="card-header">
+                <h4 class="card-title fw-bold">
+                    <span>  0 </span>
+                    <span>  Interested </span>
+                </h4>
+            </div>
+            <div class="card-body">
+                <div class="row align-items-center py-2">
+                    <div class="col-2">
+                        <img width="40px" class="rounded-circle" src="{{'./assets/user.png'}}" alt="User profile picture">
+                    </div>
+                    <div class="col-10">
+                        <strong>Firstname Lastname</strong>
+                    </div>
+                </div>
+                <div class="row align-items-center py-2">
+                    <div class="col-2">
+                        <img width="40px" class="rounded-circle" src="{{'./assets/user.png'}}" alt="User profile picture">
+                    </div>
+                    <div class="col-10">
+                        <strong>Firstname Lastname</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form [formGroup]="commentForm" (ngSubmit)="addComment()">
+        <div id="Comments" *ngIf="isComments">
+            <div class="card text-bg-dark my-2">
+                <div class="card-header">
+                    <h4 class="card-title fw-bold">
+                        <span>  0 </span>
+                        <span>  Comments </span>
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-10 text-dark">
+                            <app-text-input [formControl]="$any(commentForm.controls['comment'])" [label]="'Comment'" [id]="'comment'"></app-text-input>
+                        </div>
+                        <div class="col-2 align-items-center">
+                            <button style="height: 50px;" class="btn btn-light">Save</button>
+                        </div>
+                    </div>
+                    <div class="row py-2">
+                        <div class="col-2">
+                            <img width="40px" class="rounded-circle" src="{{'./assets/user.png'}}" alt="User profile picture">
+                        </div>
+                        <div class="col-10">
+                            <div class="row">
+                                <strong>Firstname Lastname</strong>
+                                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quia repudiandae eos cum aliquid illo veniam corrupti vel, nisi quo! Voluptatibus fuga quas libero.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row py-2">
+                        <div class="col-2">
+                            <img width="40px" class="rounded-circle" src="{{'./assets/user.png'}}" alt="User profile picture">
+                        </div>
+                        <div class="col-10">
+                            <div class="row">
+                                <strong>Firstname Lastname</strong>
+                                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quia repudiandae eos cum aliquid illo veniam corrupti vel, nisi quo! Voluptatibus fuga quas libero.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
