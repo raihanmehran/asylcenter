@@ -37,11 +37,9 @@ export class EventListComponent implements OnInit {
   addFeedback($event: EventFeedback) {
     const feedback = $event;
     this.eventService.addFeedback(feedback).subscribe({
-      next: (response) => {
-        if (response) {
-          this.toastr.success('Your feedback saved!');
-          this.getEvents();
-        }
+      next: () => {
+        this.toastr.success('Your feedback saved!');
+        this.getEvents();
       },
       error: (error) => this.toastr.error(error.error),
     });

@@ -1,8 +1,7 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { EventFeedback } from '../_models/eventFeedback';
 import { Events } from '../_models/events';
 
 @Injectable({
@@ -38,8 +37,8 @@ export class EventService {
 
   addFeedback(model: any) {
     return this.http.post(this.baseUrl + 'feedback/add-feedback', model).pipe(
-      map((response) => {
-        return response;
+      map(() => {
+        return;
       })
     );
   }
