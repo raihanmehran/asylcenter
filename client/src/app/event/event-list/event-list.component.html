@@ -25,7 +25,7 @@
                     </div>
                     <div *ngIf="events">
                         <div *ngFor="let event of events">
-                            <app-event-card [event]="event" (feedback)="addLike($event)"></app-event-card>
+                            <app-event-card [event]="event" (addFeedback)="addFeedback($event)" (removeFeedback)="removeFeedback($event)"></app-event-card>
                         </div>
                     </div>
                 </div>

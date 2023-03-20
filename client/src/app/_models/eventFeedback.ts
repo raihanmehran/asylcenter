@@ -3,6 +3,6 @@ export interface EventFeedback {
   liked?: boolean;
   interested?: boolean;
   comment?: string;
-  idNumber: string;
-  eventId: number;
+  idNumber?: string;
+  eventId?: number;
 }

@@ -13,7 +13,8 @@ import { AccountService } from 'src/app/_services/account.service';
 })
 export class EventCardComponent implements OnInit {
   @Input() event: Events | undefined;
-  @Output() feedback = new EventEmitter<EventFeedback>();
+  @Output() addFeedback = new EventEmitter<EventFeedback>();
+  @Output() removeFeedback = new EventEmitter<number>();
 
   likes: number = 0;
   interested: number = 0;
@@ -30,16 +31,25 @@ export class EventCardComponent implements OnInit {
     this.calculateFeedback();
   }
 
-  addLike() {
+  handleLike() {
     if (this.event && this.loggedUser) {
       if (this.eventLiked) {
         if (confirm('Are you sure want to remove your Like?')) {
-          const like: EventFeedback = {
-            liked: false,
-            idNumber: this.loggedUser.username,
-            eventId: this.event.id,
-          };
-          this.feedback.emit(like);
+          var isLiked = this.event.eventFeedback.filter(
+            (x) => x.liked === true && x.idNumber === this.loggedUser?.username
+          );
+          if (isLiked.length > 0) {
+            console.log(this.event);
+            var id = isLiked[0].id;
+            this.removeFeedback.emit(id);
+            this.eventLiked = false;
+            this.likes--;
+            const filteredEvent = this.event.eventFeedback.filter(
+              (feedback) => feedback.id !== id
+            );
+            this.event = { ...this.event, eventFeedback: filteredEvent };
+            console.log(this.event);
+          }
         }
       } else {
         const like: EventFeedback = {
@@ -47,7 +57,9 @@ export class EventCardComponent implements OnInit {
           idNumber: this.loggedUser.username,
           eventId: this.event.id,
         };
-        this.feedback.emit(like);
+        this.addFeedback.emit(like);
+        this.eventLiked = true;
+        this.likes++;
       }
     }
   }

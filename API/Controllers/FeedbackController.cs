@@ -36,5 +36,16 @@ namespace API.Controllers
 
         }
 
+        // [HttpPut("remove-feedback")]
+        // public async Task<ActionResult> RemoveFeedback(EventFeedbackDto eventFeedbackDto){
+        //     var events = await _eventRepository.GetEvent(eventId: eventFeedbackDto.EventId);
+
+        //     if (events == null) return NotFound();
+
+        //     var eventFeedback = _mapper.Map<EventFeedback>(eventFeedbackDto);
+
+        //     events.EventFeedback.Remove(eventFeedback);
+        // }
+
     }
 }

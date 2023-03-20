@@ -42,7 +42,7 @@
                     <div class="col-12">
                         <div class="row">
                             <div class="col-4">
-                                <button class="btn {{(eventLiked===false)?'btn-outline-primary':'btn-primary'}}"> {{(eventLiked===false)?'Like':'Liked'}}
+                                <button (click)="handleLike()" class="btn {{(eventLiked===false)?'btn-outline-primary':'btn-primary'}}"> {{(eventLiked===false)?'Like':'Liked'}}
                                 <i class="fa fa-thumbs-o-up"></i>
                             </button>
                             </div>
