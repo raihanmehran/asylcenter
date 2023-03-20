@@ -1,8 +1,9 @@
 import { Time } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { take } from 'rxjs';
 import { Events } from 'src/app/_models/events';
 import { LoggedUser } from 'src/app/_models/loggedUser';
+import { EventFeedback } from 'src/app/_models/eventFeedback';
 import { AccountService } from 'src/app/_services/account.service';
 
 @Component({
@@ -12,6 +13,8 @@ import { AccountService } from 'src/app/_services/account.service';
 })
 export class EventCardComponent implements OnInit {
   @Input() event: Events | undefined;
+  @Output() feedback = new EventEmitter<EventFeedback>();
+
   likes: number = 0;
   interested: number = 0;
   comments: number = 0;
@@ -25,6 +28,28 @@ export class EventCardComponent implements OnInit {
   ngOnInit(): void {
     this.getLoggedUser();
     this.calculateFeedback();
+  }
+
+  addLike() {
+    if (this.event && this.loggedUser) {
+      if (this.eventLiked) {
+        if (confirm('Are you sure want to remove your Like?')) {
+          const like: EventFeedback = {
+            liked: false,
+            idNumber: this.loggedUser.username,
+            eventId: this.event.id,
+          };
+          this.feedback.emit(like);
+        }
+      } else {
+        const like: EventFeedback = {
+          liked: true,
+          idNumber: this.loggedUser.username,
+          eventId: this.event.id,
+        };
+        this.feedback.emit(like);
+      }
+    }
   }
 
   getLoggedUser() {

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { EventFeedback } from 'src/app/_models/eventFeedback';
 import { Events } from 'src/app/_models/events';
 import { EventService } from 'src/app/_services/event.service';
 
@@ -27,5 +28,9 @@ export class EventListComponent implements OnInit {
           }
         },
       });
+  }
+
+  addLike($event: EventFeedback) {
+    console.log($event);
   }
 }
