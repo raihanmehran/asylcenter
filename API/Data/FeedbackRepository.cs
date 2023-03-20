@@ -24,5 +24,13 @@ namespace API.Data
                 .Where(e => e.Id == feedbackId)
                 .SingleOrDefaultAsync();
         }
+
+        public async Task<EventFeedback> GetEventFeedback(string idNumber, int eventId)
+        {
+            return await _context.EventFeedbacks
+                .Where(f => f.IdNumber == idNumber && f.EventId == eventId)
+                .OrderByDescending(f => f.Id)
+                .FirstOrDefaultAsync();
+        }
     }
 }

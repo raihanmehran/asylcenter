@@ -46,7 +46,12 @@ export class EventListComponent implements OnInit {
     });
   }
   removeFeedback($event: number) {
-    console.log($event);
-    
+    const feedbackId = $event;
+    this.eventService.deleteFeedback(feedbackId).subscribe({
+      next: () => {
+        this.toastr.warning('Your feedback removed!');
+      },
+      error: (error) => this.toastr.error(error.error),
+    });
   }
 }

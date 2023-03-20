@@ -20,7 +20,7 @@ namespace API.Controllers
         }
 
         [HttpPost("add-feedback")]
-        public async Task<ActionResult> AddFeedback(EventFeedbackDto eventFeedbackDto)
+        public async Task<ActionResult<EventFeedbackDto>> AddFeedback(EventFeedbackDto eventFeedbackDto)
         {
             var events = await _eventRepository.GetEvent(eventId: eventFeedbackDto.EventId);
 
@@ -30,10 +30,17 @@ namespace API.Controllers
 
             events.EventFeedback.Add(eventFeedback);
 
-            if (await _eventRepository.SaveAllAsync()) return NoContent();
+            if (await _eventRepository.SaveAllAsync())
+            {
+                var feedback = await _feedbackRepository.GetEventFeedback(
+                    idNumber: eventFeedbackDto.IdNumber,
+                    eventId: eventFeedbackDto.EventId
+                );
+
+                return Ok(_mapper.Map<EventFeedbackDto>(feedback));
+            }
 
             return BadRequest("Problem happend in adding feedback");
-
         }
 
         [HttpDelete("remove-feedback/{feedbackId}")]

@@ -44,11 +44,14 @@ export class EventCardComponent implements OnInit {
             this.removeFeedback.emit(id);
             this.eventLiked = false;
             this.likes--;
+            console.log(this.event);
+
             const filteredEvent = this.event.eventFeedback.filter(
               (feedback) => feedback.id !== id
             );
             this.event = { ...this.event, eventFeedback: filteredEvent };
             console.log(this.event);
+            this.calculateFeedback();
           }
         }
       } else {
@@ -60,6 +63,7 @@ export class EventCardComponent implements OnInit {
         this.addFeedback.emit(like);
         this.eventLiked = true;
         this.likes++;
+        this.calculateFeedback();
       }
     }
   }
