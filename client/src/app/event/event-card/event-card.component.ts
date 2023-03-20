@@ -42,16 +42,15 @@ export class EventCardComponent implements OnInit {
             console.log(this.event);
             var id = isLiked[0].id;
             this.removeFeedback.emit(id);
-            this.eventLiked = false;
-            this.likes--;
-            console.log(this.event);
+            // this.eventLiked = false;
+            // this.likes--;
+            // console.log(this.event);
 
-            const filteredEvent = this.event.eventFeedback.filter(
-              (feedback) => feedback.id !== id
-            );
-            this.event = { ...this.event, eventFeedback: filteredEvent };
-            console.log(this.event);
-            this.calculateFeedback();
+            // const filteredEvent = this.event.eventFeedback.filter(
+            //   (feedback) => feedback.id !== id
+            // );
+            // this.event = { ...this.event, eventFeedback: filteredEvent };
+            // console.log(this.event);
           }
         }
       } else {
@@ -61,9 +60,9 @@ export class EventCardComponent implements OnInit {
           eventId: this.event.id,
         };
         this.addFeedback.emit(like);
-        this.eventLiked = true;
-        this.likes++;
-        this.calculateFeedback();
+        // this.eventLiked = true;
+        // this.likes++;
+        // console.log(this.event);
       }
     }
   }

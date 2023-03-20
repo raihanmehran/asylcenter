@@ -38,8 +38,8 @@ export class EventService {
 
   addFeedback(model: any) {
     return this.http.post(this.baseUrl + 'feedback/add-feedback', model).pipe(
-      map((_) => {
-        return;
+      map((response) => {
+        return response;
       })
     );
   }

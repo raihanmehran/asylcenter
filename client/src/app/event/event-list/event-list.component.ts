@@ -12,6 +12,7 @@ import { EventService } from 'src/app/_services/event.service';
 })
 export class EventListComponent implements OnInit {
   events: Events[] = [];
+  responseFeedback: EventFeedback | undefined;
 
   constructor(
     private eventService: EventService,
@@ -38,9 +39,17 @@ export class EventListComponent implements OnInit {
   addFeedback($event: EventFeedback) {
     const feedback = $event;
     this.eventService.addFeedback(feedback).subscribe({
-      next: () => {
-        this.toastr.success('Your feedback saved!');
-        console.log(this.events);
+      next: (response) => {
+        if (response) {
+          this.responseFeedback = response;
+          console.log('Feedback:');
+          console.log(this.events);
+          if (this.responseFeedback) {
+            this.sendAddedFeedback();
+            this.toastr.success('Your feedback saved!');
+            this.getEvents();
+          }
+        }
       },
       error: (error) => this.toastr.error(error.error),
     });
@@ -50,8 +59,13 @@ export class EventListComponent implements OnInit {
     this.eventService.deleteFeedback(feedbackId).subscribe({
       next: () => {
         this.toastr.warning('Your feedback removed!');
+        this.getEvents();
       },
       error: (error) => this.toastr.error(error.error),
     });
+  }
+
+  sendAddedFeedback() {
+    return this.responseFeedback;
   }
 }
