@@ -38,6 +38,7 @@ import { TimepickerComponent } from './_forms/timepicker/timepicker.component';
 import { EventSearchComponent } from './event/event-search/event-search.component';
 import { EventSearchCardComponent } from './event/event-search-card/event-search-card.component';
 import { EventUpdateComponent } from './event/event-update/event-update.component';
+import { EventFeedbackComponent } from './event/event-feedback/event-feedback.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { EventUpdateComponent } from './event/event-update/event-update.componen
     EventSearchComponent,
     EventSearchCardComponent,
     EventUpdateComponent,
+    EventFeedbackComponent,
   ],
   imports: [
     BrowserModule,
