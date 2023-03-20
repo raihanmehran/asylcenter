@@ -23,6 +23,7 @@ export class EventCardComponent implements OnInit {
   constructor(private accountService: AccountService) {}
 
   ngOnInit(): void {
+    this.getLoggedUser();
     this.calculateFeedback();
   }
 
@@ -45,7 +46,7 @@ export class EventCardComponent implements OnInit {
   }
 
   calculateFeedback() {
-    if (this.event) {
+    if (this.event && this.loggedUser) {
       this.likes = this.event.eventFeedback.filter(
         (x) => x.liked === true
       ).length;
@@ -55,6 +56,21 @@ export class EventCardComponent implements OnInit {
       this.comments = this.event.eventFeedback.filter(
         (x) => x.comment !== null
       ).length;
+
+      var isLiked = this.event.eventFeedback.filter(
+        (x) => x.liked === true && x.idNumber === this.loggedUser?.username
+      ).length;
+      if (isLiked > 0) this.eventLiked = true;
+
+      var isInterested = this.event.eventFeedback.filter(
+        (x) => x.interested === true && x.idNumber === this.loggedUser?.username
+      ).length;
+      if (isInterested > 0) this.eventInterested = true;
+
+      var isCommented = this.event.eventFeedback.filter(
+        (x) => x.comment !== null && x.idNumber === this.loggedUser?.username
+      ).length;
+      if (isCommented > 0) this.eventCommented = true;
     }
   }
 }
