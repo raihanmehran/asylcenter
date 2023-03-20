@@ -51,7 +51,7 @@
                                     <i class="fa fa-commenting-o"></i> </button>
                             </div>
                             <div class="col-4 text-end">
-                                <button class="btn {{(eventInterested===false)?'btn-outline-success':'btn-success'}}"> {{(eventInterested===false)?'Interest':'Interested'}}
+                                <button (click)="handleInterest()" class="btn {{(eventInterested===false)?'btn-outline-success':'btn-success'}}"> {{(eventInterested===false)?'Interest':'Interested'}}
                                     <i class="fa fa-hand-paper-o"></i> </button>
                             </div>
                         </div>

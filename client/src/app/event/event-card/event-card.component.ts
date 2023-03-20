@@ -39,7 +39,6 @@ export class EventCardComponent implements OnInit {
             (x) => x.liked === true && x.idNumber === this.loggedUser?.username
           );
           if (isLiked.length > 0) {
-            console.log(this.event);
             var id = isLiked[0].id;
             this.removeFeedback.emit(id);
           }
@@ -51,6 +50,30 @@ export class EventCardComponent implements OnInit {
           eventId: this.event.id,
         };
         this.addFeedback.emit(like);
+      }
+    }
+  }
+
+  handleInterest() {
+    if (this.event && this.loggedUser) {
+      if (this.eventInterested) {
+        if (confirm('Are you sure want to remove your Interest?')) {
+          var isInterested = this.event.eventFeedback.filter(
+            (x) =>
+              x.interested === true && x.idNumber === this.loggedUser?.username
+          );
+          if (isInterested.length > 0) {
+            var id = isInterested[0].id;
+            this.removeFeedback.emit(id);
+          }
+        }
+      } else {
+        const interest: EventFeedback = {
+          interested: true,
+          idNumber: this.loggedUser.username,
+          eventId: this.event.id,
+        };
+        this.addFeedback.emit(interest);
       }
     }
   }
