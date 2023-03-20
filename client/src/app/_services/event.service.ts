@@ -43,4 +43,14 @@ export class EventService {
       })
     );
   }
+
+  deleteFeedback(feedbackId: number) {
+    return this.http
+      .delete(this.baseUrl + 'feedback/remove-feedback/' + feedbackId)
+      .pipe(
+        map((_) => {
+          return;
+        })
+      );
+  }
 }

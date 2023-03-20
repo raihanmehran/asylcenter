@@ -39,7 +39,7 @@ export class EventListComponent implements OnInit {
     const feedback = $event;
     this.eventService.addFeedback(feedback).subscribe({
       next: () => {
-        this.toastr.success('You liked the post!');
+        this.toastr.success('Your feedback saved!');
         console.log(this.events);
       },
       error: (error) => this.toastr.error(error.error),
@@ -47,5 +47,6 @@ export class EventListComponent implements OnInit {
   }
   removeFeedback($event: number) {
     console.log($event);
+    
   }
 }
