@@ -36,5 +36,21 @@ namespace API.Controllers
 
         }
 
+        [HttpDelete("remove-feedback/{feedbackId}")]
+        public async Task<ActionResult> RemoveFeedback(int feedbackId)
+        {
+            var feedback = await _feedbackRepository.GetEventFeedback(feedbackId: feedbackId);
+
+            if (feedback == null) return NotFound();
+
+            var events = await _eventRepository.GetEvent(eventId: feedback.EventId);
+
+            events.EventFeedback.Remove(feedback);
+
+            if (await _eventRepository.SaveAllAsync()) return NoContent();
+
+            return BadRequest("Problem happend in removing feedback");
+        }
+
     }
 }
