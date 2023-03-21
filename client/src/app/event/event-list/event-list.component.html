@@ -25,7 +25,7 @@
                     </div>
                     <div *ngIf="events">
                         <div *ngFor="let event of events">
-                            <app-event-card [event]="event" (addFeedback)="addFeedback($event)" (removeFeedback)="removeFeedback($event)"></app-event-card>
+                            <app-event-card [event]="event" (addFeedback)="addFeedback($event)" (removeFeedback)="removeFeedback($event)" (viewLikes)="viewLikesModal($event)" (viewComments)="viewCommentsModal($event)" (viewInterests)="viewInterestsModal($event)"></app-event-card>
                         </div>
                     </div>
                 </div>
@@ -35,5 +35,5 @@
 </div>
 
 <ng-template #feedbackDialog>
-    <app-event-feedback [event]="events"></app-event-feedback>
+    <app-event-feedback [event]="events[0]"></app-event-feedback>
 </ng-template>

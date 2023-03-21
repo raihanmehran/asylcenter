@@ -46,6 +46,21 @@ export class EventListComponent implements OnInit {
     });
   }
 
+  viewLikesModal($event: Events) {
+    console.log($event);
+    this.toastr.show('likes on the way!');
+  }
+
+  viewCommentsModal($event: Events) {
+    console.log($event);
+    this.toastr.show('comments on the way!');
+  }
+
+  viewInterestsModal($event: Events) {
+    console.log($event);
+    this.toastr.show('interests on the way!');
+  }
+
   addFeedback($event: EventFeedback) {
     const feedback = $event;
     this.eventService.addFeedback(feedback).subscribe({
