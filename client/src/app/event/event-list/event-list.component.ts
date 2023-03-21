@@ -13,8 +13,15 @@ import { EventService } from 'src/app/_services/event.service';
 })
 export class EventListComponent implements OnInit {
   events: Events[] = [];
+  returnedEvent: Events | undefined;
   modalRef: BsModalRef | undefined;
-  @ViewChild('feedbackDialog', { static: true }) feedbackDialogRef:
+  @ViewChild('likesDialog', { static: true }) likesDialogRef:
+    | TemplateRef<any>
+    | undefined;
+  @ViewChild('commentDialog', { static: true }) commentDialogRef:
+    | TemplateRef<any>
+    | undefined;
+  @ViewChild('interestDialog', { static: true }) interestDialogRef:
     | TemplateRef<any>
     | undefined;
 
@@ -40,25 +47,31 @@ export class EventListComponent implements OnInit {
       });
   }
 
-  openModal() {
-    this.modalRef = this.modalService.show(this.feedbackDialogRef!, {
+  openModal(modal: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(modal, {
       class: 'modal-md',
     });
   }
 
   viewLikesModal($event: Events) {
-    console.log($event);
-    this.toastr.show('likes on the way!');
+    if ($event) {
+      this.returnedEvent = $event;
+      this.openModal(this.likesDialogRef!);
+    }
   }
 
   viewCommentsModal($event: Events) {
-    console.log($event);
-    this.toastr.show('comments on the way!');
+    if ($event) {
+      this.returnedEvent = $event;
+      this.openModal(this.commentDialogRef!);
+    }
   }
 
   viewInterestsModal($event: Events) {
-    console.log($event);
-    this.toastr.show('interests on the way!');
+    if ($event) {
+      this.returnedEvent = $event;
+      this.openModal(this.interestDialogRef!);
+    }
   }
 
   addFeedback($event: EventFeedback) {

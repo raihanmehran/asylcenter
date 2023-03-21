@@ -12,7 +12,7 @@ export class EventFeedbackComponent implements OnInit {
   @Input() for: string = '';
   @Input() isLikes: boolean = false;
   @Input() isInterests: boolean = false;
-  @Input() isComments: boolean = true;
+  @Input() isComments: boolean = false;
   isCommented: boolean = false;
   commentForm: FormGroup = new FormGroup({});
 
