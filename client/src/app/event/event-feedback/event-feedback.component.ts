@@ -12,6 +12,7 @@ export class EventFeedbackComponent implements OnInit {
   @Input() isLikes: boolean = false;
   @Input() isInterests: boolean = false;
   @Input() isComments: boolean = true;
+  isCommented: boolean = false;
   commentForm: FormGroup = new FormGroup({});
 
   constructor(private fb: FormBuilder) {}

@@ -66,7 +66,7 @@
                     </h4>
                 </div>
                 <div class="card-body">
-                    <div class="row">
+                    <div class="row" *ngIf="!isCommented">
                         <div class="col-10 text-dark">
                             <app-text-input [formControl]="$any(commentForm.controls['comment'])" [label]="'Comment'" [id]="'comment'"></app-text-input>
                         </div>
