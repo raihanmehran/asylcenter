@@ -15,6 +15,9 @@ export class EventCardComponent implements OnInit {
   @Input() event: Events | undefined;
   @Output() addFeedback = new EventEmitter<EventFeedback>();
   @Output() removeFeedback = new EventEmitter<number>();
+  @Output() viewLikes = new EventEmitter<Events>();
+  @Output() viewComments = new EventEmitter<Events>();
+  @Output() viewInterests = new EventEmitter<Events>();
 
   likes: number = 0;
   interested: number = 0;
@@ -29,6 +32,18 @@ export class EventCardComponent implements OnInit {
   ngOnInit(): void {
     this.getLoggedUser();
     this.calculateFeedback();
+  }
+
+  showLikes() {
+    if (this.event) this.viewLikes.emit(this.event);
+  }
+
+  showComments() {
+    if (this.event) this.viewComments.emit(this.event);
+  }
+
+  showInterests() {
+    if (this.event) this.viewInterests.emit(this.event);
   }
 
   handleLike() {

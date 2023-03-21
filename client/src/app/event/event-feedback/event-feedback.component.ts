@@ -9,6 +9,7 @@ import { Events } from 'src/app/_models/events';
 })
 export class EventFeedbackComponent implements OnInit {
   @Input() event: Events | undefined;
+  @Input() for: string = '';
   @Input() isLikes: boolean = false;
   @Input() isInterests: boolean = false;
   @Input() isComments: boolean = true;
@@ -18,6 +19,7 @@ export class EventFeedbackComponent implements OnInit {
   constructor(private fb: FormBuilder) {}
   ngOnInit(): void {
     this.initializeForm();
+    this.chooseDialog();
   }
 
   initializeForm() {
@@ -28,5 +30,15 @@ export class EventFeedbackComponent implements OnInit {
 
   addComment() {
     console.log('Commented!');
+  }
+
+  chooseDialog() {
+    if (this.for === 'like') {
+      this.isLikes = true;
+    } else if (this.for === 'comment') {
+      this.isComments = true;
+    } else if (this.for === 'interest') {
+      this.isInterests = true;
+    }
   }
 }

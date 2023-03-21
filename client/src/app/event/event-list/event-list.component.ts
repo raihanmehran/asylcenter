@@ -25,7 +25,6 @@ export class EventListComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.getEvents();
-    this.openModal(this.feedbackDialogRef!);
   }
 
   getEvents() {
@@ -41,8 +40,10 @@ export class EventListComponent implements OnInit {
       });
   }
 
-  openModal(modal: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(modal, { class: 'modal-md' });
+  openModal() {
+    this.modalRef = this.modalService.show(this.feedbackDialogRef!, {
+      class: 'modal-md',
+    });
   }
 
   addFeedback($event: EventFeedback) {

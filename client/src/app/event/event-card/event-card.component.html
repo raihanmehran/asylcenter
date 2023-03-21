@@ -33,10 +33,10 @@
                     <div class="col-12 pb-1">
                         <div class="row">
                             <div class="col-4">
-                                <span style="width: 66px;" class="badge text-bg-primary">{{likes}}</span>
+                                <span (click)="showLikes()" style="width: 66px;" class="badge text-bg-primary">{{likes}}</span>
                             </div>
-                            <div class="col-4 text-center"> <span style="width: 102px;" class="badge text-bg-dark">{{comments}}</span> </div>
-                            <div class="col-4 text-end"> <span style="width: 90px;" class="badge text-bg-success">{{interested}}</span> </div>
+                            <div class="col-4 text-center"> <span (click)="showComments()" style="width: 102px;" class="badge text-bg-dark">{{comments}}</span> </div>
+                            <div class="col-4 text-end"> <span (click)="showInterests()" style="width: 90px;" class="badge text-bg-success">{{interested}}</span> </div>
                         </div>
                     </div>
                     <div class="col-12">
