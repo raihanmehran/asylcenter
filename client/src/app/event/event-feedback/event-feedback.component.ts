@@ -1,6 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { take } from 'rxjs';
 import { Events } from 'src/app/_models/events';
+import { LoggedUser } from 'src/app/_models/loggedUser';
+import { AccountService } from 'src/app/_services/account.service';
 
 @Component({
   selector: 'app-event-feedback',
@@ -15,8 +18,12 @@ export class EventFeedbackComponent implements OnInit {
   @Input() isComments: boolean = false;
   isCommented: boolean = false;
   commentForm: FormGroup = new FormGroup({});
+  loggedUser: LoggedUser | undefined;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private accountService: AccountService
+  ) {}
   ngOnInit(): void {
     this.initializeForm();
     this.chooseDialog();
@@ -32,11 +39,27 @@ export class EventFeedbackComponent implements OnInit {
     console.log('Commented!');
   }
 
+  getLoggedUser() {
+    this.accountService.currentUser$.pipe(take(1)).subscribe({
+      next: (user) => {
+        if (user) this.loggedUser = user;
+      },
+      error: (error) => console.log(error.error),
+    });
+  }
+
   chooseDialog() {
     if (this.for === 'like') {
       this.isLikes = true;
     } else if (this.for === 'comment') {
       this.isComments = true;
+      this.isCommented =
+        this.event?.eventFeedback.filter(
+          (x) =>
+            x.interested === true && x.idNumber === this.loggedUser.username
+        ).length > 0
+          ? true
+          : false;
     } else if (this.for === 'interest') {
       this.isInterests = true;
     }
