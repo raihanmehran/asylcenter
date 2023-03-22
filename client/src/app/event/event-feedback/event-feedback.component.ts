@@ -41,4 +41,13 @@ export class EventFeedbackComponent implements OnInit {
       this.isInterests = true;
     }
   }
+
+  calculateFeedback() {
+    if (this.event) {
+      if (this.for === 'like') {
+        return this.event.eventFeedback.filter((x) => x.liked === true).length;
+      }
+    }
+    return 0;
+  }
 }
