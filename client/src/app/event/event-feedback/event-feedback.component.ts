@@ -46,9 +46,11 @@ export class EventFeedbackComponent implements OnInit {
     if (this.event) {
       if (this.for === 'like') {
         return this.event.eventFeedback.filter((x) => x.liked === true).length;
-      }
-      if (this.for === 'comment') {
+      } else if (this.for === 'comment') {
         return this.event.eventFeedback.filter((x) => x.comment !== null)
+          .length;
+      } else if (this.for === 'interest') {
+        return this.event.eventFeedback.filter((x) => x.interested === true)
           .length;
       }
     }
