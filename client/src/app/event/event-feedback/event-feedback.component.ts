@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs';
 import { Events } from 'src/app/_models/events';
 import { LoggedUser } from 'src/app/_models/loggedUser';
@@ -16,13 +17,15 @@ export class EventFeedbackComponent implements OnInit {
   @Input() isLikes: boolean = false;
   @Input() isInterests: boolean = false;
   @Input() isComments: boolean = false;
+  @Output() userComment = new EventEmitter<string>();
   isCommented: boolean = false;
   commentForm: FormGroup = new FormGroup({});
   loggedUser: LoggedUser | undefined;
 
   constructor(
     private fb: FormBuilder,
-    private accountService: AccountService
+    private accountService: AccountService,
+    private toastr: ToastrService
   ) {}
   ngOnInit(): void {
     this.initializeForm();
@@ -36,7 +39,16 @@ export class EventFeedbackComponent implements OnInit {
   }
 
   addComment() {
-    console.log('Commented!');
+    if (this.commentForm.invalid) {
+      this.toastr.warning('Please enter a valid comment!');
+    } else if (!this.loggedUser) {
+      this.toastr.warning('Please log in again!');
+    } else if (this.isCommented === true) {
+      this.toastr.warning('You have commented once!');
+    } else {
+      const value = this.commentForm.controls['comment'].value;
+      this.userComment.emit(value);
+    }
   }
 
   getLoggedUser() {

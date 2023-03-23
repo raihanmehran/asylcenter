@@ -85,6 +85,10 @@ export class EventListComponent implements OnInit {
     });
   }
 
+  addUserComment($event: string) {
+    this.toastr.show($event + ' : Your comment is here!');
+  }
+
   removeFeedback($event: number) {
     const feedbackId = $event;
     this.eventService.deleteFeedback(feedbackId).subscribe({
