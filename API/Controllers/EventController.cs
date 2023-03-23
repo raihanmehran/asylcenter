@@ -84,6 +84,16 @@ namespace API.Controllers
             return Ok(events);
         }
 
+        [HttpGet("get-like-feedback/{eventId}")]
+        public async Task<ActionResult<IEnumerable<UserDto>>> GetLikedFeedbackUsers(int eventId)
+        {
+            var likedUsers = await _eventRepository.GetLikedFeedbackUser(eventId: eventId);
+
+            if (likedUsers == null) return NotFound();
+
+            return Ok(likedUsers);
+        }
+
         [HttpPut]
         public async Task<ActionResult> UpdateEvent(EventDto eventDto)
         {

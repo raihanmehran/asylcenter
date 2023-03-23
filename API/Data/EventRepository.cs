@@ -1,5 +1,7 @@
+using API.DTOs;
 using API.Entities;
 using API.Interfaces;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Data
@@ -7,9 +9,11 @@ namespace API.Data
     public class EventRepository : IEventRepository
     {
         private readonly DataContext _context;
+        private readonly IMapper _mapper;
 
-        public EventRepository(DataContext context)
+        public EventRepository(DataContext context, IMapper mapper)
         {
+            _mapper = mapper;
             _context = context;
         }
 
@@ -45,10 +49,29 @@ namespace API.Data
         {
             _context.Entry(events).State = EntityState.Modified;
         }
+        public async Task<IEnumerable<UserDto>> GetLikedFeedbackUser(int eventId)
+        {
+            var likes = await _context.EventFeedbacks
+                .Where(e => e.EventId == eventId && e.Liked == true)
+                .ToListAsync();
+            var ids = new string[likes.Count];
+
+            for (int i = 0; i < ids.Length; i++)
+            {
+                ids[i] = likes[i].IdNumber;
+            }
+
+            var users = await _context.Users
+                .Where(x => ids.Contains(x.IdNumber))
+                .ToListAsync();
+
+            return _mapper.Map<List<UserDto>>(users);
+        }
 
         public async Task<bool> SaveAllAsync()
         {
             return await _context.SaveChangesAsync() > 0;
         }
+
     }
 }

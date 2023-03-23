@@ -1,3 +1,4 @@
+using API.DTOs;
 using API.Entities;
 
 namespace API.Interfaces
@@ -10,5 +11,6 @@ namespace API.Interfaces
         Task<IEnumerable<Event>> GetEvents();
         void UpdateEvent(Event events);
         Task AddEventFeedback(EventFeedback feedback);
+        Task<IEnumerable<UserDto>> GetLikedFeedbackUser(int eventId);
     }
 }
