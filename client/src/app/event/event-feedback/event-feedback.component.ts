@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs';
+import { EventFeedback } from 'src/app/_models/eventFeedback';
 import { Events } from 'src/app/_models/events';
 import { LoggedUser } from 'src/app/_models/loggedUser';
 import { AccountService } from 'src/app/_services/account.service';
@@ -18,7 +19,7 @@ export class EventFeedbackComponent implements OnInit {
   @Input() isLikes: boolean = false;
   @Input() isInterests: boolean = false;
   @Input() isComments: boolean = false;
-  @Output() userComment = new EventEmitter<string>();
+  @Output() userComment = new EventEmitter<EventFeedback>();
   @Output() hideModal = new EventEmitter();
   isCommented: boolean = false;
   commentForm: FormGroup = new FormGroup({});
@@ -49,7 +50,15 @@ export class EventFeedbackComponent implements OnInit {
       this.toastr.warning('You have commented once!');
     } else {
       const value = this.commentForm.controls['comment'].value;
-      this.userComment.emit(value);
+      if (this.event) {
+        const comment: EventFeedback = {
+          comment: value,
+          idNumber: this.loggedUser.username,
+          eventId: this.event.id,
+        };
+        this.userComment.emit(comment);
+        this.hideModal.emit();
+      }
     }
   }
 
