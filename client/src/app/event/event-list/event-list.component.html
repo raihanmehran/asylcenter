@@ -35,11 +35,11 @@
 </div>
 
 <ng-template #likesDialog>
-    <app-event-feedback [event]="returnedEvent" [for]="'like'"></app-event-feedback>
+    <app-event-feedback [event]="returnedEvent" [for]="'like'" (hideModal)="hideModal()"></app-event-feedback>
 </ng-template>
 <ng-template #commentDialog>
-    <app-event-feedback [event]="returnedEvent" [for]="'comment'" (userComment)="addUserComment($event)"></app-event-feedback>
+    <app-event-feedback [event]="returnedEvent" [for]="'comment'" (userComment)="addUserComment($event)" (hideModal)="hideModal()"></app-event-feedback>
 </ng-template>
 <ng-template #interestDialog>
-    <app-event-feedback [event]="returnedEvent" [for]="'interest'"></app-event-feedback>
+    <app-event-feedback [event]="returnedEvent" [for]="'interest'" (hideModal)="hideModal()"></app-event-feedback>
 </ng-template>

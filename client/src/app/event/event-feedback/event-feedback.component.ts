@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs';
 import { Events } from 'src/app/_models/events';
@@ -18,6 +19,7 @@ export class EventFeedbackComponent implements OnInit {
   @Input() isInterests: boolean = true;
   @Input() isComments: boolean = true;
   @Output() userComment = new EventEmitter<string>();
+  @Output() hideModal = new EventEmitter();
   isCommented: boolean = false;
   commentForm: FormGroup = new FormGroup({});
   loggedUser: LoggedUser | undefined;
@@ -25,7 +27,8 @@ export class EventFeedbackComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private accountService: AccountService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private modalService: BsModalService
   ) {}
   ngOnInit(): void {
     this.initializeForm();
@@ -96,5 +99,9 @@ export class EventFeedbackComponent implements OnInit {
       }
     }
     return 0;
+  }
+
+  closeModal() {
+    this.hideModal.emit();
   }
 }

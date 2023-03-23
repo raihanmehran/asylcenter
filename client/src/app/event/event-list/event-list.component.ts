@@ -101,4 +101,8 @@ export class EventListComponent implements OnInit {
       error: (error) => this.toastr.error(error.error),
     });
   }
+
+  hideModal() {
+    this.modalService.hide();
+  }
 }
