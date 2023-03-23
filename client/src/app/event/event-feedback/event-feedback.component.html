@@ -3,10 +3,17 @@
     <div id="Likes" *ngIf="isLikes">
         <div class="card text-bg-primary my-2">
             <div class="card-header">
-                <h4 class="card-title fw-bold">
-                    <span>  {{calculateFeedback()}} </span>
-                    <span>  Likes </span>
-                </h4>
+                <div class="col-12 row">
+                    <div class="col-9">
+                        <h4 class="card-title fw-bold">
+                            <span>  {{calculateFeedback()}} </span>
+                            <span>  Likes </span>
+                        </h4>
+                    </div>
+                    <div class="col-3 text-end">
+                        <div>X</div>
+                    </div>
+                </div>
             </div>
             <div class="card-body">
                 <div class="row align-items-center py-2">
@@ -31,11 +38,19 @@
     <div id="Interests" *ngIf="isInterests">
         <div class="card text-bg-success my-2">
             <div class="card-header">
-                <h4 class="card-title fw-bold">
-                    <span>  {{calculateFeedback()}} </span>
-                    <span>  Interested </span>
-                </h4>
+                <div class="col-12 row">
+                    <div class="col-9">
+                        <h4 class="card-title fw-bold">
+                            <span>  {{calculateFeedback()}} </span>
+                            <span>  Interested </span>
+                        </h4>
+                    </div>
+                    <div class="col-3 text-end">
+                        <div>X</div>
+                    </div>
+                </div>
             </div>
+
             <div class="card-body">
                 <div class="row align-items-center py-2">
                     <div class="col-2">
@@ -60,10 +75,17 @@
         <div id="Comments" *ngIf="isComments">
             <div class="card text-bg-dark my-2">
                 <div class="card-header">
-                    <h4 class="card-title fw-bold">
-                        <span>  {{calculateFeedback()}} </span>
-                        <span>  Comments </span>
-                    </h4>
+                    <div class="col-12 row">
+                        <div class="col-9">
+                            <h4 class="card-title fw-bold">
+                                <span>  {{calculateFeedback()}} </span>
+                                <span>  Comments </span>
+                            </h4>
+                        </div>
+                        <div class="col-3 text-end">
+                            <div>X</div>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     <div class="row" *ngIf="!isCommented">

@@ -32,6 +32,7 @@ export class EventListComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.getEvents();
+    this.openModal(this.likesDialogRef!);
   }
 
   getEvents() {
@@ -87,6 +88,7 @@ export class EventListComponent implements OnInit {
 
   addUserComment($event: string) {
     this.toastr.show($event + ' : Your comment is here!');
+    this.modalService.hide();
   }
 
   removeFeedback($event: number) {

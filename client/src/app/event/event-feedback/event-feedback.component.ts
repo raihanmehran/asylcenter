@@ -14,9 +14,9 @@ import { AccountService } from 'src/app/_services/account.service';
 export class EventFeedbackComponent implements OnInit {
   @Input() event: Events | undefined;
   @Input() for: string = '';
-  @Input() isLikes: boolean = false;
-  @Input() isInterests: boolean = false;
-  @Input() isComments: boolean = false;
+  @Input() isLikes: boolean = true;
+  @Input() isInterests: boolean = true;
+  @Input() isComments: boolean = true;
   @Output() userComment = new EventEmitter<string>();
   isCommented: boolean = false;
   commentForm: FormGroup = new FormGroup({});
