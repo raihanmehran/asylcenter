@@ -5,6 +5,7 @@ import { Events } from 'src/app/_models/events';
 import { LoggedUser } from 'src/app/_models/loggedUser';
 import { EventFeedback } from 'src/app/_models/eventFeedback';
 import { AccountService } from 'src/app/_services/account.service';
+import { isIdentifier } from '@angular/compiler';
 
 @Component({
   selector: 'app-event-card',
@@ -89,6 +90,25 @@ export class EventCardComponent implements OnInit {
           eventId: this.event.id,
         };
         this.addFeedback.emit(interest);
+      }
+    }
+  }
+
+  handleComment() {
+    if (this.event) {
+      if (this.eventCommented) {
+        if (confirm('Are you sure want to remove your Comment?')) {
+          var isCommented = this.event.eventFeedback.filter(
+            (x) =>
+              x.comment !== null && x.idNumber === this.loggedUser?.username
+          );
+          if (isCommented.length > 0) {
+            var id = isCommented[0].id;
+            this.removeFeedback.emit(id);
+          }
+        }
+      } else {
+        this.showComments();
       }
     }
   }

@@ -47,7 +47,7 @@
                             </button>
                             </div>
                             <div class="col-4 text-center">
-                                <button class="btn {{(eventCommented===false)?'btn-outline-dark':'btn-dark'}}"> {{(eventCommented===false)?'Comment':'Commented'}}
+                                <button (click)="handleComment()" class="btn {{(eventCommented===false)?'btn-outline-dark':'btn-dark'}}"> {{(eventCommented===false)?'Comment':'Commented'}}
                                     <i class="fa fa-commenting-o"></i> </button>
                             </div>
                             <div class="col-4 text-end">
