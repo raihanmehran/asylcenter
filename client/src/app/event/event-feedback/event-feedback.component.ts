@@ -49,19 +49,25 @@ export class EventFeedbackComponent implements OnInit {
   }
 
   chooseDialog() {
-    if (this.for === 'like') {
-      this.isLikes = true;
-    } else if (this.for === 'comment') {
-      this.isComments = true;
-      this.isCommented =
-        this.event?.eventFeedback.filter(
-          (x) =>
-            x.interested === true && x.idNumber === this.loggedUser.username
-        ).length > 0
-          ? true
-          : false;
-    } else if (this.for === 'interest') {
-      this.isInterests = true;
+    if (this.event) {
+      if (this.for === 'like') {
+        this.isLikes = true;
+      } else if (this.for === 'comment') {
+        this.getLoggedUser();
+        if (this.loggedUser) {
+          this.isComments = true;
+          this.isCommented =
+            this.event.eventFeedback.filter(
+              (x) =>
+                x.interested === true &&
+                x.idNumber === this.loggedUser?.username
+            ).length > 0
+              ? true
+              : false;
+        }
+      } else if (this.for === 'interest') {
+        this.isInterests = true;
+      }
     }
   }
 
