@@ -15,9 +15,9 @@ import { AccountService } from 'src/app/_services/account.service';
 export class EventFeedbackComponent implements OnInit {
   @Input() event: Events | undefined;
   @Input() for: string = '';
-  @Input() isLikes: boolean = true;
-  @Input() isInterests: boolean = true;
-  @Input() isComments: boolean = true;
+  @Input() isLikes: boolean = false;
+  @Input() isInterests: boolean = false;
+  @Input() isComments: boolean = false;
   @Output() userComment = new EventEmitter<string>();
   @Output() hideModal = new EventEmitter();
   isCommented: boolean = false;
@@ -27,8 +27,7 @@ export class EventFeedbackComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private accountService: AccountService,
-    private toastr: ToastrService,
-    private modalService: BsModalService
+    private toastr: ToastrService
   ) {}
   ngOnInit(): void {
     this.initializeForm();

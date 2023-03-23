@@ -32,7 +32,6 @@ export class EventListComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.getEvents();
-    this.openModal(this.likesDialogRef!);
   }
 
   getEvents() {
