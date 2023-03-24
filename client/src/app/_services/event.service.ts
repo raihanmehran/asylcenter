@@ -72,4 +72,14 @@ export class EventService {
         })
       );
   }
+
+  getCommentFeedbackUsers(eventId: number) {
+    return this.http
+      .get(this.baseUrl + 'event/get-comment-feedback/' + eventId)
+      .pipe(
+        map((response) => {
+          return response;
+        })
+      );
+  }
 }
