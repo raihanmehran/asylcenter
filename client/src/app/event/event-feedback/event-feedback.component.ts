@@ -60,6 +60,21 @@ export class EventFeedbackComponent implements OnInit {
     }
   }
 
+  getInterestedUsers() {
+    if (this.event) {
+      this.eventService
+        .getLikeFeedbackUsers(this.event.id)
+        .pipe()
+        .subscribe({
+          next: (users) => {
+            if (users) {
+              this.likedUsers = <User[]>users;
+            }
+          },
+        });
+    }
+  }
+
   addComment() {
     if (this.commentForm.invalid) {
       this.toastr.warning('Please enter a valid comment!');
@@ -110,6 +125,7 @@ export class EventFeedbackComponent implements OnInit {
         }
       } else if (this.for === 'interest') {
         this.isInterests = true;
+        this.getInterestedUsers();
       }
     }
   }
