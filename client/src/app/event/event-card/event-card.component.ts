@@ -6,6 +6,7 @@ import { LoggedUser } from 'src/app/_models/loggedUser';
 import { EventFeedback } from 'src/app/_models/eventFeedback';
 import { AccountService } from 'src/app/_services/account.service';
 import { isIdentifier } from '@angular/compiler';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-event-card',
@@ -28,7 +29,10 @@ export class EventCardComponent implements OnInit {
   eventInterested: boolean = false;
   eventCommented: boolean = false;
 
-  constructor(private accountService: AccountService) {}
+  constructor(
+    private accountService: AccountService,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
     this.getLoggedUser();
@@ -36,15 +40,33 @@ export class EventCardComponent implements OnInit {
   }
 
   showLikes() {
-    if (this.event) this.viewLikes.emit(this.event);
+    if (this.event) {
+      if (this.likes === 0 || this.likes < 0) {
+        this.toastr.warning('0 Likes to show!');
+      } else {
+        this.viewLikes.emit(this.event);
+      }
+    }
   }
 
   showComments() {
-    if (this.event) this.viewComments.emit(this.event);
+    if (this.event) {
+      if (this.comments === 0 || this.comments < 0) {
+        this.toastr.warning('0 Comments to show!');
+      } else {
+        this.viewComments.emit(this.event);
+      }
+    }
   }
 
   showInterests() {
-    if (this.event) this.viewInterests.emit(this.event);
+    if (this.event) {
+      if (this.interested === 0 || this.interested < 0) {
+        this.toastr.warning('0 Interests to show!');
+      } else {
+        this.viewInterests.emit(this.event);
+      }
+    }
   }
 
   handleLike() {
@@ -108,7 +130,7 @@ export class EventCardComponent implements OnInit {
           }
         }
       } else {
-        this.showComments();
+        this.viewComments.emit(this.event);
       }
     }
   }

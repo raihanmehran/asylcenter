@@ -90,6 +90,27 @@ namespace API.Data
             return _mapper.Map<List<UserDto>>(users);
         }
 
+        public async Task<IEnumerable<UserDto>> GetCommentedFeedbackUsers(int eventId)
+        {
+            var comments = await _context.EventFeedbacks
+                .Where(e => e.EventId == eventId && e.Comment != null)
+                .ToListAsync();
+
+            var ids = new string[comments.Count];
+
+            for (int i = 0; i < ids.Length; i++)
+            {
+                ids[i] = comments[i].IdNumber;
+            }
+
+            var users = await _context.Users
+                .Include(x => x.Photos)
+                .Where(x => ids.Contains(x.IdNumber))
+                .ToListAsync();
+
+            return _mapper.Map<List<UserDto>>(users);
+        }
+
         public async Task<bool> SaveAllAsync()
         {
             return await _context.SaveChangesAsync() > 0;
