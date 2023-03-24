@@ -87,7 +87,7 @@ namespace API.Controllers
         [HttpGet("get-like-feedback/{eventId}")]
         public async Task<ActionResult<IEnumerable<UserDto>>> GetLikedFeedbackUsers(int eventId)
         {
-            var likedUsers = await _eventRepository.GetLikedFeedbackUser(eventId: eventId);
+            var likedUsers = await _eventRepository.GetLikedFeedbackUsers(eventId: eventId);
 
             if (likedUsers == null) return NotFound();
 

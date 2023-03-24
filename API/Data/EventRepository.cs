@@ -49,7 +49,7 @@ namespace API.Data
         {
             _context.Entry(events).State = EntityState.Modified;
         }
-        public async Task<IEnumerable<UserDto>> GetLikedFeedbackUser(int eventId)
+        public async Task<IEnumerable<UserDto>> GetLikedFeedbackUsers(int eventId)
         {
             var likes = await _context.EventFeedbacks
                 .Where(e => e.EventId == eventId && e.Liked == true)
@@ -59,6 +59,27 @@ namespace API.Data
             for (int i = 0; i < ids.Length; i++)
             {
                 ids[i] = likes[i].IdNumber;
+            }
+
+            var users = await _context.Users
+                .Include(x => x.Photos)
+                .Where(x => ids.Contains(x.IdNumber))
+                .ToListAsync();
+
+            return _mapper.Map<List<UserDto>>(users);
+        }
+
+        public async Task<IEnumerable<UserDto>> GetInterestedFeedbackUsers(int eventId)
+        {
+            var interests = await _context.EventFeedbacks
+                .Where(e => e.EventId == eventId && e.Interested == true)
+                .ToListAsync();
+
+            var ids = new string[interests.Count];
+
+            for (int i = 0; i < ids.Length; i++)
+            {
+                ids[i] = interests[i].IdNumber;
             }
 
             var users = await _context.Users

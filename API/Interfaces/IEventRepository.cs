@@ -11,6 +11,7 @@ namespace API.Interfaces
         Task<IEnumerable<Event>> GetEvents();
         void UpdateEvent(Event events);
         Task AddEventFeedback(EventFeedback feedback);
-        Task<IEnumerable<UserDto>> GetLikedFeedbackUser(int eventId);
+        Task<IEnumerable<UserDto>> GetLikedFeedbackUsers(int eventId);
+        Task<IEnumerable<UserDto>> GetInterestedFeedbackUsers(int eventId);
     }
 }
