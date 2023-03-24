@@ -108,6 +108,17 @@ namespace API.Controllers
             return Ok(interestedUsers);
         }
 
+        [HttpGet("get-comment-feedback/{eventId}")]
+        public async Task<ActionResult<IEnumerable<UserDto>>> GetCommentedFeedbackUsers(int eventId)
+        {
+            var commentedUsers = await _eventRepository
+                .GetCommentedFeedbackUsers(eventId: eventId);
+
+            if (commentedUsers == null) return NotFound();
+
+            return Ok(commentedUsers);
+        }
+
         [HttpPut]
         public async Task<ActionResult> UpdateEvent(EventDto eventDto)
         {
