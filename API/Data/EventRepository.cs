@@ -54,19 +54,8 @@ namespace API.Data
             var likes = await _context.EventFeedbacks
                 .Where(e => e.EventId == eventId && e.Liked == true)
                 .ToListAsync();
-            var ids = new string[likes.Count];
 
-            for (int i = 0; i < ids.Length; i++)
-            {
-                ids[i] = likes[i].IdNumber;
-            }
-
-            var users = await _context.Users
-                .Include(x => x.Photos)
-                .Where(x => ids.Contains(x.IdNumber))
-                .ToListAsync();
-
-            return _mapper.Map<List<UserDto>>(users);
+            return await GetFeedbackUsers(likes);
         }
 
         public async Task<IEnumerable<UserDto>> GetInterestedFeedbackUsers(int eventId)
@@ -75,19 +64,7 @@ namespace API.Data
                 .Where(e => e.EventId == eventId && e.Interested == true)
                 .ToListAsync();
 
-            var ids = new string[interests.Count];
-
-            for (int i = 0; i < ids.Length; i++)
-            {
-                ids[i] = interests[i].IdNumber;
-            }
-
-            var users = await _context.Users
-                .Include(x => x.Photos)
-                .Where(x => ids.Contains(x.IdNumber))
-                .ToListAsync();
-
-            return _mapper.Map<List<UserDto>>(users);
+            return await GetFeedbackUsers(interests);
         }
 
         public async Task<IEnumerable<UserDto>> GetCommentedFeedbackUsers(int eventId)
@@ -96,11 +73,16 @@ namespace API.Data
                 .Where(e => e.EventId == eventId && e.Comment != null)
                 .ToListAsync();
 
-            var ids = new string[comments.Count];
+            return await GetFeedbackUsers(comments);
+        }
+
+        private async Task<IEnumerable<UserDto>> GetFeedbackUsers(List<EventFeedback> feedbacks)
+        {
+            var ids = new string[feedbacks.Count];
 
             for (int i = 0; i < ids.Length; i++)
             {
-                ids[i] = comments[i].IdNumber;
+                ids[i] = feedbacks[i].IdNumber;
             }
 
             var users = await _context.Users
