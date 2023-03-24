@@ -63,7 +63,7 @@ export class EventFeedbackComponent implements OnInit {
   getInterestedUsers() {
     if (this.event) {
       this.eventService
-        .getLikeFeedbackUsers(this.event.id)
+        .getInterestFeedbackUsers(this.event.id)
         .pipe()
         .subscribe({
           next: (users) => {
