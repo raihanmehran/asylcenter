@@ -62,4 +62,14 @@ export class EventService {
         })
       );
   }
+
+  getInterestFeedbackUsers(eventId: number) {
+    return this.http
+      .get(this.baseUrl + 'event/get-interest-feedback/' + eventId)
+      .pipe(
+        map((response) => {
+          return response;
+        })
+      );
+  }
 }
