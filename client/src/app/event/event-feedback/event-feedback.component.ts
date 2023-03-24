@@ -26,7 +26,7 @@ export class EventFeedbackComponent implements OnInit {
   isCommented: boolean = false;
   commentForm: FormGroup = new FormGroup({});
   loggedUser: LoggedUser | undefined;
-  likedUsers: User[] | undefined;
+  feedbackUsers: User[] | undefined;
 
   constructor(
     private fb: FormBuilder,
@@ -53,7 +53,7 @@ export class EventFeedbackComponent implements OnInit {
         .subscribe({
           next: (users) => {
             if (users) {
-              this.likedUsers = <User[]>users;
+              this.feedbackUsers = <User[]>users;
             }
           },
         });
@@ -68,11 +68,35 @@ export class EventFeedbackComponent implements OnInit {
         .subscribe({
           next: (users) => {
             if (users) {
-              this.likedUsers = <User[]>users;
+              this.feedbackUsers = <User[]>users;
             }
           },
         });
     }
+  }
+
+  getCommentedUsers() {
+    if (this.event) {
+      this.eventService
+        .getCommentFeedbackUsers(this.event.id)
+        .pipe()
+        .subscribe({
+          next: (users) => {
+            if (users) {
+              this.feedbackUsers = <User[]>users;
+            }
+          },
+        });
+    }
+  }
+
+  getComment(idNumber: string) {
+    var feedback = this.event?.eventFeedback.filter(
+      (x) => x.idNumber === idNumber && x.comment !== null
+    );
+    console.log(feedback);
+
+    return feedback?.map((x) => x.comment);
   }
 
   addComment() {
@@ -117,11 +141,12 @@ export class EventFeedbackComponent implements OnInit {
           this.isCommented =
             this.event.eventFeedback.filter(
               (x) =>
-                x.interested === true &&
+                x.comment !== null &&
                 x.idNumber === this.loggedUser?.username
             ).length > 0
               ? true
               : false;
+          this.getCommentedUsers();
         }
       } else if (this.for === 'interest') {
         this.isInterests = true;

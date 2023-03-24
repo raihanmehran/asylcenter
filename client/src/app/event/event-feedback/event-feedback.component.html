@@ -16,7 +16,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <div *ngFor="let user of likedUsers">
+                <div *ngFor="let user of feedbackUsers">
                     <div class="row align-items-center py-2">
                         <div class="col-2">
                             <img width="40px" class="rounded-circle" src="{{user.photoUrl || './assets/user.png'}}" alt="User profile picture">
@@ -46,7 +46,7 @@
             </div>
 
             <div class="card-body">
-                <div *ngFor="let user of likedUsers">
+                <div *ngFor="let user of feedbackUsers">
                     <div class="row align-items-center py-2">
                         <div class="col-2">
                             <img width="40px" class="rounded-circle" src="{{user.photoUrl || './assets/user.png'}}" alt="User profile picture">
@@ -84,25 +84,14 @@
                             <button style="height: 50px;" class="btn btn-light">Save</button>
                         </div>
                     </div>
-                    <div class="row py-2">
-                        <div class="col-2">
-                            <img width="40px" class="rounded-circle" src="{{'./assets/user.png'}}" alt="User profile picture">
-                        </div>
-                        <div class="col-10">
-                            <div class="row">
-                                <strong>Firstname Lastname</strong>
-                                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quia repudiandae eos cum aliquid illo veniam corrupti vel, nisi quo! Voluptatibus fuga quas libero.</p>
+                    <div *ngFor="let user of feedbackUsers">
+                        <div class="row py-2">
+                            <div class="col-2">
+                                <img width="40px" class="rounded-circle" src="{{user.photoUrl || './assets/user.png'}}" alt="User profile picture">
                             </div>
-                        </div>
-                    </div>
-                    <div class="row py-2">
-                        <div class="col-2">
-                            <img width="40px" class="rounded-circle" src="{{'./assets/user.png'}}" alt="User profile picture">
-                        </div>
-                        <div class="col-10">
-                            <div class="row">
-                                <strong>Firstname Lastname</strong>
-                                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quia repudiandae eos cum aliquid illo veniam corrupti vel, nisi quo! Voluptatibus fuga quas libero.</p>
+                            <div class="col-10">
+                                <strong>{{user.firstName}} {{user.lastName}}</strong>
+                                <p>{{getComment(user.idNumber)}}</p>
                             </div>
                         </div>
                     </div>
