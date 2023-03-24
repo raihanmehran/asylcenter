@@ -52,4 +52,14 @@ export class EventService {
         })
       );
   }
+
+  getLikeFeedbackUsers(eventId: number) {
+    return this.http
+      .get(this.baseUrl + 'event/get-like-feedback/' + eventId)
+      .pipe(
+        map((response) => {
+          return response;
+        })
+      );
+  }
 }

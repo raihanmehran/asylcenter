@@ -6,7 +6,9 @@ import { take } from 'rxjs';
 import { EventFeedback } from 'src/app/_models/eventFeedback';
 import { Events } from 'src/app/_models/events';
 import { LoggedUser } from 'src/app/_models/loggedUser';
+import { User } from 'src/app/_models/user';
 import { AccountService } from 'src/app/_services/account.service';
+import { EventService } from 'src/app/_services/event.service';
 
 @Component({
   selector: 'app-event-feedback',
@@ -24,11 +26,13 @@ export class EventFeedbackComponent implements OnInit {
   isCommented: boolean = false;
   commentForm: FormGroup = new FormGroup({});
   loggedUser: LoggedUser | undefined;
+  likedUsers: User[] | undefined;
 
   constructor(
     private fb: FormBuilder,
     private accountService: AccountService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private eventService: EventService
   ) {}
   ngOnInit(): void {
     this.initializeForm();
@@ -39,6 +43,21 @@ export class EventFeedbackComponent implements OnInit {
     this.commentForm = this.fb.group({
       comment: ['', [Validators.required, Validators.maxLength(500)]],
     });
+  }
+
+  getLikedUsers() {
+    if (this.event) {
+      this.eventService
+        .getLikeFeedbackUsers(this.event.id)
+        .pipe()
+        .subscribe({
+          next: (users) => {
+            if (users) {
+              this.likedUsers = <User[]>users;
+            }
+          },
+        });
+    }
   }
 
   addComment() {
@@ -75,6 +94,7 @@ export class EventFeedbackComponent implements OnInit {
     if (this.event) {
       if (this.for === 'like') {
         this.isLikes = true;
+        this.getLikedUsers();
       } else if (this.for === 'comment') {
         this.getLoggedUser();
         if (this.loggedUser) {

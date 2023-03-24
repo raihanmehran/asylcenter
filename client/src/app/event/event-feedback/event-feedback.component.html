@@ -16,20 +16,14 @@
                 </div>
             </div>
             <div class="card-body">
-                <div class="row align-items-center py-2">
-                    <div class="col-2">
-                        <img width="40px" class="rounded-circle" src="{{'./assets/user.png'}}" alt="User profile picture">
-                    </div>
-                    <div class="col-10">
-                        <strong>Firstname Lastname</strong>
-                    </div>
-                </div>
-                <div class="row align-items-center py-2">
-                    <div class="col-2">
-                        <img width="40px" class="rounded-circle" src="{{'./assets/user.png'}}" alt="User profile picture">
-                    </div>
-                    <div class="col-10">
-                        <strong>Firstname Lastname</strong>
+                <div *ngFor="let user of likedUsers">
+                    <div class="row align-items-center py-2">
+                        <div class="col-2">
+                            <img width="40px" class="rounded-circle" src="{{user.photoUrl || './assets/user.png'}}" alt="User profile picture">
+                        </div>
+                        <div class="col-10">
+                            <strong>{{user.firstName}} {{user.lastName}}</strong>
+                        </div>
                     </div>
                 </div>
             </div>

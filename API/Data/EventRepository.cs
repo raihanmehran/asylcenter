@@ -62,6 +62,7 @@ namespace API.Data
             }
 
             var users = await _context.Users
+                .Include(x => x.Photos)
                 .Where(x => ids.Contains(x.IdNumber))
                 .ToListAsync();
 
