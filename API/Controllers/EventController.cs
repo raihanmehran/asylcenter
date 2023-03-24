@@ -3,6 +3,7 @@ using API.Entities;
 using API.Extensions;
 using API.Interfaces;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -87,11 +88,23 @@ namespace API.Controllers
         [HttpGet("get-like-feedback/{eventId}")]
         public async Task<ActionResult<IEnumerable<UserDto>>> GetLikedFeedbackUsers(int eventId)
         {
-            var likedUsers = await _eventRepository.GetLikedFeedbackUsers(eventId: eventId);
+            var likedUsers = await _eventRepository
+                .GetLikedFeedbackUsers(eventId: eventId);
 
             if (likedUsers == null) return NotFound();
 
             return Ok(likedUsers);
+        }
+
+        [HttpGet("get-interest-feedback/{eventId}")]
+        public async Task<ActionResult<IEnumerable<UserDto>>> GetInterestedFeedbackUsers(int eventId)
+        {
+            var interestedUsers = await _eventRepository
+                .GetInterestedFeedbackUsers(eventId: eventId);
+
+            if (interestedUsers == null) return NotFound();
+
+            return Ok(interestedUsers);
         }
 
         [HttpPut]
