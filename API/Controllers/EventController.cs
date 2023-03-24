@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 
 namespace API.Controllers
 {
+    [Authorize]
     public class EventController : BaseApiController
     {
         private readonly IEventRepository _eventRepository;
