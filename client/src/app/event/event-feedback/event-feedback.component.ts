@@ -94,8 +94,6 @@ export class EventFeedbackComponent implements OnInit {
     var feedback = this.event?.eventFeedback.filter(
       (x) => x.idNumber === idNumber && x.comment !== null
     );
-    console.log(feedback);
-
     return feedback?.map((x) => x.comment);
   }
 
@@ -141,12 +139,17 @@ export class EventFeedbackComponent implements OnInit {
           this.isCommented =
             this.event.eventFeedback.filter(
               (x) =>
-                x.comment !== null &&
-                x.idNumber === this.loggedUser?.username
+                x.comment !== null && x.idNumber === this.loggedUser?.username
             ).length > 0
               ? true
               : false;
-          this.getCommentedUsers();
+
+          var commentLength = this.event.eventFeedback.filter(
+            (x) => x.comment !== null
+          ).length;
+          if (commentLength !== 0) {
+            this.getCommentedUsers();
+          }
         }
       } else if (this.for === 'interest') {
         this.isInterests = true;
