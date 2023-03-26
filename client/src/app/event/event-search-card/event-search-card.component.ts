@@ -18,9 +18,14 @@ export class EventSearchCardComponent implements OnInit {
   @Input() event: Events | undefined;
   @Output() editEvent = new EventEmitter<Events>();
   @Output() deleteEvent = new EventEmitter<Events>();
+  likes: number = 0;
+  interested: number = 0;
+  comments: number = 0;
 
   constructor() {}
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.calculateFeedback();
+  }
 
   edit() {
     this.editEvent.emit(this.event);
@@ -28,5 +33,19 @@ export class EventSearchCardComponent implements OnInit {
 
   delete() {
     this.deleteEvent.emit(this.event);
+  }
+
+  calculateFeedback() {
+    if (this.event) {
+      this.likes = this.event.eventFeedback.filter(
+        (x) => x.liked === true
+      ).length;
+      this.interested = this.event.eventFeedback.filter(
+        (x) => x.interested === true
+      ).length;
+      this.comments = this.event.eventFeedback.filter(
+        (x) => x.comment !== null
+      ).length;
+    }
   }
 }

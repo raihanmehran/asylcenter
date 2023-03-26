@@ -27,7 +27,6 @@ export class EventSearchComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.getEvents();
-    this.openModal(this.editDialogRef!);
   }
 
   getEvents() {
@@ -56,7 +55,9 @@ export class EventSearchComponent implements OnInit {
     this.toastr.show('Post edited');
   }
   openModal(confirmDialog: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(confirmDialog, { class: 'modal-lg' });
+    this.modalRef = this.modalService.show(confirmDialog, {
+      class: 'modal-lg',
+    });
   }
 
   confirm() {
