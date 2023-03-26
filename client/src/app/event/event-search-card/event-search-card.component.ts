@@ -5,6 +5,7 @@ import {
   OnInit,
   Output,
   TemplateRef,
+  ViewChild,
 } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Events } from 'src/app/_models/events';
@@ -21,8 +22,13 @@ export class EventSearchCardComponent implements OnInit {
   likes: number = 0;
   interested: number = 0;
   comments: number = 0;
+  modalRef: BsModalRef | undefined;
+  @ViewChild('feedbackModal', { static: true }) feedbackModalRef:
+    | TemplateRef<any>
+    | undefined;
+  modalFor: string = '';
 
-  constructor() {}
+  constructor(private modalService: BsModalService) {}
   ngOnInit(): void {
     this.calculateFeedback();
   }
@@ -47,5 +53,26 @@ export class EventSearchCardComponent implements OnInit {
         (x) => x.comment !== null
       ).length;
     }
+  }
+  openModal(modalFor: string) {
+    this.modalFor = modalFor;
+    this.modalRef = this.modalService.show(this.feedbackModalRef!, {
+      class: 'modal-md',
+    });
+  }
+  viewLikedUsers() {
+    this.openModal('like');
+  }
+
+  viewCommentedUsers() {
+    this.openModal('comment');
+  }
+
+  viewInterestedUsers() {
+    this.openModal('interest');
+  }
+
+  hideModal() {
+    this.modalService.hide();
   }
 }
