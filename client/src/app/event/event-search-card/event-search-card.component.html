@@ -22,5 +22,5 @@
 </div>
 
 <ng-template #feedbackModal>
-    <app-event-feedback [event]="event" [for]="modalFor" (hideModal)="hideModal()"></app-event-feedback>
+    <app-event-feedback [event]="event" [for]="modalFor" [isFromSearch]="true" (hideModal)="hideModal()"></app-event-feedback>
 </ng-template>

@@ -18,6 +18,7 @@ import { EventService } from 'src/app/_services/event.service';
 export class EventFeedbackComponent implements OnInit {
   @Input() event: Events | undefined;
   @Input() for: string = '';
+  @Input() isFromSearch: boolean = false;
   @Input() isLikes: boolean = false;
   @Input() isInterests: boolean = false;
   @Input() isComments: boolean = false;
@@ -136,14 +137,18 @@ export class EventFeedbackComponent implements OnInit {
         this.getLoggedUser();
         if (this.loggedUser) {
           this.isComments = true;
-          this.isCommented =
-            this.event.eventFeedback.filter(
-              (x) =>
-                x.comment !== null && x.idNumber === this.loggedUser?.username
-            ).length > 0
-              ? true
-              : false;
-
+          if (this.isFromSearch === false) {
+            this.isCommented =
+              this.event.eventFeedback.filter(
+                (x) =>
+                  x.comment !== null && x.idNumber === this.loggedUser?.username
+              ).length > 0
+                ? true
+                : false;
+          }
+          if (this.isFromSearch === true) {
+            this.isCommented = true;
+          }
           var commentLength = this.event.eventFeedback.filter(
             (x) => x.comment !== null
           ).length;
