@@ -8,6 +8,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { ToastrService } from 'ngx-toastr';
 import { Events } from 'src/app/_models/events';
 
 @Component({
@@ -28,7 +29,10 @@ export class EventSearchCardComponent implements OnInit {
     | undefined;
   modalFor: string = '';
 
-  constructor(private modalService: BsModalService) {}
+  constructor(
+    private modalService: BsModalService,
+    private toastr: ToastrService
+  ) {}
   ngOnInit(): void {
     this.calculateFeedback();
   }
@@ -61,15 +65,27 @@ export class EventSearchCardComponent implements OnInit {
     });
   }
   viewLikedUsers() {
-    this.openModal('like');
+    if (this.likes === 0) {
+      this.toastr.warning('No likes to show!');
+    } else {
+      this.openModal('like');
+    }
   }
 
   viewCommentedUsers() {
-    this.openModal('comment');
+    if (this.comments === 0) {
+      this.toastr.warning('No comments to show!');
+    } else {
+      this.openModal('comment');
+    }
   }
 
   viewInterestedUsers() {
-    this.openModal('interest');
+    if (this.interested === 0) {
+      this.toastr.warning('No interests to show!');
+    } else {
+      this.openModal('interest');
+    }
   }
 
   hideModal() {
