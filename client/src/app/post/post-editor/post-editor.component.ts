@@ -44,7 +44,7 @@ export class PostEditorComponent implements OnInit {
         '',
         [
           Validators.required,
-          Validators.minLength(7),
+          Validators.minLength(5),
           Validators.maxLength(12),
         ],
       ],

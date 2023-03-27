@@ -13,6 +13,7 @@ import { EventService } from 'src/app/_services/event.service';
 })
 export class EventListComponent implements OnInit {
   events: Events[] = [];
+  allEvents: Events[] = [];
   returnedEvent: Events | undefined;
   modalRef: BsModalRef | undefined;
   @ViewChild('likesDialog', { static: true }) likesDialogRef:
@@ -42,9 +43,14 @@ export class EventListComponent implements OnInit {
         next: (response) => {
           if (response) {
             this.events = response;
+            this.allEvents = response;
           }
         },
       });
+  }
+
+  allUpcomingEvents() {
+    this.events = this.allEvents;
   }
 
   openModal(modal: TemplateRef<any>) {
