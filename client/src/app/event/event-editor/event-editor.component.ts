@@ -7,6 +7,7 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { EventService } from 'src/app/_services/event.service';
 
@@ -23,7 +24,8 @@ export class EventEditorComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private toastr: ToastrService,
-    private eventService: EventService
+    private eventService: EventService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -77,6 +79,7 @@ export class EventEditorComponent implements OnInit {
       this.eventService.addEvent(formData).subscribe({
         next: (response) => {
           this.toastr.success('Event added successfully');
+          this.router.navigateByUrl('events/search');
           console.log(response);
         },
         error: (error) => this.toastr.error(error.error),

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { User } from 'src/app/_models/user';
 
 @Component({
@@ -8,8 +8,13 @@ import { User } from 'src/app/_models/user';
 })
 export class UserCardComponent implements OnInit {
   @Input() user: User | undefined;
+  @Output() userId = new EventEmitter<number>();
 
   constructor() {}
 
   ngOnInit(): void {}
+
+  viewUserPosts() {
+    if (this.user) this.userId.emit(this.user.id);
+  }
 }

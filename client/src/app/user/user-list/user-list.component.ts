@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, take } from 'rxjs';
 import { LoggedUser } from 'src/app/_models/loggedUser';
 import { Pagination } from 'src/app/_models/pagination';
+import { Post } from 'src/app/_models/post';
 import { User } from 'src/app/_models/user';
 import { UserParams } from 'src/app/_models/userParams';
 import { AccountService } from 'src/app/_services/account.service';
+import { PostService } from 'src/app/_services/post.service';
 import { UsersService } from 'src/app/_services/users.service';
 
 @Component({
@@ -15,6 +17,7 @@ import { UsersService } from 'src/app/_services/users.service';
 export class UserListComponent implements OnInit {
   // users$: Observable<User[]> | undefined;
   users: User[] = [];
+  posts: Post[] = [];
   pagination: Pagination | undefined;
   userParams: UserParams | undefined;
   genderList = [
@@ -22,7 +25,10 @@ export class UserListComponent implements OnInit {
     { value: 'female', display: 'Females' },
   ];
 
-  constructor(private usersService: UsersService) {
+  constructor(
+    private usersService: UsersService,
+    private postService: PostService
+  ) {
     this.userParams = this.usersService.getUserParams();
   }
 
@@ -56,5 +62,16 @@ export class UserListComponent implements OnInit {
       this.usersService.setUserParams(this.userParams);
       this.loadUsers();
     }
+  }
+
+  viewUserPosts($event: number) {
+    const userId = $event;
+    this.postService.getPostForUser(userId).subscribe({
+      next: (response) => {
+        if (response) {
+          this.posts = response;
+        }
+      },
+    });
   }
 }

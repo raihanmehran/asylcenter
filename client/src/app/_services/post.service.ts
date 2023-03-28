@@ -29,6 +29,12 @@ export class PostService {
       .pipe(map((response) => response));
   }
 
+  getPostForUser(userId: number) {
+    return this.http
+      .get<Post[]>(this.baseUrl + 'post/get-user-posts/' + userId)
+      .pipe(map((response) => response));
+  }
+
   getNotCollectedPosts() {
     return this.http
       .get<Post[]>(this.baseUrl + 'post/get-posts/not-collected')
