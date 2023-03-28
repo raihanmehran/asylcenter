@@ -53,3 +53,9 @@
         lastText="&raquo;">
     </pagination>
 </div>
+
+<ng-template #poststDialog>
+    <div *ngFor="let post of posts">
+        <app-post-card [post]="post"></app-post-card>
+    </div>
+</ng-template>

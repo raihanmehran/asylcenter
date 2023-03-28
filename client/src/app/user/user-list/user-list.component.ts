@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { ToastrService } from 'ngx-toastr';
 import { Observable, take } from 'rxjs';
 import { LoggedUser } from 'src/app/_models/loggedUser';
 import { Pagination } from 'src/app/_models/pagination';
@@ -24,10 +26,16 @@ export class UserListComponent implements OnInit {
     { value: 'male', display: 'Males' },
     { value: 'female', display: 'Females' },
   ];
+  modalRef: BsModalRef | undefined;
+  @ViewChild('poststDialog', { static: true }) poststDialogRef:
+    | TemplateRef<any>
+    | undefined;
 
   constructor(
     private usersService: UsersService,
-    private postService: PostService
+    private postService: PostService,
+    private modalService: BsModalService,
+    private toastr: ToastrService
   ) {
     this.userParams = this.usersService.getUserParams();
   }
@@ -35,6 +43,12 @@ export class UserListComponent implements OnInit {
   ngOnInit(): void {
     // this.users$ = this.usersService.getUsers();
     this.loadUsers();
+  }
+
+  openPostModal() {
+    this.modalRef = this.modalService.show(this.poststDialogRef!, {
+      class: 'modal-lg',
+    });
   }
 
   loadUsers() {
@@ -70,7 +84,11 @@ export class UserListComponent implements OnInit {
       next: (response) => {
         if (response) {
           this.posts = response;
-          console.log(this.posts);
+          if (!this.posts || this.posts.length === 0) {
+            this.toastr.show('No posts found for the selected user!');
+          } else {
+            this.openPostModal();
+          }
         }
       },
     });
