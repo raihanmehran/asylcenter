@@ -53,6 +53,12 @@ export class EventListComponent implements OnInit {
     this.events = this.allEvents;
   }
 
+  tomorrowEvents() {
+    this.events = this.events.filter(
+      (x) => x.date.toString() === this.getDate()
+    );
+  }
+
   openModal(modal: TemplateRef<any>) {
     this.modalRef = this.modalService.show(modal, {
       class: 'modal-md',
@@ -104,5 +110,15 @@ export class EventListComponent implements OnInit {
 
   hideModal() {
     this.modalService.hide();
+  }
+
+  private getDate() {
+    let theDate = new Date();
+    theDate.setDate(theDate.getDate() + 1);
+    return new Date(
+      theDate.setMinutes(theDate.getMinutes() - theDate.getTimezoneOffset())
+    )
+      .toISOString()
+      .slice(0, 10);
   }
 }

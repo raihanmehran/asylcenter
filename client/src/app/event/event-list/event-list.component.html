@@ -9,19 +9,18 @@
                     <div class="card-body text-white">
                         <div class="d-grid gap-2">
                             <button (click)="allUpcomingEvents()" type="button" class="btn btn-primary">Upcoming Events</button>
-                            <button type="button" class="btn btn-outline-secondary my-btn">Tomorrow</button>
+                            <button (click)="tomorrowEvents()" type="button" class="btn btn-outline-secondary my-btn">Tomorrow</button>
                             <button type="button" class="btn btn-outline-secondary my-btn">Next Week</button>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-9" style="overflow-y: scroll; height: 600px;">
+            <div class="col-md-9" style="overflow-y: scroll; height:80vh;">
                 <div class="container-fluid">
-                    <div *ngIf="!events">
+                    <div *ngIf="!events || events.length===0">
                         <div class="card text-align-center px-3 pt-3 pb-2">
                             <div class="card-title"> <strong> No events found! </strong></div>
                         </div>
-
                     </div>
                     <div *ngIf="events">
                         <div *ngFor="let event of events">
