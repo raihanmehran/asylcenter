@@ -31,7 +31,7 @@ export class PostService {
 
   getPostForUser(userId: number) {
     return this.http
-      .get<Post[]>(this.baseUrl + 'post/get-user-posts/' + userId)
+      .get<Post[]>(this.baseUrl + 'post/get-all-posts/' + userId)
       .pipe(map((response) => response));
   }
 
