@@ -55,7 +55,22 @@
 </div>
 
 <ng-template #poststDialog>
-    <div *ngFor="let post of posts">
-        <app-post-card [post]="post"></app-post-card>
+    <div class="card m-2">
+        <div class="card-title text-bg-primary">
+            <div class="col">
+                <div class="row p-2">
+                    <div class="col">
+                        <h4> {{posts.length}} Post(s) found!</h4>
+                    </div>
+                    <div class="col fw-bold text-end" (click)="hideModel()">X</div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div *ngFor="let post of posts">
+                <app-post-card [post]="post"></app-post-card>
+            </div>
+        </div>
     </div>
+
 </ng-template>

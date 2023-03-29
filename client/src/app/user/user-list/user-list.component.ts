@@ -93,4 +93,7 @@ export class UserListComponent implements OnInit {
       },
     });
   }
+  hideModel() {
+    this.modalService.hide();
+  }
 }
