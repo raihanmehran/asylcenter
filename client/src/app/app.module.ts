@@ -39,6 +39,7 @@ import { EventSearchComponent } from './event/event-search/event-search.componen
 import { EventSearchCardComponent } from './event/event-search-card/event-search-card.component';
 import { EventUpdateComponent } from './event/event-update/event-update.component';
 import { EventFeedbackComponent } from './event/event-feedback/event-feedback.component';
+import { HasRoleDirective } from './_directives/has-role.directive';
 
 @NgModule({
   declarations: [
@@ -72,6 +73,7 @@ import { EventFeedbackComponent } from './event/event-feedback/event-feedback.co
     EventSearchCardComponent,
     EventUpdateComponent,
     EventFeedbackComponent,
+    HasRoleDirective,
   ],
   imports: [
     BrowserModule,
