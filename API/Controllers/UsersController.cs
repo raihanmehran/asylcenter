@@ -23,6 +23,7 @@ namespace API.Controllers
             _userRepository = userRepository;
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<ActionResult<PagedList<UserDto>>> GetUsers([FromQuery] UserParams userParams)
         {
@@ -62,7 +63,7 @@ namespace API.Controllers
             return Ok(usersDto);
         }
 
-
+        [Authorize(Roles = "Member")]
         [HttpGet("{username}")]
         public async Task<ActionResult<UserDto>> GetUser(string username)
         {

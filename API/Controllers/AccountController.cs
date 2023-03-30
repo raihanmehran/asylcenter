@@ -47,7 +47,7 @@ namespace API.Controllers
             {
                 UserId = user.Id,
                 Username = user.UserName,
-                Token = _tokenService.CreateToken(user),
+                Token = await _tokenService.CreateToken(user),
                 PhotoUrl = user.Photos.FirstOrDefault(p => p.IsMain)?.Url,
                 FirstName = user.FirstName,
                 Gender = user.Gender
@@ -66,9 +66,13 @@ namespace API.Controllers
 
             var result = await _userManager.CreateAsync(user, registerDto.Password);
 
-            if (result.Succeeded) return NoContent();
+            if (!result.Succeeded) return BadRequest("Something went wrong while registering a new user");
 
-            return BadRequest("Something went wrong while registering a new user");
+            var roleResult = await _userManager.AddToRoleAsync(user: user, role: "Member");
+
+            if (!roleResult.Succeeded) return BadRequest(result.Errors);
+
+            return NoContent();
         }
 
         private async Task<bool> UserExists(string username)
