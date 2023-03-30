@@ -18,6 +18,7 @@ import { SearchPostComponent } from './post/search-post/search-post.component';
 import { EventListComponent } from './event/event-list/event-list.component';
 import { EventEditorComponent } from './event/event-editor/event-editor.component';
 import { EventSearchComponent } from './event/event-search/event-search.component';
+import { AdminGuard } from './_guards/admin.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -26,7 +27,7 @@ const routes: Routes = [
     runGuardsAndResolvers: 'always',
     canActivate: [AuthGuard],
     children: [
-      { path: 'admin', component: TasksComponent },
+      { path: 'admin', component: TasksComponent, canActivate: [AdminGuard] },
       { path: 'admin/user/register', component: RegisterComponent },
       { path: 'users', component: UserListComponent },
       {

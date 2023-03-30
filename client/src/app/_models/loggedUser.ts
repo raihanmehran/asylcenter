@@ -5,4 +5,5 @@ export interface LoggedUser {
   photoUrl: string;
   firstName: string;
   gender: string;
+  roles: string[];
 }

@@ -24,7 +24,7 @@ export class NavComponent implements OnInit {
   login() {
     this.accountService.login(this.model).subscribe({
       next: () => {
-        this.router.navigateByUrl('/admin'); // I have to change this after IDENTITY
+        this.router.navigateByUrl('/users'); // I have to change this after IDENTITY
       },
       // error: (error) => this.toastr.error(error.error), // because the errors are now handled in the interceptor
     });
