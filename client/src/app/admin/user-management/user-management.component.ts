@@ -34,7 +34,6 @@ export class UserManagementComponent implements OnInit {
       initialState: {
         list: ['Do thing', 'Another thing'],
         title: 'Test modal',
-        closeBtnName: 'Cancel',
       },
     };
     this.bsModalRef = this.modalService.show(RolesModalComponent, initialState);
