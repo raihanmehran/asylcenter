@@ -41,7 +41,19 @@ export class UserManagementComponent implements OnInit {
       },
     };
     this.bsModalRef = this.modalService.show(RolesModalComponent, config);
-
+    this.bsModalRef.onHide?.subscribe({
+      next: () => {
+        const selectedRoles = this.bsModalRef.content?.selectedRoles;
+        if (selectedRoles)
+          if (!this.isArrayEqual(selectedRoles, user.roles)) {
+            this.adminService
+              .updateUserRoles(user.username, selectedRoles.toString())
+              .subscribe({
+                next: (roles) => (user.roles = roles),
+              });
+          }
+      },
+    });
     // const initialState: ModalOptions = {
     //   initialState: {
     //     list: ['Do thing', 'Another thing'],
@@ -49,5 +61,8 @@ export class UserManagementComponent implements OnInit {
     //   },
     // };
     // this.bsModalRef = this.modalService.show(RolesModalComponent, initialState);
+  }
+  private isArrayEqual(arr1: any[], arr2: any[]) {
+    return JSON.stringify(arr1.sort()) === JSON.stringify(arr2.sort());
   }
 }
