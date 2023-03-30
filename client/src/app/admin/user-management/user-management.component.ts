@@ -11,6 +11,7 @@ import { AdminService } from 'src/app/_services/admin.service';
 })
 export class UserManagementComponent implements OnInit {
   loggedUsers: LoggedUser[] = [];
+  availableRoles = ['Member', 'Moderator', 'Admin'];
   bsModalRef: BsModalRef<RolesModalComponent> =
     new BsModalRef<RolesModalComponent>();
 
@@ -29,13 +30,24 @@ export class UserManagementComponent implements OnInit {
     });
   }
 
-  openRolesModal() {
-    const initialState: ModalOptions = {
+  openRolesModal(user: LoggedUser) {
+    const config = {
+      class: 'modal-dialog-centered',
       initialState: {
-        list: ['Do thing', 'Another thing'],
-        title: 'Test modal',
+        username: user.username,
+        name: user.firstName,
+        availableRoles: this.availableRoles,
+        selectedRoles: [...user.roles],
       },
     };
-    this.bsModalRef = this.modalService.show(RolesModalComponent, initialState);
+    this.bsModalRef = this.modalService.show(RolesModalComponent, config);
+
+    // const initialState: ModalOptions = {
+    //   initialState: {
+    //     list: ['Do thing', 'Another thing'],
+    //     title: 'Test modal',
+    //   },
+    // };
+    // this.bsModalRef = this.modalService.show(RolesModalComponent, initialState);
   }
 }
