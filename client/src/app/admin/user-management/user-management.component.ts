@@ -54,13 +54,6 @@ export class UserManagementComponent implements OnInit {
           }
       },
     });
-    // const initialState: ModalOptions = {
-    //   initialState: {
-    //     list: ['Do thing', 'Another thing'],
-    //     title: 'Test modal',
-    //   },
-    // };
-    // this.bsModalRef = this.modalService.show(RolesModalComponent, initialState);
   }
   private isArrayEqual(arr1: any[], arr2: any[]) {
     return JSON.stringify(arr1.sort()) === JSON.stringify(arr2.sort());
