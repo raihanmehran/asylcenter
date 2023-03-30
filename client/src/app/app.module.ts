@@ -40,6 +40,9 @@ import { EventSearchCardComponent } from './event/event-search-card/event-search
 import { EventUpdateComponent } from './event/event-update/event-update.component';
 import { EventFeedbackComponent } from './event/event-feedback/event-feedback.component';
 import { HasRoleDirective } from './_directives/has-role.directive';
+import { UserManagementComponent } from './admin/user-management/user-management.component';
+import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
+import { PhotoManagementComponent } from './admin/photo-management/photo-management.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +77,9 @@ import { HasRoleDirective } from './_directives/has-role.directive';
     EventUpdateComponent,
     EventFeedbackComponent,
     HasRoleDirective,
+    UserManagementComponent,
+    AdminPanelComponent,
+    PhotoManagementComponent,
   ],
   imports: [
     BrowserModule,

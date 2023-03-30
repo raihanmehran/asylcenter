@@ -19,6 +19,7 @@ import { EventListComponent } from './event/event-list/event-list.component';
 import { EventEditorComponent } from './event/event-editor/event-editor.component';
 import { EventSearchComponent } from './event/event-search/event-search.component';
 import { AdminGuard } from './_guards/admin.guard';
+import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -31,6 +32,11 @@ const routes: Routes = [
       {
         path: 'admin/user/register',
         component: RegisterComponent,
+        canActivate: [AdminGuard],
+      },
+      {
+        path: 'admin/panel',
+        component: AdminPanelComponent,
         canActivate: [AdminGuard],
       },
       { path: 'users', component: UserListComponent },
