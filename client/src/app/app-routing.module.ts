@@ -28,7 +28,11 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: 'admin', component: TasksComponent, canActivate: [AdminGuard] },
-      { path: 'admin/user/register', component: RegisterComponent },
+      {
+        path: 'admin/user/register',
+        component: RegisterComponent,
+        canActivate: [AdminGuard],
+      },
       { path: 'users', component: UserListComponent },
       {
         path: 'users/:username',
@@ -40,13 +44,29 @@ const routes: Routes = [
         canDeactivate: [PreventUnsavedChangesGuard],
       },
       { path: 'post/list', component: PostListComponent },
-      { path: 'post/post-editor', component: PostEditorComponent },
+      {
+        path: 'post/post-editor',
+        component: PostEditorComponent,
+        canActivate: [AdminGuard],
+      },
       { path: 'post/list/:id', component: PostDetailComponent },
-      { path: 'post/search', component: SearchPostComponent },
+      {
+        path: 'post/search',
+        component: SearchPostComponent,
+        canActivate: [AdminGuard],
+      },
 
-      { path: 'events/editor', component: EventEditorComponent },
+      {
+        path: 'events/editor',
+        component: EventEditorComponent,
+        canActivate: [AdminGuard],
+      },
       { path: 'events/list', component: EventListComponent },
-      { path: 'events/search', component: EventSearchComponent },
+      {
+        path: 'events/search',
+        component: EventSearchComponent,
+        canActivate: [AdminGuard],
+      },
     ],
   },
   { path: 'errors', component: TestErrorComponent },
