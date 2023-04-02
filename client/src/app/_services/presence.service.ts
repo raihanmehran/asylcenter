@@ -23,6 +23,7 @@ export class PresenceService {
       .build();
 
     this.hubConnection.start().catch((error) => console.log(error));
+    console.log('hello');
 
     this.hubConnection.on('UserIsOnline', (username) => {
       this.toastr.info(username + ' has connected');
@@ -31,5 +32,9 @@ export class PresenceService {
     this.hubConnection.on('UserIsOffline', (username) => {
       this.toastr.warning(username + ' has disconnected');
     });
+  }
+
+  stopHubConnection() {
+    this.hubConnection?.stop().catch((error) => console.log(error));
   }
 }
