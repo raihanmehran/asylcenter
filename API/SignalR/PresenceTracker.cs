@@ -20,5 +20,24 @@ namespace API.SignalR
 
             return Task.CompletedTask;
         }
+
+        public Task UserDisconnected(string username, string connectionId)
+        {
+            lock (OnlineUsers)
+            {
+                if (!OnlineUsers.ContainsKey(username)) return Task.CompletedTask;
+
+                OnlineUsers[username].Remove(connectionId);
+
+                if (OnlineUsers[username].Count == 0)
+                {
+                    OnlineUsers.Remove(username);
+                }
+            }
+
+            return Task.CompletedTask;
+        }
+
+        
     }
 }
