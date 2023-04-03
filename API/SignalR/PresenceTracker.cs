@@ -38,6 +38,16 @@ namespace API.SignalR
             return Task.CompletedTask;
         }
 
-        
+        public Task<string[]> GetOnlineUsers()
+        {
+            string[] onlineUsers;
+
+            lock (OnlineUsers)
+            {
+                onlineUsers = OnlineUsers.OrderBy(k => k.Key).Select(k => k.Key).ToArray();
+            }
+
+            return Task.FromResult(onlineUsers);
+        }
     }
 }
