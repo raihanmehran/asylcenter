@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, take } from 'rxjs';
+import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
+import { BehaviorSubject, map, take } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { LoggedUser } from '../_models/loggedUser';
 import { Post } from '../_models/post';
 
 @Injectable({
@@ -9,9 +11,35 @@ import { Post } from '../_models/post';
 })
 export class PostService {
   baseUrl = environment.apiUrl;
+  hubUrl = environment.hubUrl;
   posts: Post[] = [];
+  private hubConnection?: HubConnection;
+  private postsReceived = new BehaviorSubject<Post[]>([]);
+  userPosts$ = this.postsReceived.asObservable();
 
   constructor(private http: HttpClient) {}
+
+  createHubConnection(user: LoggedUser, receiver: number) {
+    this.hubConnection = new HubConnectionBuilder()
+      .withUrl(this.hubUrl + 'post?user=' + receiver, {
+        accessTokenFactory: () => user.token,
+      })
+      .withAutomaticReconnect()
+      .build();
+
+    this.hubConnection.start().catch((error) => console.log(error));
+
+    this.hubConnection.on('ReceivePost', (posts) => {
+      this.postsReceived.next(posts);
+      console.log(this.userPosts$);
+    });
+  }
+
+  stopHubConnection() {
+    if (this.hubConnection) {
+      this.hubConnection.stop();
+    }
+  }
 
   getPosts(userId: number) {
     return this.http

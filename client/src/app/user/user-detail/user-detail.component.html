@@ -52,7 +52,7 @@
         </div>
     </div>
     <div class="col-8">
-        <tabset class="member-tabset">
+        <tabset class="member-tabset" #userTabs>
             <tab heading="About {{user.firstName}}">
                 <h4>Email</h4>
                 <p>{{user.email}}</p>
@@ -64,8 +64,11 @@
             <tab heading="Photos">
                 <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery>
             </tab>
-            <tab heading="Posts">
+            <tab heading="Posts" (selectTab)="onTabActivated($event)">
                 <p>Posts goes here</p>
+                <div *ngFor="let post of posts">
+                    {{post.title}} -{{post.description}}
+                </div>
             </tab>
         </tabset>
     </div>
