@@ -23,7 +23,6 @@ export class UserDetailComponent implements OnInit, OnDestroy {
   galleryOptions: NgxGalleryOptions[] = [];
   galleryImages: NgxGalleryImage[] = [];
   activeTab?: TabDirective;
-  posts: Post[] = [];
   loggedUser?: LoggedUser;
 
   constructor(
@@ -56,7 +55,6 @@ export class UserDetailComponent implements OnInit, OnDestroy {
         preview: false,
       },
     ];
-    this.getPosts();
   }
   getImages() {
     if (!this.user) return [];
@@ -71,6 +69,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     }
     return imageUrls;
   }
+
   loadUser() {
     const username = this.route.snapshot.paramMap.get('username');
     if (!username) return;
@@ -85,25 +84,16 @@ export class UserDetailComponent implements OnInit, OnDestroy {
 
   onTabActivated(data: TabDirective) {
     this.activeTab = data;
-    if (this.activeTab.heading === 'Posts' && this.loggedUser) {
-      this.postService.createHubConnection(this.loggedUser, this.user.id);
-    } else {
-      this.postService.stopHubConnection();
+    if (this.activeTab.heading === 'Posts') {
+      this.getPosts();
     }
   }
 
   getPosts() {
     if (this.loggedUser) {
-      // const username = this.route.snapshot.paramMap.get('username');
-      const userId = this.route.snapshot.paramMap.get('id');
-      this.postService.getPosts(Number(userId)).subscribe({
-        next: (response) => {
-          if (response) {
-            this.posts = response;
-            console.log(this.posts);
-          }
-        },
-      });
+      this.postService.createHubConnection(this.loggedUser, this.user.id);
+    } else {
+      this.postService.stopHubConnection();
     }
   }
 }
