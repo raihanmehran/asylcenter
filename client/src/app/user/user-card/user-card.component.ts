@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { User } from 'src/app/_models/user';
+import { PresenceService } from 'src/app/_services/presence.service';
 
 @Component({
   selector: 'app-user-card',
@@ -10,7 +11,7 @@ export class UserCardComponent implements OnInit {
   @Input() user: User | undefined;
   @Output() userId = new EventEmitter<number>();
 
-  constructor() {}
+  constructor(public presenceService: PresenceService) {}
 
   ngOnInit(): void {}
 

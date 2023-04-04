@@ -15,7 +15,9 @@
     <div class="card-body p-1">
         <h6 class="fw-bold text-center">{{user.idNumber}}</h6>
         <h5 class="card-title text-center mb-1">
-            <i class="fa fa-user me2"></i>
+            <span [class.is-online]="(presenceService.onlineUsers$ | async)?.includes(user.userName)">
+                <i class="fa fa-user me2"></i>
+            </span>
             <span class="fw-bold"> {{user.firstName}} {{user.lastName}} </span>
         </h5>
         <diV>
