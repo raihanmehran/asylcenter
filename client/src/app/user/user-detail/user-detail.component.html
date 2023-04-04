@@ -3,6 +3,10 @@
         <div class="card shadow">
             <img src="{{user.photoUrl || './assets/user.png'}}" alt="{{user.firstName}}" class="card-img-top img-thumbnail">
             <div class="card-body">
+                <div class="mb-2" *ngIf="(presenceService.onlineUsers$ | async)?.includes(user.userName)">
+                    <i class="fa fa-user-circle text-success"> Online Now</i>
+                </div>
+
                 <h3>{{user.firstName}} {{user.lastName}}</h3>
                 <div>
                     <strong>ID Number:</strong>

@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import { NgxGalleryAnimation } from '@kolkov/ngx-gallery';
 import { User } from 'src/app/_models/user';
+import { PresenceService } from 'src/app/_services/presence.service';
 import { UsersService } from 'src/app/_services/users.service';
 
 @Component({
@@ -17,7 +18,8 @@ export class UserDetailComponent implements OnInit {
 
   constructor(
     private userService: UsersService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public presenceService: PresenceService
   ) {}
 
   ngOnInit(): void {
