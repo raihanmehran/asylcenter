@@ -60,6 +60,7 @@ export class UserListComponent implements OnInit {
             this.users = response.result;
             this.pagination = response.pagination;
           }
+          console.log(response);
         },
       });
     }

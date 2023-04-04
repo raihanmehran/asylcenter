@@ -26,7 +26,7 @@
                 </div> -->
                 <div>
                     <strong>Last active:</strong>
-                    <p>{{user.lastActive | timeago}}</p>
+                    <p *ngIf="user.lastActive">{{user.lastActive | timeago}}</p>
                 </div>
                 <!-- <div>
                     <strong>Since:</strong>
@@ -65,9 +65,23 @@
                 <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery>
             </tab>
             <tab heading="Posts" (selectTab)="onTabActivated($event)">
-                <p>Posts goes here</p>
-                <div *ngFor="let post of posts">
-                    {{post.title}} -{{post.description}}
+                <div *ngIf="(postService.userPosts$ | async)?.length !== 0">
+                    <ul class="list-group">
+                        <div *ngFor="let post of (postService.userPosts$ | async)">
+                            <app-post-card [post]="post"></app-post-card>
+                        </div>
+                    </ul>
+                </div>
+                <div *ngIf="(postService.userPosts$ | async)?.length === 0">
+                    <ul class="no-posts">
+                        <li>
+                            <div class="card shadow m-2">
+                                <div class="row p-3 align-items-center">
+                                    <strong>No posts yet!</strong>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </tab>
         </tabset>

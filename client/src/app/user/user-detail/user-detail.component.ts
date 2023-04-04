@@ -30,7 +30,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     private userService: UsersService,
     private route: ActivatedRoute,
     public presenceService: PresenceService,
-    private postService: PostService,
+    public postService: PostService,
     private accountService: AccountService
   ) {
     this.accountService.currentUser$.pipe(take(1)).subscribe({
@@ -46,7 +46,6 @@ export class UserDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loadUser();
-
     this.galleryOptions = [
       {
         width: '500px',
@@ -57,6 +56,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
         preview: false,
       },
     ];
+    this.getPosts();
   }
   getImages() {
     if (!this.user) return [];
@@ -76,6 +76,8 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     if (!username) return;
     this.userService.getUser(username).subscribe({
       next: (user) => {
+        console.log(user);
+
         (this.user = user), (this.galleryImages = this.getImages());
       },
     });
@@ -84,12 +86,24 @@ export class UserDetailComponent implements OnInit, OnDestroy {
   onTabActivated(data: TabDirective) {
     this.activeTab = data;
     if (this.activeTab.heading === 'Posts' && this.loggedUser) {
-      this.postService.createHubConnection(
-        this.loggedUser,
-        this.user.id
-      );
+      this.postService.createHubConnection(this.loggedUser, this.user.id);
     } else {
       this.postService.stopHubConnection();
+    }
+  }
+
+  getPosts() {
+    if (this.loggedUser) {
+      // const username = this.route.snapshot.paramMap.get('username');
+      const userId = this.route.snapshot.paramMap.get('id');
+      this.postService.getPosts(Number(userId)).subscribe({
+        next: (response) => {
+          if (response) {
+            this.posts = response;
+            console.log(this.posts);
+          }
+        },
+      });
     }
   }
 }
