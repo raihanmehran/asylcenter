@@ -14,8 +14,8 @@ export class PostService {
   hubUrl = environment.hubUrl;
   posts: Post[] = [];
   private hubConnection?: HubConnection;
-  private postsReceived = new BehaviorSubject<Post[]>([]);
-  userPosts$ = this.postsReceived.asObservable();
+  private userPostsSource = new BehaviorSubject<Post[]>([]);
+  userPosts$ = this.userPostsSource.asObservable();
 
   constructor(private http: HttpClient) {}
 
@@ -30,8 +30,26 @@ export class PostService {
     this.hubConnection.start().catch((error) => console.log(error));
 
     this.hubConnection.on('ReceivePost', (posts) => {
-      this.postsReceived.next(posts);
+      this.userPostsSource.next(posts);
       console.log(this.userPosts$);
+    });
+
+    this.hubConnection.on('AddNewPost', (post) => {
+      console.log('hubConnection on is called');
+
+      console.log(post);
+
+      this.userPosts$.pipe(take(1)).subscribe({
+        next: (posts) => {
+          this.userPostsSource.next([...posts, post]);
+          console.log(post);
+          console.log(posts);
+        },
+      });
+    });
+
+    this.hubConnection.on('testingMethod', (text) => {
+      console.log(text);
     });
   }
 
@@ -73,14 +91,23 @@ export class PostService {
       );
   }
 
-  addPost(model: any) {
-    return this.http.post(this.baseUrl + 'post/add-post', model).pipe(
-      map((response) => {
-        if (response) {
-          console.log(response);
-        }
-      })
-    );
+  async addPost(model: any) {
+    // return this.http.post(this.baseUrl + 'post/add-post', model).pipe(
+    //   map((response) => {
+    //     if (response) {
+    //       console.log(response);
+    //     }
+    //   })
+    // );
+    console.log('service:');
+
+    console.log(model);
+
+    return this.hubConnection?.invoke('testingMethod');
+
+    // return this.hubConnection
+    //   ?.invoke('AddUserPost', { recipientUsername: model.appUserId, model })
+    //   .catch((error) => console.log(error));
   }
 
   collectPost(post: Post) {

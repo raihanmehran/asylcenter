@@ -31,18 +31,24 @@ namespace API.SignalR
         public override async Task OnConnectedAsync()
         {
             var httpContext = Context.GetHttpContext();
-            var otherUser = httpContext.Request.Query["user"];
+            var otherUser = int.Parse(httpContext.Request.Query["user"]);
             System.Console.WriteLine("========================");
             System.Console.WriteLine("Id: " + otherUser);
-            //var groupName = GetGroupName(Context.User.GetUserId().ToString(), otherUser.ToString());
-            //await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
+            var groupName = GetGroupName(Context.User.GetUserId(), otherUser);
 
-            var posts = await _postRepository.GetAllPostsForUserByUserId(int.Parse(otherUser));
+            await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
 
-            await Clients.All.SendAsync("ReceivePost", posts);
+            var posts = await _postRepository.GetAllPostsForUserByUserId(otherUser);
+
+            await Clients.Group(groupName).SendAsync("ReceivePost", posts);
         }
 
-        public async Task AddPost(PostDto postDto)
+        public async Task myMethod()
+        {
+            await Clients.All.SendAsync("testingMethod","Hello from server");
+        }
+
+        public async Task AddUserPost(PostDto postDto)
         {
             if (postDto.AppUserId <= 0) throw new HubException("User not found!");
             var sender = Context.User.GetUserId();
@@ -58,7 +64,9 @@ namespace API.SignalR
                 AppUserId = postDto.AppUserId
             };
 
-            await _postRepository.AddPost(post);
+            _postRepository.AddPost(post);
+
+            System.Console.WriteLine("post to be added!");
 
             var user = await _userRepository.GetUserByIdAsync(id: postDto.AppUserId);
 
@@ -73,10 +81,10 @@ namespace API.SignalR
 
             if (await _postRepository.SaveAllAsync())
             {
-                //var group = GetGroupName(post.AddedBy.ToString(), post.AppUserId.ToString());
-                //await Clients.Group(group).SendAsync("NewPost", _mapper.Map<PostDto>(post));
+                var groupName = GetGroupName(post.AddedBy, post.AppUserId);
+                await Clients.Group(groupName).SendAsync("AddNewPost", _mapper.Map<PostDto>(post));
 
-                await Clients.All.SendAsync("NewPost", _mapper.Map<PostDto>(post));
+                //await Clients.All.SendAsync("AddNewPost", _mapper.Map<PostDto>(post));
             }
         }
 
@@ -85,11 +93,11 @@ namespace API.SignalR
             return base.OnDisconnectedAsync(exception);
         }
 
-        private string GetGroupName(string sender, string receiver)
+        private string GetGroupName(int sender, int receiver)
         {
-            var stringCompare = string.CompareOrdinal(sender, receiver) < 0;
-
-            return stringCompare ? $"{sender}-{receiver}" : $"{receiver}-{sender}";
+            // var stringCompare = string.CompareOrdinal(sender, receiver) < 0;
+            // return stringCompare ? $"{sender}-{receiver}" : $"{receiver}-{sender}";
+            return $"A{sender}-B{receiver}";
         }
     }
 }

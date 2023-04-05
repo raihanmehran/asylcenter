@@ -58,19 +58,30 @@ export class PostEditorComponent implements OnInit {
       if (this.user) {
         const values = { ...this.postForm.value, appUserId: this.user.id };
 
-        this.postService.addPost(values).subscribe({
-          next: () => {
-            this.toastr.success(
-              'Post Added Successfully to: ' +
-                this.user?.firstName +
-                ' with title: ' +
-                values.title
-            );
-            this.initializeForm();
-          },
-          error: (error) => {
-            this.toastr.error(error.error);
-          },
+        // this.postService.addPost(values).subscribe({
+        //   next: () => {
+        //     this.toastr.success(
+        //       'Post Added Successfully to: ' +
+        //         this.user?.firstName +
+        //         ' with title: ' +
+        //         values.title
+        //     );
+        //     this.initializeForm();
+        //   },
+        //   error: (error) => {
+        //     this.toastr.error(error.error);
+        //   },
+        // });
+        console.log(values);
+
+        this.postService.addPost(values).then(() => {
+          this.postForm.reset;
+          this.toastr.success(
+            'Post Added Successfully to: ' +
+              this.user?.firstName +
+              ' with title: ' +
+              values.title
+          );
         });
       }
     }
