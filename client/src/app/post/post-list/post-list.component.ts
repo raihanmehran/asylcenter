@@ -11,32 +11,27 @@ import { PostService } from 'src/app/_services/post.service';
   styleUrls: ['./post-list.component.css'],
 })
 export class PostListComponent implements OnInit {
-  posts: Post[] = [];
   loggedUser: LoggedUser | undefined;
-  userId: number | undefined;
 
   constructor(
-    private postService: PostService,
+    public postService: PostService,
     private accountServie: AccountService
-  ) {}
+  ) {
+    this.getUser();
+  }
 
   ngOnInit(): void {
     this.getPosts();
   }
 
   getPosts() {
-    this.getUser();
     if (this.loggedUser) {
-      this.userId = this.loggedUser.userId;
-
-      this.postService.getPosts(this.userId).subscribe({
-        next: (response) => {
-          if (response) {
-            this.posts = response;
-            console.log(this.posts);
-          }
-        },
-      });
+      this.postService.createHubConnection(
+        this.loggedUser,
+        this.loggedUser.userId
+      );
+    } else {
+      this.postService.stopHubConnection();
     }
   }
 
