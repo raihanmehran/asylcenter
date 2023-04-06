@@ -74,7 +74,7 @@ export class PostEditorComponent implements OnInit {
         // });
         console.log(values);
 
-        this.postService.addPost(values).then(() => {
+        this.postService.addPost(values, this.loggedUser!).then(() => {
           this.postForm.reset;
           this.toastr.success(
             'Post Added Successfully to: ' +
