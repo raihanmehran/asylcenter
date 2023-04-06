@@ -39,7 +39,11 @@ const routes: Routes = [
         component: AdminPanelComponent,
         canActivate: [AdminGuard],
       },
-      { path: 'users', component: UserListComponent },
+      {
+        path: 'users',
+        component: UserListComponent,
+        canActivate: [AdminGuard],
+      },
       {
         path: 'users/:username',
         component: UserDetailComponent,

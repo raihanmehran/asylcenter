@@ -12,10 +12,10 @@
                 <li class="nav-item">
                     <a class="nav-link" routerLink="/events/list" routerLinkActive="active">Events</a>
                 </li>
-                <li class="nav-item">
+                <li *appHasRole="['Admin', 'Moderator']" class="nav-item">
                     <a class="nav-link" routerLink="/users" routerLinkActive="active">Users</a>
                 </li>
-                <li class="nav-item">
+                <li *appHasRole="['Member']" class="nav-item">
                     <a class="nav-link" routerLink="/post/list" routerLinkActive="active">Post</a>
                 </li>
             </ul>
