@@ -17,12 +17,11 @@ export class PostService {
   private hubConnection?: HubConnection;
   private userPostsSource = new BehaviorSubject<Post[]>([]);
   userPosts$ = this.userPostsSource.asObservable();
+  idNumber: string = '';
 
   constructor(private http: HttpClient) {}
 
   createHubConnection(user: LoggedUser, receiver: number) {
-    console.log('user id:' + receiver);
-
     this.hubConnection = new HubConnectionBuilder()
       .withUrl(this.hubUrl + 'post?user=' + receiver, {
         accessTokenFactory: () => user.token,
@@ -38,13 +37,39 @@ export class PostService {
       );
 
     this.hubConnection.on('ReceivePosts', (posts: Post[]) => {
-      this.userPostsSource.next(posts);
+      console.log('receive posts');
+
+      if (receiver === posts[0].appUserId) {
+        this.userPostsSource.next(posts);
+        console.log('inside: receive posts');
+      }
     });
 
     this.hubConnection.on('AddNewPost', (post: Post) => {
       const posts = this.userPostsSource.value;
-      posts.push(post);
-      this.userPostsSource.next(posts);
+      console.log('Add new Post');
+
+      if (receiver === post.appUserId) {
+        posts.push(post);
+        posts.sort((a, b) => b.id - a.id);
+        this.userPostsSource.next(posts);
+        console.log('inside: receive posts');
+      }
+
+      // this.userPosts$.pipe(take(1)).subscribe({
+      //   next: (posts) => {
+      //     if (this.idNumber === post.idNumber) {
+      //       this.userPostsSource.next([...posts, post]);
+      //     }
+      //   },
+      // });
+
+      //console.log(this.userPosts$);
+
+      // this.userPostsSource.next([...this.userPostsSource.getValue(), post]);
+      // console.log(this.userPosts$);
+
+      // console.log(this.userPosts$);
     });
 
     // this.hubConnection = new HubConnectionBuilder()
@@ -123,8 +148,6 @@ export class PostService {
       .catch((err) =>
         console.error('Error while starting SignalR hub connection: ' + err)
       );
-
-    console.log('State: ' + this.hubConnection.state);
     if (model && this.hubConnection) {
       if (this.hubConnection.state === signalR.HubConnectionState.Connected) {
         this.hubConnection

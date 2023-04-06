@@ -1,5 +1,6 @@
 export interface Post {
   id: number;
+  appUserId: number;
   title: string;
   description: string;
   isCollected: boolean;

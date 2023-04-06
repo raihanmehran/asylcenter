@@ -96,7 +96,7 @@ namespace API.SignalR
 
             if (await _postRepository.SaveAllAsync())
             {
-                //var groupName = GetGroupName(post.AddedBy, post.AppUserId);
+                var groupName = GetGroupName(post.AddedBy, post.AppUserId);
                 //await Clients.Group(groupName).SendAsync("AddNewPost", _mapper.Map<PostDto>(post));
 
                 //await Clients.All.SendAsync("AddNewPost", _mapper.Map<PostDto>(post));

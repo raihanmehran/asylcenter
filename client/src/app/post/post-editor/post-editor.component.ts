@@ -56,7 +56,10 @@ export class PostEditorComponent implements OnInit {
   addPost() {
     if (this.postForm.valid) {
       if (this.user) {
-        const values = { ...this.postForm.value, appUserId: this.user.id };
+        const values = {
+          ...this.postForm.value,
+          appUserId: this.user.id,
+        };
 
         // this.postService.addPost(values).subscribe({
         //   next: () => {
