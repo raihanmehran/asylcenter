@@ -85,6 +85,7 @@ export class PostEditorComponent implements OnInit {
               ' with title: ' +
               values.title
           );
+          this.resetForm();
         });
       }
     }

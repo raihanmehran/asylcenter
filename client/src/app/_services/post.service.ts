@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as signalR from '@microsoft/signalr';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
-import { BehaviorSubject, map, take } from 'rxjs';
+import { BehaviorSubject, EMPTY, empty, map, take } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { LoggedUser } from '../_models/loggedUser';
 import { Post } from '../_models/post';
@@ -38,10 +38,15 @@ export class PostService {
 
     this.hubConnection.on('ReceivePosts', (posts: Post[]) => {
       console.log('receive posts');
-
-      if (receiver === posts[0].appUserId) {
-        this.userPostsSource.next(posts);
-        console.log('inside: receive posts');
+      if (posts.length > 0) {
+        if (receiver === posts[0].appUserId) {
+          this.userPostsSource.next(posts);
+          console.log('inside: receive posts');
+        }
+      } else {
+        console.log('Im here!');
+        this.userPostsSource.next([]);
+        console.log(this.userPosts$);
       }
     });
 
