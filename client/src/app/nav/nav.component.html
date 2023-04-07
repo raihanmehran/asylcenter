@@ -10,7 +10,7 @@
                     <a class="nav-link" routerLink="/admin" routerLinkActive="active">Tasks Panel</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/events/list" routerLinkActive="active">Events</a>
+                    <a *appHasRole="['Member']" class="nav-link" routerLink="/events/list" routerLinkActive="active">Events</a>
                 </li>
                 <li *appHasRole="['Admin', 'Moderator']" class="nav-item">
                     <a class="nav-link" routerLink="/users" routerLinkActive="active">Users</a>
