@@ -11,7 +11,6 @@ namespace API.SignalR
         public PresenceHub(PresenceTracker tracker)
         {
             _tracker = tracker;
-
         }
         public override async Task OnConnectedAsync()
         {

@@ -16,13 +16,18 @@ namespace API.SignalR
         private readonly IUserRepository _userRepository;
         private readonly IEmailService _emailService;
         private readonly IMapper _mapper;
+        private readonly IHubContext<PresenceHub> _presenceHub;
+
         public PostHub(
             IPostRepository postRepository,
             IUserRepository userRepository,
             IEmailService emailService,
-            IMapper mapper)
+            IMapper mapper,
+            IHubContext<PresenceHub> presenceHub
+            )
         {
             _mapper = mapper;
+            _presenceHub = presenceHub;
             _emailService = emailService;
             _userRepository = userRepository;
             _postRepository = postRepository;
@@ -32,7 +37,6 @@ namespace API.SignalR
         {
             var httpContext = Context.GetHttpContext();
             var otherUserId = httpContext.Request.Query["user"];
-            System.Console.WriteLine(otherUserId + " ============");
             var currentUserId = Context.User.GetUserId();
             var groupName = GetGroupName(currentUserId, int.Parse(otherUserId));
 
@@ -41,29 +45,10 @@ namespace API.SignalR
             var posts = await _postRepository.GetAllPostsForUserByUserId(userId: int.Parse(otherUserId));
 
             await Clients.Caller.SendAsync("ReceivePosts", posts);
-
-
-            // try 1:
-            // var httpContext = Context.GetHttpContext();
-            // var otherUser = int.Parse(httpContext.Request.Query["user"]);
-            // System.Console.WriteLine("========================");
-            // System.Console.WriteLine("Id: " + otherUser);
-            // var groupName = GetGroupName(Context.User.GetUserId(), otherUser);
-
-            // await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
-
-            // var posts = await _postRepository.GetAllPostsForUserByUserId(otherUser);
-
-            // await Clients.Group(groupName).SendAsync("ReceivePost", posts);
         }
 
         public async Task AddUserPost(PostDto postDto)
         {
-            // try 2:
-
-
-
-            // try 1:
             System.Console.WriteLine("post entered!");
             if (postDto.AppUserId <= 0) throw new HubException("User not found!");
             var sender = Context.User.GetUserId();
@@ -98,8 +83,16 @@ namespace API.SignalR
             {
                 var groupName = GetGroupName(post.AddedBy, post.AppUserId);
                 //await Clients.Group(groupName).SendAsync("AddNewPost", _mapper.Map<PostDto>(post));
-
                 //await Clients.All.SendAsync("AddNewPost", _mapper.Map<PostDto>(post));
+
+                // These lines to notify the exact user for which the post belong, but need to be fixed!
+                var connections = await PresenceTracker.GetConnectionsForUser(post.AppUserId.ToString());
+                if (connections != null)
+                {
+                    await _presenceHub.Clients.Clients(connections).SendAsync("NewMessageReceived",
+                        new { idNumber = user.IdNumber, firstName = user.FirstName, postId = post.Id });
+                }
+
                 await Clients.Others.SendAsync("AddNewPost", _mapper.Map<PostDto>(post));
             }
         }
@@ -112,7 +105,6 @@ namespace API.SignalR
         private string GetGroupName(int sender, int receiver)
         {
             // var stringCompare = string.CompareOrdinal(sender, receiver) < 0;
-            // return stringCompare ? $"{sender}-{receiver}" : $"{receiver}-{sender}";
             return sender < receiver ? $"{sender}-{receiver}" : $"{receiver}-{sender}";
         }
     }

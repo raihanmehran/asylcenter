@@ -76,17 +76,21 @@ export class PostEditorComponent implements OnInit {
         //   },
         // });
         console.log(values);
-
-        this.postService.addPost(values, this.loggedUser!).then(() => {
-          this.postForm.reset;
-          this.toastr.success(
-            'Post Added Successfully to: ' +
-              this.user?.firstName +
-              ' with title: ' +
-              values.title
-          );
-          this.resetForm();
-        });
+        if (
+          this.loggedUser &&
+          (this.loggedUser.roles[0] === 'Admin' ||
+            this.loggedUser.roles[0] === 'Moderator')
+        ) {
+          this.postService.addPost(values, this.loggedUser).then(() => {
+            this.toastr.success(
+              'Post Added Successfully to: ' +
+                this.user?.firstName +
+                ' with title: ' +
+                values.title
+            );
+            this.resetForm();
+          });
+        }
       }
     }
   }
@@ -159,8 +163,6 @@ export class PostEditorComponent implements OnInit {
 
   resetForm() {
     this.user = undefined;
-    this.postForm.controls['appUserId'].setValue('');
-    this.postForm.controls['title'].setValue('');
-    this.postForm.controls['description'].setValue('');
+    this.postForm.reset();
   }
 }
