@@ -31,74 +31,29 @@ export class PostService {
 
     this.hubConnection
       .start()
-      .then(() => console.log('SignalR hub connection started.'))
+      .then()
       .catch((err) =>
         console.error('Error while starting SignalR hub connection: ' + err)
       );
 
     this.hubConnection.on('ReceivePosts', (posts: Post[]) => {
-      console.log('receive posts');
       if (posts.length > 0) {
         if (receiver === posts[0].appUserId) {
           this.userPostsSource.next(posts);
-          console.log('inside: receive posts');
         }
       } else {
-        console.log('Im here!');
         this.userPostsSource.next([]);
-        console.log(this.userPosts$);
       }
     });
 
     this.hubConnection.on('AddNewPost', (post: Post) => {
       const posts = this.userPostsSource.value;
-      console.log('Add new Post');
-
       if (receiver === post.appUserId) {
         posts.push(post);
         posts.sort((a, b) => b.id - a.id);
         this.userPostsSource.next(posts);
-        console.log('inside: receive posts');
       }
-
-      // this.userPosts$.pipe(take(1)).subscribe({
-      //   next: (posts) => {
-      //     if (this.idNumber === post.idNumber) {
-      //       this.userPostsSource.next([...posts, post]);
-      //     }
-      //   },
-      // });
-
-      //console.log(this.userPosts$);
-
-      // this.userPostsSource.next([...this.userPostsSource.getValue(), post]);
-      // console.log(this.userPosts$);
-
-      // console.log(this.userPosts$);
     });
-
-    // this.hubConnection = new HubConnectionBuilder()
-    //   .withUrl(this.hubUrl + 'post?user=' + receiver, {
-    //     accessTokenFactory: () => user.token,
-    //   })
-    //   .withAutomaticReconnect()
-    //   .build();
-    // this.hubConnection.start().catch((error) => console.log(error));
-    // this.hubConnection.on('ReceivePost', (posts) => {
-    //   this.userPostsSource.next(posts);
-    //   console.log(this.userPosts$);
-    // });
-    // this.hubConnection.on('AddNewPost', (post) => {
-    //   console.log('hubConnection on is called');
-    //   console.log(post);
-    //   this.userPosts$.pipe(take(1)).subscribe({
-    //     next: (posts) => {
-    //       this.userPostsSource.next([...posts, post]);
-    //       console.log(post);
-    //       console.log(posts);
-    //     },
-    //   });
-    // });
   }
 
   stopHubConnection() {
@@ -149,7 +104,7 @@ export class PostService {
 
     await this.hubConnection
       .start()
-      .then(() => console.log('SignalR hub connection started.'))
+      .then()
       .catch((err) =>
         console.error('Error while starting SignalR hub connection: ' + err)
       );
@@ -159,45 +114,9 @@ export class PostService {
           .invoke('AddUserPost', model)
           .catch((err) => console.error('Error while adding post: ' + err));
       } else {
-        console.log('Not Connected!');
+        console.log('SignalR, Hub Not Connected!');
       }
     }
-    // return this.http.post(this.baseUrl + 'post/add-post', model).pipe(
-    //   map((response) => {
-    //     if (response) {
-    //       console.log(response);
-    //     }
-    //   })
-    // );
-    //try 3:
-    // try 1:
-    // console.log('service:');
-    // console.log(model);
-    // return this.hubConnection?.invoke('testingMethod');
-    // return this.hubConnection
-    //   ?.invoke('AddUserPost', { recipientUsername: model.appUserId, model })
-    //   .catch((error) => console.log(error));
-    // try 2:
-    // const connection = new HubConnectionBuilder()
-    //   .withUrl(this.hubUrl + 'post', {
-    //     accessTokenFactory: () => user.token,
-    //   })
-    //   .withAutomaticReconnect()
-    //   .build();
-    // await connection.start().catch((error) => console.log(error));
-    // if (connection.state === signalR.HubConnectionState.Disconnected) {
-    //   connection.onclose(() => {
-    //     setTimeout(() => {
-    //       connection.start().then(() => {
-    //         connection.invoke('AddUserPost', model);
-    //         connection.on('AddNewPost', (p: Post) => {
-    //           console.log('Received: ');
-    //           console.log(p);
-    //         });
-    //       });
-    //     }, 5000);
-    //   });
-    // }
   }
 
   collectPost(post: Post) {
