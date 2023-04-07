@@ -55,7 +55,11 @@ const routes: Routes = [
         component: UserEditComponent,
         canDeactivate: [PreventUnsavedChangesGuard],
       },
-      { path: 'post/list', component: PostListComponent },
+      {
+        path: 'post/list',
+        component: PostListComponent,
+        canActivate: [MemberGuard],
+      },
       {
         path: 'post/post-editor',
         component: PostEditorComponent,
@@ -83,11 +87,11 @@ const routes: Routes = [
         component: EventSearchComponent,
         canActivate: [AdminGuard],
       },
+      { path: 'errors', component: TestErrorComponent },
+      { path: 'not-found', component: NotFoundComponent },
+      { path: 'server-error', component: ServerErrorComponent },
     ],
   },
-  { path: 'errors', component: TestErrorComponent },
-  { path: 'not-found', component: NotFoundComponent },
-  { path: 'server-error', component: ServerErrorComponent },
   { path: '**', component: NotFoundComponent, pathMatch: 'full' },
 ];
 

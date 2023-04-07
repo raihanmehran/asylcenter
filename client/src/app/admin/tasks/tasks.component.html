@@ -1,171 +1,214 @@
-<div class="container">
-    <div class="row">
-        <div class="col-md-6 col-xl-3 mb-4 ">
-            <div (click)="registerUser()" class="card shadow border-start-primary py-2 dashboardButton">
-                <div class="card-body" style="padding-bottom: 0px;padding-top: 0px;">
-                    <div class="row align-items-center no-gutters">
-                        <div class="col me-2">
-                            <div class="text-uppercase fw-bold mb-1">
-                                <a class="text-decoration-none text-dark">Register New User</a>
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid mt-5">
+
+                <!-- Page Heading -->
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h1 class="h3 mb-0 text-gray-800">Tasks Panel</h1>
+                </div>
+
+                <!-- User Content Row -->
+                <div class="d-sm-flex align-items-center justify-content-between mb-2">
+                    <h3 class="h5 mb-0 text-gray-800">USER</h3>
+                </div>
+                <div class="row">
+                    <div class="col col-lg-4 col-md-6  mb-4">
+                        <div (click)="navigate('users')" id="btn-dash" class="card border-left-primary h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                            Displays The List of users</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">Users</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fa fa-users fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
                             </div>
-                            <!-- <div class=" text-dark fw-bold h5 mb-0 " style="margin-top: -6px; ">
-                                <span style="font-size: 14px; ">
-                                    <i class="fas fa-caret-up " style="margin-right: 6px;color: var(--bs-success);font-size: 16px; "></i>
-                                </span>
-                                <span style="font-size: 14px; ">221 ème</span>
-                                <span style="font-size: 10px;margin-left: 12px;color: var(--bs-gray-600); ">1325 points</span>
-                            </div> -->
                         </div>
-                        <div class="col-auto ">
-                            <i class="fa fa-user fa-2x "></i>
+                    </div>
+
+                    <div class="col col-lg-4 col-md-6  mb-4">
+                        <div (click)="navigate('admin/user/register')" id="btn-dash" class="card border-left-primary h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                            Registers a new user</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">Add User</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fa fa-user-plus fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-lg-4 col-md-6  mb-4">
+                        <div (click)="navigate('admin/panel')" id="btn-dash" class="card border-left-primary h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                            edits the user details and account</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">User Management</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fa fa-pencil-square fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-lg-4 col-md-6  mb-4">
+                        <div (click)="navigate('/home')" id="btn-dash" class="card border-left-primary h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                            resets the users's password</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">Reset Password</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fa fa-pencil-square fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-md-6 col-xl-3 mb-4">
-            <div class="card shadow border-start-primary py-2 dashboardButton">
-                <div class="card-body " style="padding-bottom: 0px;padding-top: 0px; ">
-                    <div class="row align-items-center no-gutters ">
-                        <div class="col me-2 ">
-                            <div class="text-uppercase fw-bold mb-1 ">
-                                <a class="text-decoration-none text-dark ">Reset User Password</a>
+                <!-- /. End of User Content Row -->
+
+                <!-- Post Content Row -->
+                <div class="d-sm-flex align-items-center justify-content-between mb-2">
+                    <h3 class="h5 mb-0 text-gray-800">POST</h3>
+                </div>
+                <div class="row">
+                    <div class="col col-lg-4 col-md-6  mb-4">
+                        <div (click)="navigate('post/search')" id="btn-dash" class="card border-left-success h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                            Displays The List of posts</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">Posts</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fa fa-envelope fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-auto ">
-                            <i class="fa fa-lock fa-2x "></i>
+                    </div>
+                    <div class="col col-lg-4 col-md-6  mb-4">
+                        <div (click)="navigate('post/post-editor')" id="btn-dash" class="card border-left-success h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                            Add a new post to a user</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">Add Post</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fa fa-plus fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-md-6 col-xl-3 mb-4">
-            <div class="card shadow border-start-primary py-2 dashboardButton">
-                <div class="card-body " style="padding-bottom: 0px;padding-top: 0px; ">
-                    <div class="row align-items-center no-gutters ">
-                        <div class="col me-2 ">
-                            <div class="text-uppercase fw-bold mb-1 ">
-                                <a class="text-decoration-none text-dark ">Search Post</a>
+                <!-- /. End of Post Content Row -->
+
+                <!-- Event Content Row -->
+                <div class="d-sm-flex align-items-center justify-content-between mb-2">
+                    <h3 class="h5 mb-0 text-gray-800">EVENT</h3>
+                </div>
+                <div class="row">
+                    <div class="col col-lg-4 col-md-6  mb-4">
+                        <div (click)="navigate('events/search')" id="btn-dash" class="card border-left-warning h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                            Displays The List of events</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">Events</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fa fa-calendar fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-auto ">
-                            <i class="fa fa-search fa-2x "></i>
+                    </div>
+                    <div class="col col-lg-4 col-md-6  mb-4">
+                        <div (click)="navigate('events/editor')" id="btn-dash" class="card border-left-warning h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                            Add a new event</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">Add Event</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fa fa-plus fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-md-6 col-xl-3 mb-4">
-            <div (click)="navigate('users')" class="card shadow border-start-primary py-2 dashboardButton">
-                <div class="card-body " style="padding-bottom: 0px;padding-top: 0px; ">
-                    <div class="row align-items-center no-gutters ">
-                        <div class="col me-2 ">
-                            <div class="text-uppercase fw-bold mb-1 ">
-                                <a class="text-decoration-none text-dark ">Users</a>
+                <!-- /. End of Event Content Row -->
+
+                <!-- Error Content Row -->
+                <div class="d-sm-flex align-items-center justify-content-between mb-2">
+                    <h3 class="h5 mb-0 text-gray-800">ERROR TEST</h3>
+                </div>
+                <div class="row">
+                    <div class="col col-lg-4 col-md-6  mb-4">
+                        <div (click)="navigate('errors')" id="btn-dash" class="card border-left-danger h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                            Tests Errors</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">Errors</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fa fa-exclamation-triangle fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-auto ">
-                            <i class="fa fa-plus fa-2x "></i>
                         </div>
                     </div>
                 </div>
+                <!-- /. End of Error Content Row -->
+
+                <!-- /.container-fluid -->
+
             </div>
-        </div>
-        <div class="col-md-6 col-xl-3 mb-4">
-            <div (click)="navigate('post/post-editor')" class="card shadow border-start-primary py-2 dashboardButton">
-                <div class="card-body " style="padding-bottom: 0px;padding-top: 0px; ">
-                    <div class="row align-items-center no-gutters ">
-                        <div class="col me-2 ">
-                            <div class="text-uppercase fw-bold mb-1 ">
-                                <a class="text-decoration-none text-dark ">Add Post</a>
-                            </div>
-                        </div>
-                        <div class="col-auto ">
-                            <i class="fa fa-envelope fa-2x "></i>
-                        </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span> <span class="fw-bold"> Mit AsylCenter</span> Release Version 1.0 - 2023</span>
                     </div>
                 </div>
-            </div>
+            </footer>
+            <!-- End of Footer -->
+
         </div>
-        <div class="col-md-6 col-xl-3 mb-4">
-            <div (click)="navigate('post/search')" class="card shadow border-start-primary py-2 dashboardButton">
-                <div class="card-body " style="padding-bottom: 0px;padding-top: 0px; ">
-                    <div class="row align-items-center no-gutters ">
-                        <div class="col me-2 ">
-                            <div class="text-uppercase fw-bold mb-1 ">
-                                <a class="text-decoration-none text-dark ">Search Post</a>
-                            </div>
-                        </div>
-                        <div class="col-auto ">
-                            <i class="fa fa-envelope fa-2x "></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 col-xl-3 mb-4">
-            <div (click)="navigate('events/editor')" class="card shadow border-start-primary py-2 dashboardButton">
-                <div class="card-body " style="padding-bottom: 0px;padding-top: 0px; ">
-                    <div class="row align-items-center no-gutters ">
-                        <div class="col me-2 ">
-                            <div class="text-uppercase fw-bold mb-1 ">
-                                <a class="text-decoration-none text-dark ">Add Event</a>
-                            </div>
-                        </div>
-                        <div class="col-auto ">
-                            <i class="fa fa-envelope fa-2x "></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 col-xl-3 mb-4">
-            <div (click)="navigate('events/search')" class="card shadow border-start-primary py-2 dashboardButton">
-                <div class="card-body " style="padding-bottom: 0px;padding-top: 0px; ">
-                    <div class="row align-items-center no-gutters ">
-                        <div class="col me-2 ">
-                            <div class="text-uppercase fw-bold mb-1 ">
-                                <a class="text-decoration-none text-dark ">Search Event</a>
-                            </div>
-                        </div>
-                        <div class="col-auto ">
-                            <i class="fa fa-envelope fa-2x "></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 col-xl-3 mb-4">
-            <div (click)="navigate('admin/panel')" class="card shadow border-start-primary py-2 dashboardButton">
-                <div class="card-body " style="padding-bottom: 0px;padding-top: 0px; ">
-                    <div class="row align-items-center no-gutters ">
-                        <div class="col me-2 ">
-                            <div class="text-uppercase fw-bold mb-1 ">
-                                <a class="text-decoration-none text-dark ">User Management</a>
-                            </div>
-                        </div>
-                        <div class="col-auto ">
-                            <i class="fa fa-user-circle-o fa-2x "></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 col-xl-3 mb-4">
-            <div (click)="navigate('errors')" class="card shadow border-start-primary py-2 dashboardButton">
-                <div class="card-body " style="padding-bottom: 0px;padding-top: 0px; ">
-                    <div class="row align-items-center no-gutters ">
-                        <div class="col me-2 ">
-                            <div class="text-uppercase fw-bold mb-1 ">
-                                <a class="text-decoration-none text-dark ">Errors Testing</a>
-                            </div>
-                        </div>
-                        <div class="col-auto ">
-                            <i class="fa fa-user-circle-o fa-2x "></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!-- End of Content Wrapper -->
+
     </div>
-</div>
+    <!-- End of Page Wrapper -->
