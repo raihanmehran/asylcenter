@@ -21,6 +21,7 @@ import { EventSearchComponent } from './event/event-search/event-search.componen
 import { AdminGuard } from './_guards/admin.guard';
 import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 import { MemberGuard } from './_guards/member.guard';
+import { ResetPasswordComponent } from './admin/reset-password/reset-password.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -85,6 +86,11 @@ const routes: Routes = [
       {
         path: 'events/search',
         component: EventSearchComponent,
+        canActivate: [AdminGuard],
+      },
+      {
+        path: 'admin/reset-password',
+        component: ResetPasswordComponent,
         canActivate: [AdminGuard],
       },
       { path: 'errors', component: TestErrorComponent },
