@@ -1,3 +1,4 @@
+using API.DTOs;
 using API.Entities;
 using API.Extensions;
 using Microsoft.AspNetCore.Authorization;
@@ -57,22 +58,21 @@ namespace API.Controllers
 
         [Authorize(Policy = "RequireAdminRole")]
         [HttpPut("reset-password")]
-        public async Task<ActionResult> ResetPassword(string username, string password)
+        public async Task<ActionResult> ResetPassword(PasswordResetDto passwordResetDto)
         {
-            if (string.IsNullOrEmpty(username)) return BadRequest("No User selected!");
-            if (string.IsNullOrEmpty(password)) return BadRequest("No password to update!");
+            if (string.IsNullOrEmpty(passwordResetDto.Username)) return BadRequest("No User selected!");
+            if (string.IsNullOrEmpty(passwordResetDto.Password)) return BadRequest("No password to update!");
 
-            var user = await _userManager.FindByNameAsync(userName: username);
+            var user = await _userManager.FindByNameAsync(userName: passwordResetDto.Username);
 
             if (user == null) return NotFound();
 
-            var token = await _userManager.GeneratePasswordResetTokenAsync(user: user);
-            var result = await _userManager.ResetPasswordAsync(user: user, token: token, newPassword: password);
+            user.PasswordHash = _userManager.PasswordHasher.HashPassword(user: user, password: passwordResetDto.Password);
+            var result = await _userManager.UpdateAsync(user: user);
 
             if (!result.Succeeded) return BadRequest("Failed to update the password");
 
             return NoContent();
-
         }
 
         [Authorize(Policy = "ModeratePhotoRole")]
