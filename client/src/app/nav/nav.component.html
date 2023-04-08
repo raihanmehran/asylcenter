@@ -1,52 +1,53 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-dark">
-    <div class="container">
-        <a class="navbar-brand" routerLink="/">Mit Asylcenter</a>
-        <ng-container *ngIf="accountService.currentUser$ | async">
-            <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
-                </li>
-                <li *appHasRole="['Admin','Moderator']" class="nav-item">
-                    <a class="nav-link" routerLink="/admin" routerLinkActive="active">Dashboard</a>
-                </li>
-                <li *appHasRole="['Admin','Moderator']" class="nav-item">
-                    <a class="nav-link" routerLink="/admin" routerLinkActive="active">Tasks Panel</a>
-                </li>
-                <li class="nav-item">
-                    <a *appHasRole="['Member']" class="nav-link" routerLink="/events/list" routerLinkActive="active">Events</a>
-                </li>
-                <li *appHasRole="['Admin', 'Moderator']" class="nav-item">
-                    <a class="nav-link" routerLink="/users" routerLinkActive="active">Users</a>
-                </li>
-                <li *appHasRole="['Member']" class="nav-item">
-                    <a class="nav-link" routerLink="/post/list" routerLinkActive="active">Post</a>
-                </li>
-                <li *appHasRole="['Admin', 'Moderator']" class="nav-item">
-                    <a class="nav-link" routerLink="/admin/user/register" routerLinkActive="active">New User</a>
-                </li>
-                <li *appHasRole="['Admin', 'Moderator']" class="nav-item">
-                    <a class="nav-link" routerLink="/post/search" routerLinkActive="active">Posts</a>
-                </li>
-                <li *appHasRole="['Admin', 'Moderator']" class="nav-item">
-                    <a class="nav-link" routerLink="/post/post-editor" routerLinkActive="active">New Post</a>
-                </li>
-            </ul>
-        </ng-container>
+<nav class="navbar navbar-dark bg-dark navbar-expand-md fixed-top navbar-shrink py-3" id="mainNav">
+    <div class="container"><a class="navbar-brand d-flex align-items-center" href="/"><span class="">Mit AsylCenter</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navcol-1">
+            <ng-container *ngIf="accountService.currentUser$ | async">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
+                    </li>
+                    <li *appHasRole="['Admin','Moderator']" class="nav-item">
+                        <a class="nav-link" routerLink="/admin" routerLinkActive="active">Dashboard</a>
+                    </li>
+                    <li *appHasRole="['Admin','Moderator']" class="nav-item">
+                        <a class="nav-link" routerLink="/admin" routerLinkActive="active">Tasks Panel</a>
+                    </li>
+                    <li class="nav-item">
+                        <a *appHasRole="['Member']" class="nav-link" routerLink="/events/list" routerLinkActive="active">Events</a>
+                    </li>
+                    <li *appHasRole="['Admin', 'Moderator']" class="nav-item">
+                        <a class="nav-link" routerLink="/users" routerLinkActive="active">Users</a>
+                    </li>
+                    <li *appHasRole="['Member']" class="nav-item">
+                        <a class="nav-link" routerLink="/post/list" routerLinkActive="active">Post</a>
+                    </li>
+                    <li *appHasRole="['Admin', 'Moderator']" class="nav-item">
+                        <a class="nav-link" routerLink="/admin/user/register" routerLinkActive="active">New User</a>
+                    </li>
+                    <li *appHasRole="['Admin', 'Moderator']" class="nav-item">
+                        <a class="nav-link" routerLink="/post/search" routerLinkActive="active">Posts</a>
+                    </li>
+                    <li *appHasRole="['Admin', 'Moderator']" class="nav-item">
+                        <a class="nav-link" routerLink="/post/post-editor" routerLinkActive="active">New Post</a>
+                    </li>
+                </ul>
+            </ng-container>
 
-
-        <div class="dropdown" *ngIf="(accountService.currentUser$ | async) as user" dropdown>
-            <img src="{{user.photoUrl || './assets/user.png'}}" class="rounded-circle" alt="user photo">
-            <a class="dropdown-toggle text-light text-decoration-none ms-1" dropdownToggle>Welcome {{user.firstName}}</a>
-            <div class="dropdown-menu mt-3" *dropdownMenu>
-                <a class="dropdown-item" routerLink="/user/edit">Edit Profile</a>
-                <a (click)="logout()" class="dropdown-item">Logout</a>
+            <div class="dropdown" *ngIf="(accountService.currentUser$ | async) as user" dropdown>
+                <img src="{{user.photoUrl || './assets/user.png'}}" class="rounded-circle" alt="user photo">
+                <a class="dropdown-toggle text-light text-decoration-none ms-1" dropdownToggle>Welcome {{user.firstName}}</a>
+                <div class="dropdown-menu mt-3" *dropdownMenu>
+                    <a class="dropdown-item" routerLink="/user/edit">Edit Profile</a>
+                    <a (click)="logout()" class="dropdown-item">Logout</a>
+                </div>
             </div>
-        </div>
 
-        <form #loginForm="ngForm" class="d-flex" (ngSubmit)="login()" *ngIf="!(accountService.currentUser$ | async)" autocomplete="off">
-            <input name="username" [(ngModel)]="model.username" type="text" class="form-control me-2" placeholder="Username">
-            <input name="password" [(ngModel)]="model.password" type="password" class=" form-control me-2 " placeholder="Password ">
-            <button class="btn btn-outline-success " type="submit ">Login</button>
-        </form>
+            <form #loginForm="ngForm" class="d-flex" (ngSubmit)="login()" *ngIf="!(accountService.currentUser$ | async)" autocomplete="off">
+                <input name="username" [(ngModel)]="model.username" type="text" class="form-control me-2" placeholder="Username">
+                <input name="password" [(ngModel)]="model.password" type="password" class=" form-control me-2 " placeholder="Password ">
+                <button class="btn btn-outline-success " type="submit ">Login</button>
+            </form>
+        </div>
     </div>
 </nav>
+<div style="height: 5em;"></div>
