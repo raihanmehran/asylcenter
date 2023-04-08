@@ -1,4 +1,5 @@
 using API.Entities;
+using API.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -49,9 +50,29 @@ namespace API.Controllers
 
             result = await _userManager.RemoveFromRolesAsync(user, userRoles.Except(selectedRoles));
 
-            if (!result.Succeeded) return BadRequest("Filed to removed from roles");
+            if (!result.Succeeded) return BadRequest("Failed to removed from roles");
 
             return Ok(await _userManager.GetRolesAsync(user: user));
+        }
+
+        [Authorize(Policy = "RequireAdminRole")]
+        [HttpPut("reset-password")]
+        public async Task<ActionResult> ResetPassword(string username, string password)
+        {
+            if (string.IsNullOrEmpty(username)) return BadRequest("No User selected!");
+            if (string.IsNullOrEmpty(password)) return BadRequest("No password to update!");
+
+            var user = await _userManager.FindByNameAsync(userName: username);
+
+            if (user == null) return NotFound();
+
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user: user);
+            var result = await _userManager.ResetPasswordAsync(user: user, token: token, newPassword: password);
+
+            if (!result.Succeeded) return BadRequest("Failed to update the password");
+
+            return NoContent();
+
         }
 
         [Authorize(Policy = "ModeratePhotoRole")]
