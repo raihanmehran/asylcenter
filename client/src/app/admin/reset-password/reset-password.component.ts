@@ -45,7 +45,7 @@ export class ResetPasswordComponent implements OnInit {
     });
   }
 
-  resetPassword(event: Event) {
+  resetPassword() {
     if (this.passwordForm.invalid) {
       this.toastr.warning('Please fill in the blanks', 'Validation');
     } else if (!this.user) {

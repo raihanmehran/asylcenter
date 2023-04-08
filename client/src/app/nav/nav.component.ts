@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, of } from 'rxjs';
-import { LoggedUser } from '../_models/loggedUser';
 import { AccountService } from '../_services/account.service';
 
 @Component({
@@ -13,20 +12,27 @@ import { AccountService } from '../_services/account.service';
 export class NavComponent implements OnInit {
   model: any = {};
 
-  constructor(
-    public accountService: AccountService,
-    private router: Router,
-    private toastr: ToastrService
-  ) {}
+  constructor(public accountService: AccountService, private router: Router) {}
 
   ngOnInit(): void {}
 
   login() {
     this.accountService.login(this.model).subscribe({
       next: () => {
-        this.router.navigateByUrl('/users'); // I have to change this after IDENTITY
+        this.accountService.currentUser$.subscribe({
+          next: (user) => {
+            if (user) {
+              if (
+                user.roles.includes('Admin' || user.roles.includes('Moderator'))
+              ) {
+                this.router.navigateByUrl('/admin');
+              } else if (user.roles.includes('Member')) {
+                this.router.navigateByUrl('/home');
+              }
+            }
+          },
+        });
       },
-      // error: (error) => this.toastr.error(error.error), // because the errors are now handled in the interceptor
     });
   }
 
