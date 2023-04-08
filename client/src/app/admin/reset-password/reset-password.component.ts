@@ -46,7 +46,20 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   resetPassword(event: Event) {
-    this.initializeForm();
+    if (this.passwordForm.invalid) {
+      this.toastr.warning('Please fill in the blanks', 'Validation');
+    } else if (!this.user) {
+      this.toastr.warning('Please search a user', 'User Required');
+    } else {
+      const values = this.passwordForm.value;
+      this.adminService.resetUserPassword(values).subscribe({
+        next: (_) => {
+          this.toastr.success('Password updated successfully!', 'Success');
+          this.router.navigateByUrl('/admin');
+        },
+        error: (error) => this.toastr.error(error.error, 'ERROR!'),
+      });
+    }
   }
 
   showPassword() {

@@ -21,4 +21,8 @@ export class AdminService {
       {}
     );
   }
+
+  resetUserPassword(model: any) {
+    return this.http.put(this.baseUrl + 'admin/reset-password', model);
+  }
 }
