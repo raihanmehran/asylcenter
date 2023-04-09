@@ -16,6 +16,7 @@ namespace API.Data
         public DbSet<Post> Posts { get; set; }
         public DbSet<Event> Events { get; set; }
         public DbSet<EventFeedback> EventFeedbacks { get; set; }
+        public DbSet<Contact> Contacts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
