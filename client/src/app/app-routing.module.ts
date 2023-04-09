@@ -22,6 +22,7 @@ import { AdminGuard } from './_guards/admin.guard';
 import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 import { MemberGuard } from './_guards/member.guard';
 import { ResetPasswordComponent } from './admin/reset-password/reset-password.component';
+import { ContactComponent } from './developer/contact/contact.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -98,6 +99,7 @@ const routes: Routes = [
       { path: 'server-error', component: ServerErrorComponent },
     ],
   },
+  { path: 'developer/contact', component: ContactComponent },
   { path: '**', component: NotFoundComponent, pathMatch: 'full' },
 ];
 

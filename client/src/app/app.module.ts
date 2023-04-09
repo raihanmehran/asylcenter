@@ -45,6 +45,7 @@ import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 import { PhotoManagementComponent } from './admin/photo-management/photo-management.component';
 import { RolesModalComponent } from './modals/roles-modal/roles-modal.component';
 import { ResetPasswordComponent } from './admin/reset-password/reset-password.component';
+import { ContactComponent } from './developer/contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -84,6 +85,7 @@ import { ResetPasswordComponent } from './admin/reset-password/reset-password.co
     PhotoManagementComponent,
     RolesModalComponent,
     ResetPasswordComponent,
+    ContactComponent,
   ],
   imports: [
     BrowserModule,
