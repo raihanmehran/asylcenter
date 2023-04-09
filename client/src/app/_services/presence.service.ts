@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, take } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { LoggedUser } from '../_models/loggedUser';
+import { AccountService } from './account.service';
 
 @Injectable({
   providedIn: 'root',
@@ -15,10 +16,12 @@ export class PresenceService {
   private hubConnection?: HubConnection;
   private onlineUserSource = new BehaviorSubject<string[]>([]);
   onlineUsers$ = this.onlineUserSource.asObservable();
+  loggedUser: LoggedUser | undefined;
 
   constructor(private toastr: ToastrService, private router: Router) {}
 
   createHubConnection(user: LoggedUser) {
+    this.loggedUser = user;
     this.hubConnection = new HubConnectionBuilder()
       .withUrl(this.hubUrl + 'presence', {
         accessTokenFactory: () => user.token,
@@ -29,11 +32,26 @@ export class PresenceService {
     this.hubConnection.start().catch((error) => console.log(error));
 
     this.hubConnection.on('UserIsOnline', (username) => {
-      this.toastr.info(username + ' has connected');
+      this.onlineUsers$.pipe(take(1)).subscribe({
+        next: (usernames) =>
+          this.onlineUserSource.next([...usernames, username]),
+      });
+
+      var isAdmin = this.isAdmin();
+      if (isAdmin) {
+        this.toastr.info(username + ' has Connected');
+      }
     });
 
     this.hubConnection.on('UserIsOffline', (username) => {
-      this.toastr.warning(username + ' has disconnected');
+      this.onlineUsers$.pipe(take(1)).subscribe({
+        next: (usernames) =>
+          this.onlineUserSource.next(usernames.filter((u) => u !== username)),
+      });
+      var isAdmin = this.isAdmin();
+      if (isAdmin) {
+        this.toastr.warning(username + ' has disconnected');
+      }
     });
 
     this.hubConnection.on('GetOnlineUsers', (usernames) => {
@@ -53,6 +71,14 @@ export class PresenceService {
           });
       }
     );
+  }
+
+  private isAdmin(): boolean {
+    let isAdmin = false;
+    if (this.loggedUser && this.loggedUser.roles.includes('Admin')) {
+      isAdmin = true;
+    }
+    return isAdmin;
   }
 
   stopHubConnection() {
