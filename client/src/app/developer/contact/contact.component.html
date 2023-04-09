@@ -11,13 +11,13 @@
                 <div>
                     <form class="p-3 p-xl-4" [formGroup]="contactForm" (ngSubmit)="contactDeveloper()">
                         <div class="mb-3">
-                            <input class="shadow form-control" type="text" id="name-1" name="name" placeholder="Name">
+                            <app-text-input [formControl]="$any(contactForm.controls['name'])" [label]="'Name'" [id]="'name'"></app-text-input>
                         </div>
                         <div class="mb-3">
-                            <input class="shadow form-control" type="email" id="email-1" name="email" placeholder="Email">
+                            <app-text-input [formControl]="$any(contactForm.controls['email'])" [label]="'Email'" [id]="'email'" [type]="'email'"></app-text-input>
                         </div>
                         <div class="mb-3">
-                            <textarea class="shadow form-control" id="message-1" name="message" rows="6" placeholder="Message"></textarea>
+                            <app-text-area [formControl]="$any(contactForm.controls['message'])" [label]="'Message'" [id]="'message'"></app-text-area>
                         </div>
                         <div>
                             <button class="btn btn-primary shadow d-block w-100" type="submit">Send </button>
