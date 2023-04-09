@@ -27,6 +27,7 @@ namespace API.Extensions
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IEventRepository, EventRepository>();
             services.AddScoped<IFeedbackRepository, FeedbackRepository>();
+            services.AddScoped<IContactRepository, ContactRepository>();
             services.AddSignalR();
             services.AddSingleton<PresenceTracker>();
 

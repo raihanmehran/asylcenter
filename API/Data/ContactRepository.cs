@@ -9,7 +9,6 @@ namespace API.Data
         public ContactRepository(DataContext context)
         {
             _context = context;
-
         }
 
         public async Task<bool> ContactDeveloper(Contact contact)
