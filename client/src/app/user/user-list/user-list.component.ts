@@ -1,13 +1,10 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
-import { Observable, take } from 'rxjs';
-import { LoggedUser } from 'src/app/_models/loggedUser';
 import { Pagination } from 'src/app/_models/pagination';
 import { Post } from 'src/app/_models/post';
 import { User } from 'src/app/_models/user';
 import { UserParams } from 'src/app/_models/userParams';
-import { AccountService } from 'src/app/_services/account.service';
 import { PostService } from 'src/app/_services/post.service';
 import { UsersService } from 'src/app/_services/users.service';
 
@@ -60,7 +57,6 @@ export class UserListComponent implements OnInit {
             this.users = response.result;
             this.pagination = response.pagination;
           }
-          console.log(response);
         },
       });
     }
