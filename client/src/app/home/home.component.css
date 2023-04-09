@@ -1,0 +1,67 @@
+:root {
+    --bs-primary: #24285b;
+    --bs-secondary: #ffd200;
+}
+
+.underline {
+    position: relative;
+}
+
+.underline:after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 8px;
+    border-radius: 5px;
+    background: #ffd200;
+    z-index: -1;
+}
+
+.bs-icon.bs-icon-rounded {
+    border-radius: 0.5rem;
+}
+
+.bs-icon-md {
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.bs-icon-lg {
+    width: 3rem;
+    height: 3rem;
+}
+
+.bs-icon.bs-icon-secondary {
+    color: #24285b;
+    background: #ffd200;
+}
+
+.bs-icon {
+    display: flex;
+    flex-shrink: 0;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.75;
+    width: 3rem;
+    height: 3rem;
+    color: #24285b;
+}
+
+.list-unstyled {
+    padding-left: 0;
+    list-style: none;
+}
+
+.list-unstyled li:hover {
+    cursor: pointer;
+}
+
+.text-orange {
+    color: #ffd200;
+}
+
+.bg-orange {
+    background-color: #ffd200;
+}
