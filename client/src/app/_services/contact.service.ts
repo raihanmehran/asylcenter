@@ -1,15 +1,26 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@microsoft/signalr';
+import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ContactService {
-  baseUrl = environment.apiUrl;
-  constructor(private http: HttpClient) {}
+  private baseUrl = environment.apiUrl;
+  constructor(private http: HttpClient, private toastr: ToastrService) {}
 
   contactDeveloper(model: any) {
-    return this.http.post(this.baseUrl + 'contact', model);
+    this.http.post(this.baseUrl + 'contact', model).subscribe({
+      next: (response) => {
+        if (response === true) {
+          this.toastr.success(
+            'Your message sent to developer.',
+            'Message Sent'
+          );
+        }
+      },
+      error: (error) => this.toastr.error(error.error, 'Error'),
+    });
   }
 }
