@@ -4,6 +4,7 @@ namespace API.Interfaces
 {
     public interface IContactRepository
     {
-        Task<bool> ContactDeveloper(Contact contact);
+        Task ContactDeveloper(Contact contact);
+        Task<bool> SaveAllAsync();
     }
 }

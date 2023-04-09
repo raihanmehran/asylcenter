@@ -25,18 +25,17 @@ namespace API.Services
             var msg = MailHelper.CreateSingleEmail(from, to, subject, emailContent, htmlContent);
             var response = await client.SendEmailAsync(msg);
         }
-        public async Task<Response> ContactDeveloper(string senderEmail, string senderName, string message)
+        public async Task ContactDeveloper(string senderEmail, string senderName, string message)
         {
             var apiKey = _apiKey;
             var client = new SendGridClient(apiKey);
-            var from = new EmailAddress(senderEmail, senderName);
-            var emailContent = message;
+            var from = new EmailAddress("raihan.mehran1073@gmail.com", "Hviding AsylCenter");
+            var emailContent = $"Name: {senderName} \nEmail:{senderEmail} \n\nMessage:\n{message}";
             var subject = $"{senderName} wants to contact";
             var to = new EmailAddress("mehraaaan@hotmail.com", "Mehran");
-            var htmlContent = $"<strong>{emailContent}</strong>";
+            var htmlContent = $"<strong>Name: <h3>{senderName}</h3>Email: <h4>{senderEmail}</h4> <br/>Message:<br/> <h5>{message}</h5></strong>";
             var msg = MailHelper.CreateSingleEmail(from, to, subject, emailContent, htmlContent);
             var response = await client.SendEmailAsync(msg);
-            return response;
         }
     }
 }

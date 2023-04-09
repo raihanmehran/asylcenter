@@ -25,13 +25,10 @@ namespace API.Controllers
             if (contactDto is null) return BadRequest("contact details were not provided!");
 
             var contact = _mapper.Map<Contact>(contactDto);
-            var response = await _emailService.ContactDeveloper(senderEmail: contact.Email, senderName: contact.Name, message: contact.Message);
+            await _emailService.ContactDeveloper(senderEmail: contact.Email, senderName: contact.Name, message: contact.Message);
+            await _contactRepository.ContactDeveloper(contact: contact);
 
-            if (response.IsSuccessStatusCode)
-            {
-                var result = await _contactRepository.ContactDeveloper(contact: contact);
-                if (result) return Ok(result);
-            }
+            if (await _contactRepository.SaveAllAsync()) return Ok(true);
 
             return BadRequest("Something bad happened while contacting developer!");
         }

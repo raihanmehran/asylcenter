@@ -11,20 +11,15 @@ namespace API.Data
             _context = context;
         }
 
-        public async Task<bool> ContactDeveloper(Contact contact)
+        public async Task ContactDeveloper(Contact contact)
         {
-            _context.Contacts.Add(contact);
-
-            var result = await _context.SaveChangesAsync();
-
-            if (result > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            await _context.Contacts.AddAsync(contact);
         }
+
+        public async Task<bool> SaveAllAsync()
+        {
+            return await _context.SaveChangesAsync() > 0;
+        }
+
     }
 }
