@@ -4,6 +4,7 @@ using API.Helpers;
 using API.Interfaces;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Data
@@ -12,8 +13,10 @@ namespace API.Data
     {
         private readonly DataContext _context;
         private readonly IMapper _mapper;
-        public UserRepository(DataContext context, IMapper mapper)
+        private readonly RoleManager<AppRole> _roleManager;
+        public UserRepository(DataContext context, IMapper mapper, RoleManager<AppRole> roleManager)
         {
+            _roleManager = roleManager;
             _mapper = mapper;
             _context = context;
 
@@ -99,5 +102,33 @@ namespace API.Data
                     userParams.PageNumber,
                     userParams.PageSize);
         }
+
+        public async Task<int> GetMembersCount()
+        {
+            return await GetUsersCountByRole(roleName: "Member");
+        }
+
+        public async Task<int> GetModeratorsCount()
+        {
+            return await GetUsersCountByRole(roleName: "Moderator");
+        }
+        public async Task<int> GetAdminsCount()
+        {
+            return await GetUsersCountByRole(roleName: "Admin");
+        }
+
+        public async Task<int> GetUsersCountByRole(string roleName)
+        {
+            var appRole = await GetRole(roleName: roleName);
+            return await _context.Users
+                .Where(u => u.UserRoles.Any(r => r.RoleId == appRole.Id))
+                .CountAsync();
+        }
+
+        private async Task<AppRole> GetRole(string roleName)
+        {
+            return await _roleManager.FindByNameAsync(roleName: roleName);
+        }
+
     }
 }
