@@ -47,6 +47,7 @@ import { RolesModalComponent } from './modals/roles-modal/roles-modal.component'
 import { ResetPasswordComponent } from './admin/reset-password/reset-password.component';
 import { ContactComponent } from './developer/contact/contact.component';
 import { FooterComponent } from './footer/footer.component';
+import { DashboardComponent } from './admin/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -88,6 +89,7 @@ import { FooterComponent } from './footer/footer.component';
     ResetPasswordComponent,
     ContactComponent,
     FooterComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,

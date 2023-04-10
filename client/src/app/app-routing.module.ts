@@ -23,6 +23,7 @@ import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 import { MemberGuard } from './_guards/member.guard';
 import { ResetPasswordComponent } from './admin/reset-password/reset-password.component';
 import { ContactComponent } from './developer/contact/contact.component';
+import { DashboardComponent } from './admin/dashboard/dashboard.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -41,6 +42,11 @@ const routes: Routes = [
       {
         path: 'admin/panel',
         component: AdminPanelComponent,
+        canActivate: [AdminGuard],
+      },
+      {
+        path: 'admin/dashboard',
+        component: DashboardComponent,
         canActivate: [AdminGuard],
       },
       {
