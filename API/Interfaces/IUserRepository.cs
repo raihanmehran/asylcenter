@@ -14,9 +14,6 @@ namespace API.Interfaces
         Task<AppUser> GetUserByUsernameAsync(string username);
         Task<PagedList<UserDto>> GetUsersAsync(UserParams userParams);
         Task<UserDto> GetUserAsync(string username);
-        Task<int> GetMembersCount();
-        Task<int> GetModeratorsCount();
-        Task<int> GetAdminsCount();
         Task<int> GetUsersCountByRole(string roleName);
         Task<IEnumerable<UsersByRoleAndMonthDto>> GetUsersCountByRolePerMonth(string roleName);
     }

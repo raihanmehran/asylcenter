@@ -103,39 +103,17 @@ namespace API.Data
                     userParams.PageSize);
         }
 
-        public async Task<int> GetMembersCount()
-        {
-            return await GetUsersCountByRole(roleName: "Member");
-        }
-
-        public async Task<int> GetModeratorsCount()
-        {
-            return await GetUsersCountByRole(roleName: "Moderator");
-        }
-        public async Task<int> GetAdminsCount()
-        {
-
-            return await GetUsersCountByRole(roleName: "Admin");
-        }
-
         public async Task<int> GetUsersCountByRole(string roleName)
         {
             var appRole = await GetRole(roleName: roleName);
-            var users = await GetUsersCountByRolePerMonth(roleName: roleName);
             return await _context.Users
                 .Where(u => u.UserRoles.Any(r => r.RoleId == appRole.Id))
                 .CountAsync();
         }
-
-        private async Task<AppRole> GetRole(string roleName)
-        {
-            return await _roleManager.FindByNameAsync(roleName: roleName);
-        }
-
         public async Task<IEnumerable<UsersByRoleAndMonthDto>> GetUsersCountByRolePerMonth(string roleName)
         {
             var appRole = await GetRole(roleName: roleName);
-            // var users = new List<DashboardDto>();
+
             return await _context.Users
                 .Where(u => u.UserRoles.Any(r => r.RoleId == appRole.Id))
                 .GroupBy(u => new { Month = u.Created.Month, Year = u.Created.Year })
@@ -147,26 +125,10 @@ namespace API.Data
                     RoleName = roleName
                 })
                 .ToListAsync();
-
-            // var users = new DashboardDto
-            // {
-            //     Count = usersPerMonth.Count,
-            //     Month = usersPerMonth[0].MonthYear.Month,
-            //     Year = usersPerMonth[0].MonthYear.Year,
-            //     RoleName = appRole.Name
-            // };
-
-
-
-            // for (int i = 0; i < usersPerMonth.Count; i++)
-            // {
-            //     users[i].Month = usersPerMonth[i].MonthYear.Month;
-            //     users[i].Year = usersPerMonth[i].MonthYear.Year;
-            //     users[i].Count = usersPerMonth[i].Count;
-            //     users[i].RoleName = roleName;
-            // }
-
-            //return users;
+        }
+        public async Task<AppRole> GetRole(string roleName)
+        {
+            return await _roleManager.FindByNameAsync(roleName: roleName);
         }
     }
 }
