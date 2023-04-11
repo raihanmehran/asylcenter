@@ -15,7 +15,7 @@ export class PostListComponent implements OnInit {
 
   constructor(
     public postService: PostService,
-    private accountServie: AccountService
+    private accountService: AccountService
   ) {
     this.getUser();
   }
@@ -36,7 +36,7 @@ export class PostListComponent implements OnInit {
   }
 
   getUser() {
-    this.accountServie.currentUser$.pipe(take(1)).subscribe({
+    this.accountService.currentUser$.pipe(take(1)).subscribe({
       next: (loggedUser) => {
         if (loggedUser) {
           this.loggedUser = loggedUser;

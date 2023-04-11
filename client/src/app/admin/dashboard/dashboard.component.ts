@@ -4,6 +4,10 @@ import { Chart, ChartConfiguration, ChartEvent, ChartType } from 'chart.js';
 
 import { default as Annotation } from 'chartjs-plugin-annotation';
 import { BaseChartDirective } from 'ng2-charts';
+import { take } from 'rxjs';
+import { LoggedUser } from 'src/app/_models/loggedUser';
+import { AccountService } from 'src/app/_services/account.service';
+import { DashboardService } from 'src/app/_services/dashboard.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -103,8 +107,12 @@ export class DashboardComponent implements OnInit {
   public lineChartType: ChartType = 'line';
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
-  constructor() {
+  constructor(
+    private accountService: AccountService,
+    private dashboardService: DashboardService
+  ) {
     Chart.register(Annotation);
+    this.getUser();
   }
 
   ngOnInit(): void {
@@ -112,6 +120,26 @@ export class DashboardComponent implements OnInit {
       labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
       values: [65, 59, 80, 81, 56, 55, 40],
     };
+    this.getData();
+  }
+
+  getData() {
+    if (this.loggedUser) {
+      console.log('Called');
+
+      this.dashboardService.createHubConnection(this.loggedUser);
+    } else this.dashboardService.stopHubConnection();
+  }
+
+  loggedUser: LoggedUser | undefined;
+  getUser() {
+    this.accountService.currentUser$.pipe(take(1)).subscribe({
+      next: (loggedUser) => {
+        if (loggedUser) {
+          this.loggedUser = loggedUser;
+        }
+      },
+    });
   }
 
   navigate(route: string) {

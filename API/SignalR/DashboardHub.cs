@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.SignalR;
 
 namespace API.SignalR
 {
-    [Authorize(Policy = "RequireAdminRole")]
+    [Authorize]
     public class DashboardHub : Hub
     {
         private readonly IUserRepository _userRepository;
