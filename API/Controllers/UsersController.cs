@@ -49,6 +49,7 @@ namespace API.Controllers
         public async Task<ActionResult<IEnumerable<PostUserDto>>> GetAllUsers()
         {
             var userId = User.GetUserId();
+            var usersPerRole = await _userRepository.GetMembersCount();
             var currentUser = await _userRepository.GetUserByIdAsync(id: userId);
 
             if (currentUser is null) return BadRequest("It was a bad request");

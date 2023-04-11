@@ -18,5 +18,6 @@ namespace API.Interfaces
         Task<int> GetModeratorsCount();
         Task<int> GetAdminsCount();
         Task<int> GetUsersCountByRole(string roleName);
+        Task<IEnumerable<UsersByRoleAndMonthDto>> GetUsersCountByRolePerMonth(string roleName);
     }
 }

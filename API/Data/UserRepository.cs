@@ -114,12 +114,14 @@ namespace API.Data
         }
         public async Task<int> GetAdminsCount()
         {
+
             return await GetUsersCountByRole(roleName: "Admin");
         }
 
         public async Task<int> GetUsersCountByRole(string roleName)
         {
             var appRole = await GetRole(roleName: roleName);
+            var users = await GetUsersCountByRolePerMonth(roleName: roleName);
             return await _context.Users
                 .Where(u => u.UserRoles.Any(r => r.RoleId == appRole.Id))
                 .CountAsync();
@@ -130,5 +132,41 @@ namespace API.Data
             return await _roleManager.FindByNameAsync(roleName: roleName);
         }
 
+        public async Task<IEnumerable<UsersByRoleAndMonthDto>> GetUsersCountByRolePerMonth(string roleName)
+        {
+            var appRole = await GetRole(roleName: roleName);
+            // var users = new List<DashboardDto>();
+            return await _context.Users
+                .Where(u => u.UserRoles.Any(r => r.RoleId == appRole.Id))
+                .GroupBy(u => new { Month = u.Created.Month, Year = u.Created.Year })
+                .Select(g => new UsersByRoleAndMonthDto
+                {
+                    Month = g.Key.Month,
+                    Year = g.Key.Year,
+                    Count = g.Count(),
+                    RoleName = roleName
+                })
+                .ToListAsync();
+
+            // var users = new DashboardDto
+            // {
+            //     Count = usersPerMonth.Count,
+            //     Month = usersPerMonth[0].MonthYear.Month,
+            //     Year = usersPerMonth[0].MonthYear.Year,
+            //     RoleName = appRole.Name
+            // };
+
+
+
+            // for (int i = 0; i < usersPerMonth.Count; i++)
+            // {
+            //     users[i].Month = usersPerMonth[i].MonthYear.Month;
+            //     users[i].Year = usersPerMonth[i].MonthYear.Year;
+            //     users[i].Count = usersPerMonth[i].Count;
+            //     users[i].RoleName = roleName;
+            // }
+
+            //return users;
+        }
     }
 }
