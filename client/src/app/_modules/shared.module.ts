@@ -12,6 +12,7 @@ import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { TimeagoModule } from 'ngx-timeago';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [],
@@ -33,6 +34,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     TimeagoModule.forRoot(),
     TimepickerModule.forRoot(),
     ModalModule.forRoot(),
+    NgChartsModule.forRoot(),
   ],
   exports: [
     BsDropdownModule,
@@ -47,6 +49,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     TimeagoModule,
     TimepickerModule,
     ModalModule,
+    NgChartsModule,
   ],
 })
 export class SharedModule {}
