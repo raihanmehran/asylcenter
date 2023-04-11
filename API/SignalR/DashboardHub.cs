@@ -23,12 +23,17 @@ namespace API.SignalR
         public override async Task OnConnectedAsync()
         {
             var httpContext = Context.GetHttpContext();
-            var users = await _userRepository.GetAllUsersNoPhotosAsync();
+            var memberUsers = await _userRepository.GetUsersCountByRolePerMonth(roleName: "Member");
+            var moderatorUsers = await _userRepository.GetUsersCountByRolePerMonth(roleName: "Moderator");
+            var adminUsers = await _userRepository.GetUsersCountByRolePerMonth(roleName: "Admin");
 
-            
+            await Clients.Caller.SendAsync("GetDashboardUsers",
+                memberUsers, moderatorUsers, adminUsers);
+        }
 
-
-
+        public override Task OnDisconnectedAsync(Exception exception)
+        {
+            return base.OnDisconnectedAsync(exception);
         }
     }
 }
