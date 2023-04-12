@@ -29,7 +29,11 @@ export class RegisterComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router
   ) {
-    
+    this.accountService.currentUser$.subscribe({
+      next: (user) => {
+        if (user) this.loggedUser = user;
+      },
+    });
   }
 
   ngOnInit(): void {
