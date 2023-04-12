@@ -29,11 +29,7 @@ export class RegisterComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router
   ) {
-    this.accountService.currentUser$.subscribe({
-      next: (user) => {
-        if (user) this.loggedUser = user;
-      },
-    });
+    this.getLoggedUser();
   }
 
   ngOnInit(): void {
@@ -64,6 +60,14 @@ export class RegisterComponent implements OnInit {
         ? null
         : { notMatching: true };
     };
+  }
+
+  getLoggedUser() {
+    this.accountService.currentUser$.subscribe({
+      next: (user) => {
+        if (user) this.loggedUser = user;
+      },
+    });
   }
 
   register() {
