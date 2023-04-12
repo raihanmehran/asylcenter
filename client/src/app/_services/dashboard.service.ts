@@ -16,10 +16,10 @@ export class DashboardService {
   memberUsers$ = this.memberUsersSource.asObservable();
 
   private moderatorUsersSource = new BehaviorSubject<UsersByRoleAndMonth[]>([]);
-  moderatorUsers$ = this.memberUsersSource.asObservable();
+  moderatorUsers$ = this.moderatorUsersSource.asObservable();
 
   private adminUsersSource = new BehaviorSubject<UsersByRoleAndMonth[]>([]);
-  adminUsers$ = this.memberUsersSource.asObservable();
+  adminUsers$ = this.adminUsersSource.asObservable();
 
   constructor() {}
 
@@ -51,9 +51,6 @@ export class DashboardService {
     this.memberUsersSource.next(members);
     this.moderatorUsersSource.next(moderators);
     this.adminUsersSource.next(admins);
-    console.log(members);
-    console.log(moderators);
-    console.log(admins);
   }
 
   stopHubConnection() {

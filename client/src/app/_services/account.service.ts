@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { LoggedUser } from '../_models/loggedUser';
+import { DashboardService } from './dashboard.service';
 import { PresenceService } from './presence.service';
 
 @Injectable({
@@ -15,7 +16,8 @@ export class AccountService {
 
   constructor(
     private http: HttpClient,
-    private presenceService: PresenceService
+    private presenceService: PresenceService,
+    private dashboardService: DashboardService
   ) {}
 
   login(model: any) {
@@ -32,14 +34,10 @@ export class AccountService {
       );
   }
 
-  register(model: any) {
+  register(model: any, user: LoggedUser) {
     return this.http.post(this.baseUrl + 'account/register', model).pipe(
-      map((response) => {
-        if (response) {
-          // auto user login removed
-          // this.setCurrentUser(user);
-          console.log(response);
-        }
+      map(() => {
+        this.dashboardService.createHubConnection(user);
       })
     );
   }

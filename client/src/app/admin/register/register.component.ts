@@ -9,6 +9,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { LoggedUser } from 'src/app/_models/loggedUser';
 import { AccountService } from 'src/app/_services/account.service';
 
 @Component({
@@ -20,13 +21,16 @@ export class RegisterComponent implements OnInit {
   @Output() cancelRegister = new EventEmitter();
   registerForm: FormGroup = new FormGroup({});
   validationErrors: string[] | undefined;
+  loggedUser: LoggedUser | undefined;
 
   constructor(
     private accountService: AccountService,
     private toastr: ToastrService,
     private fb: FormBuilder,
     private router: Router
-  ) {}
+  ) {
+    
+  }
 
   ngOnInit(): void {
     this.initializeForm();
@@ -59,13 +63,13 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
-    if (this.registerForm.valid) {
+    if (this.registerForm.valid && this.loggedUser) {
       const dob = this.getDateOnly(
         this.registerForm.controls['dateOfBirth'].value
       );
       const values = { ...this.registerForm.value, dateOfBirth: dob };
 
-      this.accountService.register(values).subscribe({
+      this.accountService.register(values, this.loggedUser).subscribe({
         next: () => {
           this.router.navigateByUrl('/users');
           this.toastr.info('New user registerd');

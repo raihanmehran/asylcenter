@@ -6,6 +6,7 @@ import { default as Annotation } from 'chartjs-plugin-annotation';
 import { BaseChartDirective } from 'ng2-charts';
 import { take } from 'rxjs';
 import { LoggedUser } from 'src/app/_models/loggedUser';
+import { UsersByRoleAndMonth } from 'src/app/_models/usersByRoleAndMonth';
 import { AccountService } from 'src/app/_services/account.service';
 import { DashboardService } from 'src/app/_services/dashboard.service';
 
@@ -109,7 +110,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private accountService: AccountService,
-    private dashboardService: DashboardService
+    public dashboardService: DashboardService
   ) {
     Chart.register(Annotation);
     this.getUser();
@@ -128,10 +129,50 @@ export class DashboardComponent implements OnInit {
       console.log('Called');
 
       this.dashboardService.createHubConnection(this.loggedUser);
+
+      this.dashboardService.memberUsers$.subscribe({
+        next: (users) => {
+          if (users) {
+            this.members = users;
+            console.log(users);
+
+            for (let user of users) {
+              this.membersCount += user.count;
+            }
+          }
+        },
+      });
+      this.dashboardService.moderatorUsers$.subscribe({
+        next: (moderators) => {
+          this.moderators = moderators;
+          console.log(moderators);
+
+          for (let m of moderators) {
+            this.moderatorsCount += m.count;
+          }
+        },
+      });
+      this.dashboardService.adminUsers$.subscribe({
+        next: (users) => {
+          this.admins = users;
+          console.log(users);
+
+          for (let user of users) {
+            this.adminsCount += user.count;
+          }
+        },
+      });
     } else this.dashboardService.stopHubConnection();
   }
 
   loggedUser: LoggedUser | undefined;
+  members: UsersByRoleAndMonth[] = [];
+  moderators: UsersByRoleAndMonth[] = [];
+  admins: UsersByRoleAndMonth[] = [];
+  membersCount: number = 0;
+  moderatorsCount: number = 0;
+  adminsCount: number = 0;
+
   getUser() {
     this.accountService.currentUser$.pipe(take(1)).subscribe({
       next: (loggedUser) => {
