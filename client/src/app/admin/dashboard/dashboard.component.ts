@@ -134,7 +134,7 @@ export class DashboardComponent implements OnInit {
         next: (users) => {
           if (users) {
             this.members = users;
-            console.log(users);
+            this.membersCount = 0;
 
             for (let user of users) {
               this.membersCount += user.count;
@@ -145,7 +145,7 @@ export class DashboardComponent implements OnInit {
       this.dashboardService.moderatorUsers$.subscribe({
         next: (moderators) => {
           this.moderators = moderators;
-          console.log(moderators);
+          this.moderatorsCount = 0;
 
           for (let m of moderators) {
             this.moderatorsCount += m.count;
@@ -155,7 +155,7 @@ export class DashboardComponent implements OnInit {
       this.dashboardService.adminUsers$.subscribe({
         next: (users) => {
           this.admins = users;
-          console.log(users);
+          this.adminsCount = 0;
 
           for (let user of users) {
             this.adminsCount += user.count;

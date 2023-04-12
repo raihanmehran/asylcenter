@@ -27,7 +27,7 @@ namespace API.SignalR
             var moderatorUsers = await _userRepository.GetUsersCountByRolePerMonth(roleName: "Moderator");
             var adminUsers = await _userRepository.GetUsersCountByRolePerMonth(roleName: "Admin");
 
-            await Clients.Caller.SendAsync("GetDashboardUsers",
+            await Clients.All.SendAsync("GetDashboardUsers",
                 memberUsers, moderatorUsers, adminUsers);
         }
 
