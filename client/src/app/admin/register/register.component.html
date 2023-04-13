@@ -28,16 +28,9 @@
                     <app-text-input [formControl]="$any(registerForm.controls['username'])" [label]="'Username'" [id]="'username'"></app-text-input>
                     <app-text-input [formControl]="$any(registerForm.controls['password'])" [label]="'Password'" [id]="'password'" [type]="'password'"></app-text-input>
 
-                    <div class="row card" *ngIf="validationErrors">
-                        <h5 class="card-title">You got some errors</h5>
-                        <ul class="text-danger card-body">
-                            <li *ngFor="let error of validationErrors">{{error}}</li>
-                        </ul>
-                    </div>
-
                     <div class="text-center">
                         <button class="btn btn-success me-2" type="submit">Register</button>
-                        <button class="btn btn-secondary" type="button" (click)="cancel()">Cancel</button>
+                        <button class="btn btn-secondary" type="button" (click)="cancel($event)">Cancel</button>
                     </div>
 
                 </div>
@@ -45,6 +38,3 @@
         </div>
     </div>
 </div>
-
-<p>Form value: {{registerForm.value | json}}</p>
-<p>Form status: {{registerForm.status | json}}</p>

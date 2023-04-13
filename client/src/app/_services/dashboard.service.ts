@@ -51,9 +51,6 @@ export class DashboardService {
     this.memberUsersSource.next(members);
     this.moderatorUsersSource.next(moderators);
     this.adminUsersSource.next(admins);
-    console.log(members);
-    console.log(moderators);
-    console.log(admins);
   }
 
   stopHubConnection() {

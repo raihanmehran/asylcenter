@@ -1,16 +1,14 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
-  FormControl,
   FormGroup,
   ValidatorFn,
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { LoggedUser } from 'src/app/_models/loggedUser';
-import { AccountService } from 'src/app/_services/account.service';
+import { UsersService } from 'src/app/_services/users.service';
 
 @Component({
   selector: 'app-register',
@@ -18,19 +16,14 @@ import { AccountService } from 'src/app/_services/account.service';
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
-  @Output() cancelRegister = new EventEmitter();
   registerForm: FormGroup = new FormGroup({});
-  validationErrors: string[] | undefined;
-  loggedUser: LoggedUser | undefined;
 
   constructor(
-    private accountService: AccountService,
+    private userService: UsersService,
     private toastr: ToastrService,
     private fb: FormBuilder,
     private router: Router
-  ) {
-    this.getLoggedUser();
-  }
+  ) {}
 
   ngOnInit(): void {
     this.initializeForm();
@@ -62,37 +55,21 @@ export class RegisterComponent implements OnInit {
     };
   }
 
-  getLoggedUser() {
-    this.accountService.currentUser$.subscribe({
-      next: (user) => {
-        if (user) this.loggedUser = user;
-      },
-    });
-  }
-
   register() {
-    if (this.registerForm.valid && this.loggedUser) {
+    if (this.registerForm.valid) {
       const dob = this.getDateOnly(
         this.registerForm.controls['dateOfBirth'].value
       );
       const values = { ...this.registerForm.value, dateOfBirth: dob };
-
-      this.accountService.register(values, this.loggedUser).subscribe({
-        next: () => {
-          this.router.navigateByUrl('/users');
-          this.toastr.info('New user registerd');
-        },
-        error: (error) => {
-          this.validationErrors = error;
-        },
-      });
+      this.userService.registerUser(values);
     } else {
-      this.toastr.error('Please solve the issues before registration!');
+      this.toastr.warning('Please fill the registration form!', 'Validation');
     }
   }
 
-  cancel() {
-    this.cancelRegister.emit(false);
+  cancel(event: Event) {
+    event.preventDefault();
+    this.router.navigateByUrl('/admin');
   }
 
   private getDateOnly(dateOfBirth: string | undefined) {

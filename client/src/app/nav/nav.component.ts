@@ -25,7 +25,7 @@ export class NavComponent implements OnInit {
               ) {
                 this.router.navigateByUrl('/admin');
               } else if (user.roles.includes('Member')) {
-                this.router.navigateByUrl('/home');
+                this.router.navigateByUrl('/events/list');
               }
             }
           },

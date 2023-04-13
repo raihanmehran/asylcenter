@@ -36,7 +36,7 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-sm-4 col-md-3 col-xl-2" *ngFor="let user of users">
+        <div class="col-sm-4 col-md-3 col-xl-2" *ngFor="let user of (usersService.users$ | async)">
             <app-user-card [user]="user" (userId)="viewUserPosts($event)"></app-user-card>
         </div>
     </div>

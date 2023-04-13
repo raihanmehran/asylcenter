@@ -1,9 +1,11 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, of, take } from 'rxjs';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { BehaviorSubject, map, of, take } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { LoggedUser } from '../_models/loggedUser';
-import { PaginatedResult } from '../_models/pagination';
+import { PaginatedResult, Pagination } from '../_models/pagination';
 import { User } from '../_models/user';
 import { UserParams } from '../_models/userParams';
 import { AccountService } from './account.service';
@@ -18,9 +20,19 @@ export class UsersService {
   loggedUser: LoggedUser | undefined;
   userParams: UserParams | undefined;
 
+  private usersSource = new BehaviorSubject<User[] | null>(null);
+  users$ = this.usersSource.asObservable();
+
+  private paginationSource = new BehaviorSubject<Pagination | null>(null);
+  pagination$ = this.paginationSource.asObservable();
+
+  pagination: Pagination | undefined;
+
   constructor(
     private http: HttpClient,
-    private accountService: AccountService
+    private accountService: AccountService,
+    private toastr: ToastrService,
+    private router: Router
   ) {
     this.accountService.currentUser$.pipe(take(1)).subscribe({
       next: (loggedUser) => {
@@ -30,6 +42,33 @@ export class UsersService {
         }
       },
     });
+  }
+
+  registerUser(model: any) {
+    if (this.loggedUser) {
+      this.accountService
+        .register(model, this.loggedUser)
+        .pipe()
+        .subscribe({
+          next: (user) => {
+            if (user) {
+              this.users$.subscribe({
+                next: (users) => {
+                  if (users) {
+                    if (!users.includes(user)) {
+                      users.push(user);
+                      this.usersSource.next(users);
+                    }
+                  }
+                },
+              });
+              this.toastr.success('New User Registered', 'Success');
+              this.router.navigateByUrl('/users');
+            }
+          },
+          error: (error) => this.toastr.error(error.error, 'Error'),
+        });
+    }
   }
 
   getUserParams() {
@@ -50,8 +89,16 @@ export class UsersService {
 
   getUsers(userParams: UserParams) {
     const response = this.usersCache.get(Object.values(userParams).join('-'));
+    console.log(userParams);
 
-    if (response) return of(response);
+    // if (response) return of(response);
+    if (response) {
+      this.usersSource.next(response.result);
+      this.paginationSource.next(response.pagination);
+      return of(response);
+    }
+
+    console.log('getting users');
 
     let params = this.getPaginationHeader(
       userParams.pageNumber,
@@ -66,6 +113,8 @@ export class UsersService {
     return this.getPaginatedResult<User[]>(this.baseUrl + 'users', params).pipe(
       map((response) => {
         this.usersCache.set(Object.values(userParams).join('-'), response);
+        this.usersSource.next(response.result as User[]);
+        this.paginationSource.next(response.pagination as Pagination);
         return response;
       })
     );

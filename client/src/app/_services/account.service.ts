@@ -3,8 +3,10 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { LoggedUser } from '../_models/loggedUser';
+import { User } from '../_models/user';
 import { DashboardService } from './dashboard.service';
 import { PresenceService } from './presence.service';
+import { UsersService } from './users.service';
 
 @Injectable({
   providedIn: 'root',
@@ -35,9 +37,10 @@ export class AccountService {
   }
 
   register(model: any, user: LoggedUser) {
-    return this.http.post(this.baseUrl + 'account/register', model).pipe(
-      map(() => {
+    return this.http.post<User>(this.baseUrl + 'account/register', model).pipe(
+      map((registeredUser) => {
         this.dashboardService.createHubConnection(user);
+        return registeredUser;
       })
     );
   }

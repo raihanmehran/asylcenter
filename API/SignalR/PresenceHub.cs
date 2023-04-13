@@ -1,5 +1,7 @@
 using API.Extensions;
+using API.Helpers;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 
 namespace API.SignalR
@@ -30,7 +32,7 @@ namespace API.SignalR
             //var currentUsers = await _tracker.GetOnlineUsers();
             //await Clients.All.SendAsync("GetOnlineUsers", currentUsers);
             await Clients.Others.SendAsync("UserIsOffline", Context.User.GetUsername());
-            
+
             await base.OnDisconnectedAsync(exception);
         }
     }

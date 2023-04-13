@@ -29,7 +29,7 @@ export class UserListComponent implements OnInit {
     | undefined;
 
   constructor(
-    private usersService: UsersService,
+    public usersService: UsersService,
     private postService: PostService,
     private modalService: BsModalService,
     private toastr: ToastrService
@@ -40,6 +40,11 @@ export class UserListComponent implements OnInit {
   ngOnInit(): void {
     // this.users$ = this.usersService.getUsers();
     this.loadUsers();
+    this.usersService.pagination$.subscribe({
+      next: (pagination) => {
+        this.pagination = pagination as Pagination;
+      },
+    });
   }
 
   openPostModal() {
@@ -54,8 +59,8 @@ export class UserListComponent implements OnInit {
       this.usersService.getUsers(this.userParams).subscribe({
         next: (response) => {
           if (response.result && response.pagination) {
-            this.users = response.result;
-            this.pagination = response.pagination;
+            // this.users = response.result;
+            // this.pagination = response.pagination;
           }
         },
       });
