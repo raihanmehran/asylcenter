@@ -49,6 +49,7 @@ import { ContactComponent } from './developer/contact/contact.component';
 import { FooterComponent } from './footer/footer.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { LineChartComponent } from './admin/charts/line-chart/line-chart.component';
+import { PieChartComponent } from './admin/charts/pie-chart/pie-chart.component';
 
 @NgModule({
   declarations: [
@@ -92,6 +93,7 @@ import { LineChartComponent } from './admin/charts/line-chart/line-chart.compone
     FooterComponent,
     DashboardComponent,
     LineChartComponent,
+    PieChartComponent,
   ],
   imports: [
     BrowserModule,

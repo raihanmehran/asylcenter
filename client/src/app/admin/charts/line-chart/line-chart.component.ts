@@ -4,7 +4,6 @@ import Annotation from 'chartjs-plugin-annotation';
 import { BaseChartDirective } from 'ng2-charts';
 import { take } from 'rxjs';
 import { LoggedUser } from 'src/app/_models/loggedUser';
-import { UsersByRoleAndMonth } from 'src/app/_models/usersByRoleAndMonth';
 import { AccountService } from 'src/app/_services/account.service';
 import { DashboardService } from 'src/app/_services/dashboard.service';
 
@@ -14,9 +13,6 @@ import { DashboardService } from 'src/app/_services/dashboard.service';
   styleUrls: ['./line-chart.component.css'],
 })
 export class LineChartComponent implements OnInit {
-  members: UsersByRoleAndMonth[] = [];
-  moderators: UsersByRoleAndMonth[] = [];
-  admins: UsersByRoleAndMonth[] = [];
   public lineChartType: ChartType = 'line';
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
@@ -167,9 +163,7 @@ export class LineChartComponent implements OnInit {
   }: {
     event?: ChartEvent;
     active?: {}[];
-  }): void {
-    console.log(event, active);
-  }
+  }): void {}
 
   public chartHovered({
     event,

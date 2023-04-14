@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Post } from 'src/app/_models/post';
 
@@ -12,7 +13,7 @@ export class SearchPostCardComponent implements OnInit {
   @Output() postToCollect = new EventEmitter<Post>();
   @Output() postToDelete = new EventEmitter<Post>();
 
-  constructor(private toastr: ToastrService) {}
+  constructor(private toastr: ToastrService, private router: Router) {}
   ngOnInit(): void {}
 
   collectPost() {
@@ -26,6 +27,6 @@ export class SearchPostCardComponent implements OnInit {
   }
 
   viewPost() {
-    this.toastr.info('Under development');
+    if (this.post) this.router.navigateByUrl('post/list/' + this.post.id);
   }
 }
