@@ -13,24 +13,24 @@
                 <div class="col-md-3"></div>
             </div>
         </div>
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-body">
-                    <div *ngIf="!posts || ((!searchedPosts || searchedPosts?.length===0) && searchInputHasValue())">
-                        <strong>No Posts found!</strong>
+    </form>
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div *ngIf="!posts || ((!searchedPosts || searchedPosts?.length===0) && searchInputHasValue())">
+                    <strong>No Posts found!</strong>
+                </div>
+                <div *ngIf="posts && searchInputHasValue() === false">
+                    <div *ngFor="let post of posts">
+                        <app-search-post-card [post]="post" (postToCollect)="collectPost($event)" (postToDelete)="deletePost($event)"></app-search-post-card>
                     </div>
-                    <div *ngIf="posts && searchInputHasValue() === false">
-                        <div *ngFor="let post of posts">
-                            <app-search-post-card [post]="post" (postToCollect)="collectPost($event)" (postToDelete)="deletePost($event)"></app-search-post-card>
-                        </div>
-                    </div>
-                    <div *ngIf="searchedPosts">
-                        <div *ngFor="let post of searchedPosts">
-                            <app-search-post-card [post]="post" (postToCollect)="collectPost($event)" (postToDelete)="deletePost($event)"></app-search-post-card>
-                        </div>
+                </div>
+                <div *ngIf="searchedPosts">
+                    <div *ngFor="let post of searchedPosts">
+                        <app-search-post-card [post]="post" (postToCollect)="collectPost($event)" (postToDelete)="deletePost($event)"></app-search-post-card>
                     </div>
                 </div>
             </div>
         </div>
-    </form>
+    </div>
 </div>

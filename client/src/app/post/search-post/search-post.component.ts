@@ -34,7 +34,7 @@ export class SearchPostComponent implements OnInit {
         '',
         [
           Validators.required,
-          Validators.minLength(7),
+          Validators.minLength(4),
           Validators.maxLength(12),
         ],
       ],
