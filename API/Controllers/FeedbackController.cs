@@ -8,21 +8,19 @@ namespace API.Controllers
 {
     public class FeedbackController : BaseApiController
     {
-        private readonly IFeedbackRepository _feedbackRepository;
-        private readonly IEventRepository _eventRepository;
         private readonly IMapper _mapper;
+        private readonly IUnitOfWork _uow;
 
-        public FeedbackController(IFeedbackRepository feedbackRepository, IEventRepository eventRepository, IMapper mapper)
+        public FeedbackController(IUnitOfWork uow, IMapper mapper)
         {
+            _uow = uow;
             _mapper = mapper;
-            _eventRepository = eventRepository;
-            _feedbackRepository = feedbackRepository;
         }
 
         [HttpPost("add-feedback")]
         public async Task<ActionResult> AddFeedback(EventFeedbackDto eventFeedbackDto)
         {
-            var events = await _eventRepository.GetEvent(eventId: eventFeedbackDto.EventId);
+            var events = await _uow.EventRepository.GetEvent(eventId: eventFeedbackDto.EventId);
 
             if (events == null) return NotFound();
 
@@ -30,7 +28,7 @@ namespace API.Controllers
 
             events.EventFeedback.Add(eventFeedback);
 
-            if (await _eventRepository.SaveAllAsync()) return NoContent();
+            if (await _uow.Complete()) return NoContent();
 
             return BadRequest("Problem happend in adding feedback");
         }
@@ -38,15 +36,15 @@ namespace API.Controllers
         [HttpDelete("remove-feedback/{feedbackId}")]
         public async Task<ActionResult> RemoveFeedback(int feedbackId)
         {
-            var feedback = await _feedbackRepository.GetEventFeedback(feedbackId: feedbackId);
+            var feedback = await _uow.FeedbackRepository.GetEventFeedback(feedbackId: feedbackId);
 
             if (feedback == null) return NotFound();
 
-            var events = await _eventRepository.GetEvent(eventId: feedback.EventId);
+            var events = await _uow.EventRepository.GetEvent(eventId: feedback.EventId);
 
             events.EventFeedback.Remove(feedback);
 
-            if (await _eventRepository.SaveAllAsync()) return NoContent();
+            if (await _uow.Complete()) return NoContent();
 
             return BadRequest("Problem happend in removing feedback");
         }

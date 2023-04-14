@@ -5,30 +5,27 @@ using API.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 
 namespace API.Controllers
 {
     [Authorize]
     public class EventController : BaseApiController
     {
-        private readonly IEventRepository _eventRepository;
         private readonly IMapper _mapper;
-        private readonly IUserRepository _userRepository;
         private readonly IPhotoService _photoService;
+        private readonly IUnitOfWork _uow;
 
-        public EventController(IEventRepository eventRepository, IMapper mapper, IUserRepository userRepository, IPhotoService photoService)
+        public EventController(IUnitOfWork uow, IMapper mapper, IPhotoService photoService)
         {
+            _uow = uow;
             _mapper = mapper;
-            _userRepository = userRepository;
             _photoService = photoService;
-            _eventRepository = eventRepository;
         }
 
         [HttpPost("add")]
         public async Task<ActionResult> AddEvent()
         {
-            var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+            var user = await _uow.UserRepository.GetUserByUsernameAsync(User.GetUsername());
             if (user == null) return NotFound();
 
             var photo = Request.Form.Files[0];
@@ -63,9 +60,9 @@ namespace API.Controllers
                 events.PublicId = result.PublicId;
             }
 
-            await _eventRepository.AddEvent(events: events);
+            await _uow.EventRepository.AddEvent(events: events);
 
-            if (await _eventRepository.SaveAllAsync()) return NoContent();
+            if (await _uow.Complete()) return NoContent();
 
             return BadRequest("Problem happened in adding event");
         }
@@ -73,11 +70,11 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<EventDto>>> GetEvents()
         {
-            var user = await _userRepository.GetUserByIdAsync(id: User.GetUserId());
+            var user = await _uow.UserRepository.GetUserByIdAsync(id: User.GetUserId());
 
             if (user is null) return BadRequest("It was bad request");
 
-            var result = await _eventRepository.GetEvents();
+            var result = await _uow.EventRepository.GetEvents();
 
             if (result == null) return NotFound();
 
@@ -89,7 +86,7 @@ namespace API.Controllers
         [HttpGet("get-like-feedback/{eventId}")]
         public async Task<ActionResult<IEnumerable<UserDto>>> GetLikedFeedbackUsers(int eventId)
         {
-            var likedUsers = await _eventRepository
+            var likedUsers = await _uow.EventRepository
                 .GetLikedFeedbackUsers(eventId: eventId);
 
             if (likedUsers == null) return NotFound();
@@ -100,7 +97,7 @@ namespace API.Controllers
         [HttpGet("get-interest-feedback/{eventId}")]
         public async Task<ActionResult<IEnumerable<UserDto>>> GetInterestedFeedbackUsers(int eventId)
         {
-            var interestedUsers = await _eventRepository
+            var interestedUsers = await _uow.EventRepository
                 .GetInterestedFeedbackUsers(eventId: eventId);
 
             if (interestedUsers == null) return NotFound();
@@ -111,7 +108,7 @@ namespace API.Controllers
         [HttpGet("get-comment-feedback/{eventId}")]
         public async Task<ActionResult<IEnumerable<UserDto>>> GetCommentedFeedbackUsers(int eventId)
         {
-            var commentedUsers = await _eventRepository
+            var commentedUsers = await _uow.EventRepository
                 .GetCommentedFeedbackUsers(eventId: eventId);
 
             if (commentedUsers == null) return NotFound();
@@ -122,7 +119,7 @@ namespace API.Controllers
         [HttpPut]
         public async Task<ActionResult> UpdateEvent(EventDto eventDto)
         {
-            var events = await _eventRepository.GetEvent(eventId: eventDto.Id);
+            var events = await _uow.EventRepository.GetEvent(eventId: eventDto.Id);
 
             if (events == null) return NotFound();
 
@@ -132,7 +129,7 @@ namespace API.Controllers
             events.Time = eventDto.Time;
             events.Location = eventDto.Location;
 
-            if (await _eventRepository.SaveAllAsync()) return NoContent();
+            if (await _uow.Complete()) return NoContent();
 
             return BadRequest("Something bad happened while updating event!");
         }
@@ -140,13 +137,13 @@ namespace API.Controllers
         [HttpDelete("delete-event/{eventId}")]
         public async Task<ActionResult> DeleteEvent(int eventId)
         {
-            var events = await _eventRepository.GetEvent(eventId: eventId);
+            var events = await _uow.EventRepository.GetEvent(eventId: eventId);
 
             if (events == null) return NotFound();
 
             events.IsDeleted = true;
 
-            if (await _eventRepository.SaveAllAsync()) return NoContent();
+            if (await _uow.Complete()) return NoContent();
 
             return BadRequest("Something bad happened while deleting event!");
         }
