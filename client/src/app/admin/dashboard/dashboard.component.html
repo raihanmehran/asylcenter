@@ -18,7 +18,7 @@
                 <!-- User Content Row -->
                 <div class="row">
                     <div class="col col-lg-4 col-md-6  mb-4">
-                        <div (click)="navigate('users')" id="btn-dash" class="card border-left-primary h-100 py-2">
+                        <div id="btn-dash" class="card border-left-primary h-100 py-2">
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
@@ -37,7 +37,7 @@
                     </div>
 
                     <div class="col col-lg-4 col-md-6 mb-4 ">
-                        <div (click)="navigate( 'admin/user/register') " id="btn-dash " class="card border-left-info h-100 py-2 ">
+                        <div id="btn-dash " class="card border-left-info h-100 py-2 ">
                             <div class="card-body ">
                                 <div class="row no-gutters align-items-center ">
                                     <div class="col mr-2 ">
@@ -53,7 +53,7 @@
                         </div>
                     </div>
                     <div class="col col-lg-4 col-md-6 mb-4 ">
-                        <div (click)="navigate( 'admin/panel') " id="btn-dash " class="card border-left-danger h-100 py-2 ">
+                        <div id="btn-dash " class="card border-left-danger h-100 py-2 ">
                             <div class="card-body ">
                                 <div class="row no-gutters align-items-center ">
                                     <div class="col mr-2 ">
@@ -69,13 +69,13 @@
                         </div>
                     </div>
                     <div class="col col-lg-4 col-md-6 mb-4 ">
-                        <div (click)="navigate( 'admin/reset-password') " id="btn-dash " class="card border-left-success h-100 py-2 ">
+                        <div id="btn-dash " class="card border-left-success h-100 py-2 ">
                             <div class="card-body ">
                                 <div class="row no-gutters align-items-center ">
                                     <div class="col mr-2 ">
                                         <div class="text-sm font-weight-bold text-success text-uppercase mb-1 ">
                                             ONLINE USERS</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800 ">Reset Password</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800 ">{{OnlineUsersCount}}</div>
                                     </div>
                                     <div class="col-auto ">
                                         <i class="fa fa-eye fa-2x text-gray-300 "></i>
@@ -91,11 +91,11 @@
 
                 <div class="row ">
                     <div class="col col-lg-4 col-md-6 mb-4 ">
-                        <div (click)="navigate( 'post/search') " id="btn-dash " class="card border-left-success h-100 py-2 ">
+                        <div id="btn-dash " class="card border-left-dark h-100 py-2 ">
                             <div class="card-body ">
                                 <div class="row no-gutters align-items-center ">
                                     <div class="col mr-2 ">
-                                        <div class="text-sm font-weight-bold text-success text-uppercase mb-1 ">
+                                        <div class="text-sm font-weight-bold text-dark text-uppercase mb-1 ">
                                             TOTAL POSTS</div>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800 ">Posts</div>
                                     </div>
@@ -107,11 +107,11 @@
                         </div>
                     </div>
                     <div class="col col-lg-4 col-md-6 mb-4 ">
-                        <div (click)="navigate( 'post/post-editor') " id="btn-dash " class="card border-left-success h-100 py-2 ">
+                        <div id="btn-dash " class="card border-left-warning h-100 py-2 ">
                             <div class="card-body ">
                                 <div class="row no-gutters align-items-center ">
                                     <div class="col mr-2 ">
-                                        <div class="text-sm font-weight-bold text-success text-uppercase mb-1 ">
+                                        <div class="text-sm font-weight-bold text-warning text-uppercase mb-1 ">
                                             TOTAL EVENTS</div>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800 ">Add Post</div>
                                     </div>
@@ -129,46 +129,8 @@
 
                 <div class="row ">
                     <!-- Area Chart -->
-                    <div class="col col-xs-12 col-sm-12 col-md-8 ">
-                        <div class="card shadow mb-4 ">
-                            <!-- Card Header - Dropdown -->
-                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between ">
-                                <h6 class="m-0 font-weight-bold text-primary ">Users Overview</h6>
-                                <div class="dropdown no-arrow ">
-                                    <a class="dropdown-toggle " role="button " id="dropdownMenuLink " data-toggle="dropdown " aria-haspopup="true " aria-expanded="false ">
-                                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400 "></i>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in " aria-labelledby="dropdownMenuLink ">
-                                        <div class="dropdown-header ">Dropdown Header:</div>
-                                        <a class="dropdown-item " href="# ">Action</a>
-                                        <a class="dropdown-item " href="# ">Another action</a>
-                                        <div class="dropdown-divider "></div>
-                                        <a class="dropdown-item " href="# ">Something else here</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Card Body -->
-                            <div class="card-body ">
-                                <div class="chart-area ">
-                                    <canvas baseChart class="chart " [data]="lineChartData " [options]="lineChartOptions " [type]="lineChartType " (chartHover)="chartHovered($event) " (chartClick)="chartClicked($event) "></canvas>
-                                    <table>
-                                        <tr>
-                                            <th *ngFor="let label of lineChartData.labels ">{{label}}</th>
-                                        </tr>
-                                        <tr *ngFor="let d of lineChartData.datasets; let i=index " [class]=" 'line-'+i ">
-                                            <td *ngFor="let label of lineChartData.labels; let j=index ">{{d && d.data[j]}}</td>
-                                        </tr>
-                                    </table>
-                                    <div class="btn btn-group ">
-                                        <button class="btn btn-primary " (click)="randomize() ">Randomize</button>
-                                        <button class="btn btn-primary " (click)="pushOne() ">Push</button>
-                                        <button class="btn btn-primary " (click)="changeColor() ">Recolor</button>
-                                        <button class="btn btn-primary " (click)="hideOne() ">Toggle Series B</button>
-                                        <button class="btn btn-primary " (click)="changeLabel() ">Change Label</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="col col-xs-12 col-sm-12 col-md-8">
+                        <app-line-chart></app-line-chart>
                     </div>
 
                     <!-- Pie Chart -->

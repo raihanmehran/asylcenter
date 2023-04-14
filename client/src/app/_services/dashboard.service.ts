@@ -4,6 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { LoggedUser } from '../_models/loggedUser';
 import { UsersByRoleAndMonth } from '../_models/usersByRoleAndMonth';
+import { AccountService } from './account.service';
 
 @Injectable({
   providedIn: 'root',
@@ -20,6 +21,15 @@ export class DashboardService {
 
   private adminUsersSource = new BehaviorSubject<UsersByRoleAndMonth[]>([]);
   adminUsers$ = this.adminUsersSource.asObservable();
+
+  private membersDataSource = new BehaviorSubject<number[]>([]);
+  membersData$ = this.membersDataSource.asObservable();
+
+  private moderatorsDataSource = new BehaviorSubject<number[]>([]);
+  moderatorsData$ = this.moderatorsDataSource.asObservable();
+
+  private adminsDataSource = new BehaviorSubject<number[]>([]);
+  adminsData$ = this.adminsDataSource.asObservable();
 
   constructor() {}
 
@@ -57,5 +67,59 @@ export class DashboardService {
     if (this.hubConnection) {
       this.hubConnection.stop();
     }
+  }
+
+  public static createConnection(user: LoggedUser) {
+    this.createConnection(user);
+  }
+
+  calculateData() {
+    this.memberUsers$.subscribe({
+      next: (users) => {
+        if (users.length > 0) {
+          const data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+          for (let i = 0; i < users.length; i++) {
+            for (let j = 0; j < 12; j++) {
+              if (j === users[i].month) {
+                data[j] = users[i].count;
+              }
+            }
+          }
+          this.membersDataSource.next(data);
+        }
+      },
+    });
+
+    this.moderatorUsers$.subscribe({
+      next: (users) => {
+        if (users.length > 0) {
+          const data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+          for (let i = 0; i < users.length; i++) {
+            for (let j = 0; j < 12; j++) {
+              if (j === users[i].month) {
+                data[j] = users[i].count;
+              }
+            }
+          }
+          this.moderatorsDataSource.next(data);
+        }
+      },
+    });
+
+    this.adminUsers$.subscribe({
+      next: (users) => {
+        if (users.length > 0) {
+          const data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+          for (let i = 0; i < users.length; i++) {
+            for (let j = 0; j < 12; j++) {
+              if (j === users[i].month) {
+                data[j] = users[i].count;
+              }
+            }
+          }
+          this.adminsDataSource.next(data);
+        }
+      },
+    });
   }
 }
