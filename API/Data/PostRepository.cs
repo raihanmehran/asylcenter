@@ -34,7 +34,7 @@ namespace API.Data
         }
         public Task<IEnumerable<Post>> GetAllPostsForUserByUserIdNotCollected(int userId)
         {
-            // this filtering can be done in the Angular client app
+            // this filtering is done in the Angular client app
             throw new NotImplementedException();
         }
 
@@ -62,6 +62,13 @@ namespace API.Data
                 .Where(post => post.IsDeleted != true)
                 .OrderByDescending(post => post.Created)
                 .ToListAsync();
+        }
+
+        public async Task<int> GetAllPostsCount()
+        {
+            return await _context.Posts
+                .Where(post => post.IsDeleted != true)
+                .CountAsync();
         }
 
         public void UpdatePost(Post post)
