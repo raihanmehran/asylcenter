@@ -17,19 +17,15 @@ namespace API.Extensions
             });
             services.AddCors();
             services.AddScoped<ITokenService, TokenService>();
-            services.AddScoped<IUserRepository, UserRepository>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
             services.AddScoped<IPhotoService, PhotoService>();
             services.AddScoped<LogUserActivity>();
-            services.AddScoped<IPostRepository, PostRepository>();
             services.Configure<SendGridSettings>(config.GetSection("SendGridSettings"));
             services.AddScoped<IEmailService, EmailService>();
-            services.AddScoped<IEventRepository, EventRepository>();
-            services.AddScoped<IFeedbackRepository, FeedbackRepository>();
-            services.AddScoped<IContactRepository, ContactRepository>();
             services.AddSignalR();
             services.AddSingleton<PresenceTracker>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;
         }
