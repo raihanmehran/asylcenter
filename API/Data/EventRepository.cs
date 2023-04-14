@@ -93,6 +93,13 @@ namespace API.Data
             return _mapper.Map<List<UserDto>>(users);
         }
 
+        public async Task<int> GetAllEventsCount()
+        {
+            return await _context.Events
+                .Where(e => e.IsDeleted != true)
+                .CountAsync();
+        }
+
         public async Task<bool> SaveAllAsync()
         {
             return await _context.SaveChangesAsync() > 0;
