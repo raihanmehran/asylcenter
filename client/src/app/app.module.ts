@@ -48,6 +48,7 @@ import { ResetPasswordComponent } from './admin/reset-password/reset-password.co
 import { ContactComponent } from './developer/contact/contact.component';
 import { FooterComponent } from './footer/footer.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
+import { LineChartComponent } from './admin/charts/line-chart/line-chart.component';
 
 @NgModule({
   declarations: [
@@ -90,6 +91,7 @@ import { DashboardComponent } from './admin/dashboard/dashboard.component';
     ContactComponent,
     FooterComponent,
     DashboardComponent,
+    LineChartComponent,
   ],
   imports: [
     BrowserModule,
