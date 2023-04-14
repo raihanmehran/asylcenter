@@ -45,7 +45,7 @@ const routes: Routes = [
         canActivate: [AdminGuard],
       },
       {
-        path: 'admin/dashboard',
+        path: 'dashboard',
         component: DashboardComponent,
         canActivate: [AdminGuard],
       },
