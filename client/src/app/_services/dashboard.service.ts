@@ -31,6 +31,12 @@ export class DashboardService {
   private adminsDataSource = new BehaviorSubject<number[]>([]);
   adminsData$ = this.adminsDataSource.asObservable();
 
+  private postsCountSource = new BehaviorSubject<number>(0);
+  postsCount$ = this.postsCountSource.asObservable();
+
+  private eventsCountSource = new BehaviorSubject<number>(0);
+  eventsCount$ = this.eventsCountSource.asObservable();
+
   constructor() {}
 
   createHubConnection(user: LoggedUser) {
@@ -56,11 +62,15 @@ export class DashboardService {
   handleIncomingData(
     members: UsersByRoleAndMonth[],
     moderators: UsersByRoleAndMonth[],
-    admins: UsersByRoleAndMonth[]
+    admins: UsersByRoleAndMonth[],
+    postsCount: number,
+    eventsCount: number
   ) {
     this.memberUsersSource.next(members);
     this.moderatorUsersSource.next(moderators);
     this.adminUsersSource.next(admins);
+    this.postsCountSource.next(postsCount);
+    this.eventsCountSource.next(eventsCount);
   }
 
   stopHubConnection() {

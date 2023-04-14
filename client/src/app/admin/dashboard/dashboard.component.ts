@@ -26,6 +26,8 @@ export class DashboardComponent implements OnInit {
   adminsCount: number = 0;
   membersData: number[] = [];
   OnlineUsersCount: number = 0;
+  postsCount: number = 0;
+  eventsCount: number = 0;
 
   constructor(
     public accountService: AccountService,
@@ -75,6 +77,18 @@ export class DashboardComponent implements OnInit {
           for (let user of users) {
             this.adminsCount += user.count;
           }
+        },
+      });
+
+      this.dashboardService.postsCount$.subscribe({
+        next: (posts) => {
+          this.postsCount = posts;
+        },
+      });
+
+      this.dashboardService.eventsCount$.subscribe({
+        next: (events) => {
+          this.eventsCount = events;
         },
       });
 
