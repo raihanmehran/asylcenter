@@ -8,32 +8,23 @@ namespace API.SignalR
     [Authorize]
     public class DashboardHub : Hub
     {
-        private readonly IUserRepository _userRepository;
-        private readonly IPostRepository _postRepository;
-        private readonly IEventRepository _eventRepository;
+        private readonly IUnitOfWork _uow;
         private readonly IMapper _mapper;
 
-        public DashboardHub(
-            IUserRepository userRepository,
-            IPostRepository postRepository,
-            IEventRepository eventRepository,
-            IMapper mapper
-        )
+        public DashboardHub(IUnitOfWork uow, IMapper mapper)
         {
-            _userRepository = userRepository;
-            _postRepository = postRepository;
-            _eventRepository = eventRepository;
+            _uow = uow;
             _mapper = mapper;
         }
 
         public override async Task OnConnectedAsync()
         {
             var httpContext = Context.GetHttpContext();
-            var memberUsers = await _userRepository.GetUsersCountByRolePerMonth(roleName: "Member");
-            var moderatorUsers = await _userRepository.GetUsersCountByRolePerMonth(roleName: "Moderator");
-            var adminUsers = await _userRepository.GetUsersCountByRolePerMonth(roleName: "Admin");
-            var postsCount = await _postRepository.GetAllPostsCount();
-            var eventsCount = await _eventRepository.GetAllEventsCount();
+            var memberUsers = await _uow.UserRepository.GetUsersCountByRolePerMonth(roleName: "Member");
+            var moderatorUsers = await _uow.UserRepository.GetUsersCountByRolePerMonth(roleName: "Moderator");
+            var adminUsers = await _uow.UserRepository.GetUsersCountByRolePerMonth(roleName: "Admin");
+            var postsCount = await _uow.PostRepository.GetAllPostsCount();
+            var eventsCount = await _uow.EventRepository.GetAllEventsCount();
 
             await Clients.All.SendAsync("GetDashboardUsers",
                 memberUsers, moderatorUsers, adminUsers, postsCount, eventsCount);

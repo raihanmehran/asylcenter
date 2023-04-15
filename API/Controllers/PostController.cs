@@ -2,7 +2,6 @@ using API.DTOs;
 using API.Entities;
 using API.Extensions;
 using API.Interfaces;
-using API.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,17 +9,15 @@ namespace API.Controllers
 {
     public class PostController : BaseApiController
     {
-        private readonly IPostRepository _postRepository;
         private readonly IMapper _mapper;
-        private readonly IUserRepository _userRepository;
         private readonly IEmailService _emailService;
+        private readonly IUnitOfWork _uow;
 
-        public PostController(IPostRepository postRepository, IMapper mapper, IUserRepository userRepository, IEmailService emailService)
+        public PostController(IUnitOfWork uow, IMapper mapper, IEmailService emailService)
         {
-            _userRepository = userRepository;
+            _uow = uow;
             _emailService = emailService;
             _mapper = mapper;
-            _postRepository = postRepository;
         }
 
         [HttpPost("add-post")]
@@ -42,9 +39,9 @@ namespace API.Controllers
                 AppUserId = postDto.AppUserId
             };
 
-            await _postRepository.AddPost(post);
+            await _uow.PostRepository.AddPost(post);
 
-            var user = await _userRepository.GetUserByIdAsync(id: postDto.AppUserId);
+            var user = await _uow.UserRepository.GetUserByIdAsync(id: postDto.AppUserId);
 
             if (!string.IsNullOrEmpty(user.Email))
             {
@@ -55,7 +52,7 @@ namespace API.Controllers
                 ).Wait();
             }
 
-            if (await _postRepository.SaveAllAsync()) return NoContent();
+            if (await _uow.Complete()) return NoContent();
 
             return BadRequest("Failed to add post");
         }
@@ -65,9 +62,9 @@ namespace API.Controllers
         {
             if (postId <= 0) return BadRequest("Cannot find post with no or zero id");
 
-            if (!(await _postRepository.PostExists(postId: postId))) return NotFound();
+            if (!(await _uow.PostRepository.PostExists(postId: postId))) return NotFound();
 
-            var post = await _postRepository.GetPost(postId: postId);
+            var post = await _uow.PostRepository.GetPost(postId: postId);
 
             if (post is null) return NotFound();
 
@@ -83,7 +80,7 @@ namespace API.Controllers
 
             if (User.GetUserId() <= 0) return NotFound();
 
-            var posts = await _postRepository.GetAllPostsForUserByUserId(userId: userId);
+            var posts = await _uow.PostRepository.GetAllPostsForUserByUserId(userId: userId);
 
             if (posts is null) return NotFound();
 
@@ -97,7 +94,7 @@ namespace API.Controllers
         {
             if (User.GetUserId() <= 0) return BadRequest("Bad Request");
 
-            var posts = await _postRepository.GetPostsBtwDates(fromDate: from, toDate: to);
+            var posts = await _uow.PostRepository.GetPostsBtwDates(fromDate: from, toDate: to);
 
             if (posts is null) return NotFound();
 
@@ -111,7 +108,7 @@ namespace API.Controllers
         {
             if (User.GetUserId() <= 0) return BadRequest("Bad Request");
 
-            var posts = await _postRepository.GetNotCollectedPosts();
+            var posts = await _uow.PostRepository.GetNotCollectedPosts();
 
             if (posts is null) return NotFound();
 
@@ -123,20 +120,20 @@ namespace API.Controllers
         [HttpPut]
         public async Task<ActionResult> CollectPost(PostDto postDto)
         {
-            var post = await _postRepository.GetPost(postId: postDto.Id);
+            var post = await _uow.PostRepository.GetPost(postId: postDto.Id);
 
             if (post == null) return NotFound();
 
             _mapper.Map(postDto, post);
 
-            if (await _postRepository.SaveAllAsync()) return NoContent();
+            if (await _uow.Complete()) return NoContent();
 
             return BadRequest("Failed to update post");
         }
         [HttpDelete("delete-post/{postId}")]
         public async Task<ActionResult> DeletePost(int postId)
         {
-            var post = await _postRepository.GetPost(postId: postId);
+            var post = await _uow.PostRepository.GetPost(postId: postId);
 
             if (post == null) return NotFound();
 
@@ -144,7 +141,7 @@ namespace API.Controllers
 
             post.IsDeleted = true;
 
-            if (await _postRepository.SaveAllAsync()) return NoContent();
+            if (await _uow.Complete()) return NoContent();
 
             return BadRequest("Failed to delete post");
         }

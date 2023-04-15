@@ -16,10 +16,5 @@ namespace API.Data
             await _context.Contacts.AddAsync(contact);
         }
 
-        public async Task<bool> SaveAllAsync()
-        {
-            return await _context.SaveChangesAsync() > 0;
-        }
-
     }
 }

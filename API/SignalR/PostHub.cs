@@ -12,15 +12,13 @@ namespace API.SignalR
     [Authorize]
     public class PostHub : Hub
     {
-        private readonly IPostRepository _postRepository;
-        private readonly IUserRepository _userRepository;
+        private readonly IUnitOfWork _uow;
         private readonly IEmailService _emailService;
         private readonly IMapper _mapper;
         private readonly IHubContext<PresenceHub> _presenceHub;
 
         public PostHub(
-            IPostRepository postRepository,
-            IUserRepository userRepository,
+            IUnitOfWork uow,
             IEmailService emailService,
             IMapper mapper,
             IHubContext<PresenceHub> presenceHub
@@ -28,9 +26,8 @@ namespace API.SignalR
         {
             _mapper = mapper;
             _presenceHub = presenceHub;
+            _uow = uow;
             _emailService = emailService;
-            _userRepository = userRepository;
-            _postRepository = postRepository;
         }
 
         public override async Task OnConnectedAsync()
@@ -42,7 +39,7 @@ namespace API.SignalR
 
             await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
 
-            var posts = await _postRepository.GetAllPostsForUserByUserId(userId: int.Parse(otherUserId));
+            var posts = await _uow.PostRepository.GetAllPostsForUserByUserId(userId: int.Parse(otherUserId));
 
             await Clients.Caller.SendAsync("ReceivePosts", posts);
         }
@@ -64,11 +61,11 @@ namespace API.SignalR
                 AppUserId = postDto.AppUserId
             };
 
-            await _postRepository.AddPost(post);
+            await _uow.PostRepository.AddPost(post);
 
             System.Console.WriteLine("post to be added!");
 
-            var user = await _userRepository.GetUserByIdAsync(id: postDto.AppUserId);
+            var user = await _uow.UserRepository.GetUserByIdAsync(id: postDto.AppUserId);
 
             if (!string.IsNullOrEmpty(user.Email))
             {
@@ -79,7 +76,7 @@ namespace API.SignalR
                 ).Wait();
             }
 
-            if (await _postRepository.SaveAllAsync())
+            if (await _uow.Complete())
             {
                 var groupName = GetGroupName(post.AddedBy, post.AppUserId);
                 //await Clients.Group(groupName).SendAsync("AddNewPost", _mapper.Map<PostDto>(post));

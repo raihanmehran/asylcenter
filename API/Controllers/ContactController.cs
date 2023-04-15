@@ -1,4 +1,3 @@
-
 using API.DTOs;
 using API.Entities;
 using API.Interfaces;
@@ -9,14 +8,14 @@ namespace API.Controllers
 {
     public class ContactController : BaseApiController
     {
-        private readonly IContactRepository _contactRepository;
         private readonly IEmailService _emailService;
         private readonly IMapper _mapper;
-        public ContactController(IContactRepository contactRepository, IEmailService emailService, IMapper mapper)
+        private readonly IUnitOfWork _uow;
+        public ContactController(IUnitOfWork uow, IEmailService emailService, IMapper mapper)
         {
+            _uow = uow;
             _mapper = mapper;
             _emailService = emailService;
-            _contactRepository = contactRepository;
         }
 
         [HttpPost]
@@ -26,14 +25,11 @@ namespace API.Controllers
 
             var contact = _mapper.Map<Contact>(contactDto);
             await _emailService.ContactDeveloper(senderEmail: contact.Email, senderName: contact.Name, message: contact.Message);
-            await _contactRepository.ContactDeveloper(contact: contact);
+            await _uow.ContactRepository.ContactDeveloper(contact: contact);
 
-            if (await _contactRepository.SaveAllAsync()) return Ok(true);
+            if (await _uow.Complete()) return Ok(true);
 
             return BadRequest("Something bad happened while contacting developer!");
         }
-
-
-
     }
 }
