@@ -50,6 +50,7 @@ import { FooterComponent } from './footer/footer.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { LineChartComponent } from './admin/charts/line-chart/line-chart.component';
 import { PieChartComponent } from './admin/charts/pie-chart/pie-chart.component';
+import { ConfirmDialogComponent } from './modals/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -94,6 +95,7 @@ import { PieChartComponent } from './admin/charts/pie-chart/pie-chart.component'
     DashboardComponent,
     LineChartComponent,
     PieChartComponent,
+    ConfirmDialogComponent,
   ],
   imports: [
     BrowserModule,
