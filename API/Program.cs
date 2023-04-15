@@ -38,6 +38,7 @@ app.MapControllers();
 app.MapHub<PresenceHub>("hubs/presence");
 app.MapHub<PostHub>("hubs/post");
 app.MapHub<DashboardHub>("hubs/dashboard");
+app.MapFallbackToController("Index", "Fallback");
 
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
