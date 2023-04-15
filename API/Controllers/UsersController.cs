@@ -25,12 +25,13 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<PagedList<UserDto>>> GetUsers([FromQuery] UserParams userParams)
         {
-            var currentUser = await _uow.UserRepository.GetUserByUsernameAsync(User.GetUsername());
-            userParams.CurrentUsername = currentUser.UserName;
+            var username = User.GetUsername();
+            var gender = await _uow.UserRepository.GetUserGender(username: username);
+            userParams.CurrentUsername = username;
 
             if (string.IsNullOrEmpty(userParams.Gender))
             {
-                userParams.Gender = currentUser.Gender == "male" ? "female" : "male";
+                userParams.Gender = gender == "male" ? "female" : "male";
             }
 
             var users = await _uow.UserRepository.GetUsersAsync(userParams);

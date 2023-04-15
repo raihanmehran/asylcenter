@@ -15,5 +15,6 @@ namespace API.Interfaces
         Task<UserDto> GetUserAsync(string username);
         Task<int> GetUsersCountByRole(string roleName);
         Task<IEnumerable<UsersByRoleAndMonthDto>> GetUsersCountByRolePerMonth(string roleName);
+        Task<string> GetUserGender(string username);
     }
 }
