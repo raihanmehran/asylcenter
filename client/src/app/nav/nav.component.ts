@@ -27,6 +27,7 @@ export class NavComponent implements OnInit {
               } else if (user.roles.includes('Member')) {
                 this.router.navigateByUrl('/events/list');
               }
+              this.model = {};
             }
           },
         });
