@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { ConfirmDialogComponent } from '../modals/confirm-dialog/confirm-dialog.component';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ConfirmService {
-  bsModalRef?: BsModalRef;
+  bsModalRef?: BsModalRef<ConfirmDialogComponent>;
   constructor(private modalService: BsModalService) {}
 
   confirm(
@@ -23,6 +24,6 @@ export class ConfirmService {
       },
     };
 
-    this.bsModalRef = this.modalService.show('confirm', config);
+    this.bsModalRef = this.modalService.show(ConfirmDialogComponent, config);
   }
 }
