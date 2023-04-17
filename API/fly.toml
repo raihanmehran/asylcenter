@@ -1,0 +1,23 @@
+# fly.toml file generated for mitasylcenter on 2023-04-17T06:12:19+02:00
+
+app = "mitasylcenter"
+primary_region = "arn"
+
+[build]
+  image = "mehran99/asylcenter:latest"
+
+[env]
+  ASPNETCORE_URLS = "http://+:8080"
+  CloudinarySettings__ApiKey = "986454232837451"
+  CloudinarySettings__CloudName = "duemhagwd"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+
+[checks]
+  [checks.alive]
+    type = "tcp"
+    interval = "15s"
+    timeout = "2s"
+    grace_period = "5s"
