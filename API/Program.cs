@@ -20,15 +20,13 @@ builder.Services.AddIdentityServices(builder.Configuration);
 // Database Connection string
 var connString = "";
 if (builder.Environment.IsDevelopment())
-{
     connString = builder.Configuration.GetConnectionString("DefaultConnection");
-}
 else
 {
-    // Use connection string provided at runtime by FlyIO
+    // Use connection string provided at runtime by FlyIO.
     var connUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
 
-    // Parse connection URL to connection string for NpgSql
+    // Parse connection URL to connection string for Npgsql
     connUrl = connUrl.Replace("postgres://", string.Empty);
     var pgUserPass = connUrl.Split("@")[0];
     var pgHostPortDb = connUrl.Split("@")[1];
@@ -36,10 +34,10 @@ else
     var pgDb = pgHostPortDb.Split("/")[1];
     var pgUser = pgUserPass.Split(":")[0];
     var pgPass = pgUserPass.Split(":")[1];
-    var pgHost = pgUserPass.Split(":")[0];
-    var pgPort = pgUserPass.Split(":")[1];
+    var pgHost = pgHostPort.Split(":")[0];
+    var pgPort = pgHostPort.Split(":")[1];
 
-    connString = $"Server={pgHost};Port={pgPort};User Id={pgUser};Password={pgPass};Database={pgDb}";
+    connString = $"Server={pgHost};Port={pgPort};User Id={pgUser};Password={pgPass};Database={pgDb};";
 }
 builder.Services.AddDbContext<DataContext>(opt =>
 {
