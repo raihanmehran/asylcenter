@@ -34,8 +34,8 @@ namespace API.Data
             {
                 user.UserName = user.UserName.ToLower();
                 // Note: If error comes with UTC date while seeding data to a new db, use the following code:
-                // user.Created = DateTime.SpecifyKind(user.Created, DateTimeKind.Utc);
-                // user.LastActive = DateTime.SpecifyKind(user.LastActive, DateTimeKind.Utc);
+                user.Created = DateTime.SpecifyKind(user.Created, DateTimeKind.Utc);
+                user.LastActive = DateTime.SpecifyKind(user.LastActive, DateTimeKind.Utc);
 
                 await userManager.CreateAsync(user: user, password: "Pass");
                 await userManager.AddToRoleAsync(user: user, role: "Member");

@@ -18,7 +18,7 @@ namespace API.Helpers
                 .GetRequiredService<IUnitOfWork>();
 
             var user = await uow.UserRepository.GetUserByIdAsync(id: userId);
-            user.LastActive = DateTime.Now;
+            user.LastActive = DateTime.UtcNow;
             await uow.Complete();
         }
     }
