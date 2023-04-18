@@ -26,6 +26,11 @@ else
     // Use connection string provided at runtime by FlyIO.
     var connUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
 
+    if (string.IsNullOrEmpty(connUrl))
+    {
+        throw new Exception("The DATABASE_URL environment variable is not set.");
+    }
+
     // Parse connection URL to connection string for Npgsql
     connUrl = connUrl.Replace("postgres://", string.Empty);
     var pgUserPass = connUrl.Split("@")[0];
@@ -53,7 +58,7 @@ app.UseCors(builder => builder
     .AllowAnyHeader()
     .AllowAnyMethod()
     .AllowCredentials()
-    .WithOrigins("https://localhost:4200", "https://mitasylcenter.fly.dev"));
+    .WithOrigins("https://localhost:4200", "https://mitasylcenter.fly.dev", "https://mitasylcenter-fly.dev"));
 
 app.UseAuthentication();
 app.UseAuthorization();
