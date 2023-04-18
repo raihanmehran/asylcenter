@@ -25,7 +25,7 @@ else
 {
     // Use connection string provided at runtime by FlyIO.
     var connUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
-    System.Console.WriteLine("CONNECTION STRING: " + connUrl);
+    System.Console.WriteLine("DATABASE URL: " + connUrl);
     if (string.IsNullOrEmpty(connUrl))
     {
         throw new Exception("The DATABASE_URL environment variable is not set.");
