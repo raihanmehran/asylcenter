@@ -44,6 +44,7 @@ else
 
     connString = $"Server={pgHost};Port={pgPort};User Id={pgUser};Password={pgPass};Database={pgDb};";
 }
+System.Console.WriteLine("CONNECTION STRING: " + connString);
 builder.Services.AddDbContext<DataContext>(opt =>
 {
     opt.UseNpgsql(connString);

@@ -3,7 +3,7 @@
 app = "mitasylcenter"
 primary_region = "arn"
 kill_signal = "SIGINT"
-kill_timeout = 5
+kill_timeout = 10
 processes = []
 
 [build]
