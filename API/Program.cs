@@ -53,7 +53,7 @@ app.UseCors(builder => builder
     .AllowAnyHeader()
     .AllowAnyMethod()
     .AllowCredentials()
-    .WithOrigins("https://localhost:4200"));
+    .WithOrigins("https://localhost:4200", "https://mitasylcenter.fly.dev"));
 
 app.UseAuthentication();
 app.UseAuthorization();
