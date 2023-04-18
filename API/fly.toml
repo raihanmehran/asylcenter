@@ -1,4 +1,4 @@
-# fly.toml file generated for mitasylcenter on 2023-04-17T06:12:19+02:00
+# fly.toml file generated for mitasylcenter on 2023-04-18T01:33:39+02:00
 
 app = "mitasylcenter"
 primary_region = "arn"
@@ -7,9 +7,9 @@ primary_region = "arn"
   image = "mehran99/asylcenter:latest"
 
 [env]
-  ASPNETCORE_URLS = "http://+:8080"
-  CloudinarySettings__ApiKey = "986454232837451"
-  CloudinarySettings__CloudName = "duemhagwd"
+  ASPNETCORE_URLS="http://+:8080"
+  CloudinarySettings__CloudName="duemhagwd"
+  CloudinarySettings__ApiKey="986454232837451"
 
 [http_service]
   internal_port = 8080
