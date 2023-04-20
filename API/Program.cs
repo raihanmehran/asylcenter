@@ -32,6 +32,8 @@ builder.Services.AddCors(opts =>
 var connString = "";
 if (builder.Environment.IsDevelopment())
     connString = builder.Configuration.GetConnectionString("DefaultConnection");
+else if (builder.Environment.IsProduction())
+    connString = builder.Configuration.GetConnectionString("DefaultConnection");
 else
 {
     // Use connection string provided at runtime by FlyIO.
