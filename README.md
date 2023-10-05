@@ -1,6 +1,8 @@
 <h1>Asylcenter</h1>
 <p>Asylcenter is a web application that allows users to receive their posts from the immigration office and keep track of events that will be held in the asylum center. The backend of the app is built using .NET Web API with .NET 7 and the database is powered by PostgreSQL. The frontend is developed using Angular 15 and provides an easy-to-use interface for users to view their posts and upcoming events. The app also has an administrative section that allows authorized personnel to manage users, add posts, and create events in real-time.</p>
-<h2>Requirements</h2>
+<h2>The Deployed Version can be accessed here https://asylcenter.fly.dev </h2>
+
+<h2>Running Locally Requirements</h2>
 <ul>
    <li><a href="https://dotnet.microsoft.com/download/dotnet/7.0" target="_new">.NET 7</a></li>
    <li><a href="https://www.postgresql.org/" target="_new">PostgreSQL</a></li>
@@ -20,6 +22,9 @@
 </ol>
 <h2>Usage</h2>
 <p>Once the application is installed and running, you can access the frontend by navigating to <code>https://localhost:4200</code> in your web browser. Users will be able to view their posts and upcoming events, while authorized personnel will be able to manage users, add posts, and create events in real-time.</p>
+<h2>Visuals</h2>
+
+
 <h2>Contributing</h2>
 <p>Contributions to Asylcenter are welcome and encouraged. To contribute, please fork the repository, make your changes, and submit a pull request.</p>
 <h2>License</h2>
