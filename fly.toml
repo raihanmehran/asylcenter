@@ -14,6 +14,8 @@ processes = []
 
 [env]
   ASPNETCORE_URLS="http://+:8080"
+  CloudinarySettings__CloudName="duemhagwd"
+  CloudinarySettings__ApiKey="986454232837451"
 
 [http_service]
   internal_port = 8080

@@ -41,7 +41,7 @@ app.UseCors(builder => builder
     .AllowAnyHeader()
     .AllowAnyMethod()
     .AllowCredentials()
-    .WithOrigins("https://localhost:4200", "http://localhost:1000", "https://localhost:1001", "https://mitasylcenter.fly.dev", "https://mitasylcenter-fly.dev"));
+    .WithOrigins("https://localhost:4200", "http://localhost:1000", "https://localhost:1001", "https://asylcenter.fly.dev", "https://asylcenter.fly.dev/"));
 
 app.UseAuthentication();
 app.UseAuthorization();
@@ -53,6 +53,7 @@ app.MapControllers();
 app.MapHub<PresenceHub>("hubs/presence");
 app.MapHub<PostHub>("hubs/post");
 app.MapHub<DashboardHub>("hubs/dashboard");
+
 app.MapFallbackToController("Index", "Fallback");
 
 using var scope = app.Services.CreateScope();
