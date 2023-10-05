@@ -19,7 +19,6 @@ namespace API.Data
             _roleManager = roleManager;
             _mapper = mapper;
             _context = context;
-
         }
 
         public async Task<AppUser> GetUserByIdAsync(int id)

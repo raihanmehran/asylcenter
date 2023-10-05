@@ -49,5 +49,10 @@ namespace API.Data
             await userManager.CreateAsync(user: admin, password: "admin");
             await userManager.AddToRolesAsync(user: admin, new[] { "Admin", "Moderator" });
         }
+
+        public static async Task SeedData(DataContext context)
+        {
+            
+        }
     }
 }

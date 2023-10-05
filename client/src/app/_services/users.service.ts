@@ -50,23 +50,25 @@ export class UsersService {
         .register(model, this.loggedUser)
         .pipe()
         .subscribe({
-          next: (user) => {
-            if (user) {
-              this.users$.subscribe({
-                next: (users) => {
-                  if (users) {
-                    if (!users.includes(user)) {
-                      users.push(user);
-                      this.usersSource.next(users);
-                    }
-                  }
-                },
-              });
+          next: (registeredUser: any) => {
+            this.toastr.success('New User Registered', 'Success');
+            this.router.navigateByUrl('/users');
+            if (true) {
+              // this.users$.subscribe({
+              //   next: (users) => {
+              //     if (users) {
+              //       if (!users.includes(user)) {
+              //         users.push(user);
+              //         this.usersSource.next(users);
+              //       }
+              //     }
+              //   },
+              // });
               this.toastr.success('New User Registered', 'Success');
               this.router.navigateByUrl('/users');
             }
           },
-          error: (error) => this.toastr.error(error.error, 'Error'),
+          // error: (error) => this.toastr.error(error.error, 'Error'),
         });
     }
   }

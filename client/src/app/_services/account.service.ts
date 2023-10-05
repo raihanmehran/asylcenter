@@ -35,9 +35,9 @@ export class AccountService {
   }
 
   register(model: any, user: LoggedUser) {
-    return this.http.post<User>(this.baseUrl + 'account/register', model).pipe(
+    return this.http.post<any>(this.baseUrl + 'account/register', model).pipe(
       map((registeredUser) => {
-        DashboardService.createConnection(user);
+        // DashboardService.createConnection(user);
         return registeredUser;
       })
     );

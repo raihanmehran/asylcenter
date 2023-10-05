@@ -17,16 +17,6 @@ builder.Services.AddControllers();
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddIdentityServices(builder.Configuration);
 
-// builder.Services.AddCors(opts =>
-// {
-//     opts.AddPolicy("AllowOrigins", builder =>
-//     {
-//         builder.WithOrigins("https://localhost:4200", "https://asylcenter.fly.dev", "https://asylcenter-fly.dev")
-//             .AllowAnyHeader()
-//             .AllowAnyMethod()
-//             .AllowCredentials();
-//     });
-// });
 
 // Database Connection string
 var connString = "";
@@ -37,7 +27,7 @@ else if (builder.Environment.IsProduction())
 
 builder.Services.AddDbContext<DataContext>(opt =>
 {
-    opt.UseNpgsql(connString);
+    opt.UseSqlite(connString);
 });
 
 var app = builder.Build();
@@ -51,7 +41,7 @@ app.UseCors(builder => builder
     .AllowAnyHeader()
     .AllowAnyMethod()
     .AllowCredentials()
-    .WithOrigins("https://localhost:4200", "https://mitasylcenter.fly.dev", "https://mitasylcenter-fly.dev"));
+    .WithOrigins("https://localhost:4200", "http://localhost:1000", "https://localhost:1001", "https://mitasylcenter.fly.dev", "https://mitasylcenter-fly.dev"));
 
 app.UseAuthentication();
 app.UseAuthorization();

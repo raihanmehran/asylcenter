@@ -59,6 +59,8 @@ namespace API.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
         {
+            registerDto.Username = registerDto.IdNumber;
+
             if (await UserExists(registerDto.Username)) return BadRequest("Username is taken");
 
             var user = _mapper.Map<AppUser>(registerDto);
@@ -71,9 +73,12 @@ namespace API.Controllers
 
             var roleResult = await _userManager.AddToRoleAsync(user: user, role: "Member");
 
-            if (!roleResult.Succeeded) return BadRequest(result.Errors);
+            //if (!roleResult.Succeeded) return BadRequest(result.Errors);
 
-            return _mapper.Map<UserDto>(user);
+            var userDto = _mapper.Map<UserDto>(user);
+
+            return userDto;
+            //return Ok("User Created");
         }
 
         private async Task<bool> UserExists(string username)
